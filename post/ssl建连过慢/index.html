@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Ssl建连过慢 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="olOwOlo" /><meta name="description" content="SSL 建连过慢问题排查 问题描述 如下： 1 2 3 4 5 6 7 8 9 10 11 12 【unloadevent:0ms】【DNSresolving:1ms】【TCPcon" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.73.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/ssl%E5%BB%BA%E8%BF%9E%E8%BF%87%E6%85%A2/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Ssl建连过慢" />
+<meta property="og:description" content="SSL 建连过慢问题排查 问题描述 如下： 1 2 3 4 5 6 7 8 9 10 11 12 【unloadevent:0ms】【DNSresolving:1ms】【TCPcon" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/ssl%E5%BB%BA%E8%BF%9E%E8%BF%87%E6%85%A2/" />
+<meta property="article:published_time" content="2020-07-01T15:51:31+08:00" />
+<meta property="article:modified_time" content="2020-07-01T15:51:31+08:00" />
+<meta itemprop="name" content="Ssl建连过慢">
+<meta itemprop="description" content="SSL 建连过慢问题排查 问题描述 如下： 1 2 3 4 5 6 7 8 9 10 11 12 【unloadevent:0ms】【DNSresolving:1ms】【TCPcon">
+<meta itemprop="datePublished" content="2020-07-01T15:51:31&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-01T15:51:31&#43;08:00" />
+<meta itemprop="wordCount" content="1228">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ssl建连过慢"/>
+<meta name="twitter:description" content="SSL 建连过慢问题排查 问题描述 如下： 1 2 3 4 5 6 7 8 9 10 11 12 【unloadevent:0ms】【DNSresolving:1ms】【TCPcon"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Ssl建连过慢</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-07-01 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#问题描述">问题描述</a></li>
+    <li><a href="#ssl过程描述">SSL过程描述</a></li>
+    <li><a href="#ca交互的必要性">CA交互的必要性</a></li>
+    <li><a href="#验证证书是否被废除">验证证书是否被废除</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#reference">Reference</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="ssl-建连过慢问题排查">SSL 建连过慢问题排查</h1>
+<h2 id="问题描述">问题描述</h2>
+<p>如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">【unload<span class="w"> </span>event<span class="p">:</span><span class="m">0</span><span class="w"> </span>ms】<span class="w">
+</span><span class="w"></span>【DNS<span class="w"> </span>resolving<span class="p">:</span><span class="m">1</span><span class="w"> </span>ms】<span class="w">
+</span><span class="w"></span>【TCP<span class="w"> </span>connection<span class="p">:</span><span class="m">13</span><span class="w"> </span>ms】<span class="w">
+</span><span class="w"></span>【SSL<span class="w"> </span>negotiation<span class="p">:</span><span class="m">3392</span><span class="w"> </span>ms】<span class="w">
+</span><span class="w"></span>【HTTP<span class="w"> </span>request<span class="p">:</span><span class="m">9</span><span class="w"> </span>ms】<span class="w">
+</span><span class="w"></span>【HTTP<span class="w"> </span>response<span class="p">:</span><span class="m">3000</span><span class="w"> </span>ms】<span class="w">
+</span><span class="w"></span>【DOM<span class="w"> </span>parse<span class="p">:</span><span class="m">127</span><span class="w"> </span>ms】<span class="w">
+</span><span class="w"></span>【domContentLoadedEvent<span class="p">:</span><span class="m">0</span><span class="w"> </span>ms】<span class="w">
+</span><span class="w"></span>【load<span class="w"> </span>event<span class="p">:</span><span class="m">0</span><span class="w"> </span>ms】<span class="w">
+</span><span class="w"></span>【total<span class="p">:</span><span class="m">6557</span><span class="w"> </span>ms】<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># ssl 建连过慢</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="ssl过程描述">SSL过程描述</h2>
+<p>证书的加解密、签名认证过程中的公、私钥使用，记住如下几句话：</p>
+<p>对服务端证书： 公钥加密、私钥解密；</p>
+<p>对CA机构：私钥签名、公钥认证；</p>
+<p><img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/20200701181641.png" alt="abc"></p>
+<p>可以看到https访问过程是非对称加密(计算压力大) + 对称加密(速度快) 结合使用；</p>
+<p>在<strong>客户端使用跟证书验证证书合法性</strong>过程中，需要对服务端证书进行以下方面检测：</p>
+<ul>
+<li>日期检测(证书是否过期)；</li>
+<li>签名颁发者可信度检测(浏览器附带受信颁发者列表)；</li>
+<li>签名检测(ca签名正确性，验证证书完整性);</li>
+<li>站点身份(授权域名包含关系)(在多域名主机中与请求SNI相关)；</li>
+</ul>
+<p>按理说，浏览器内置CA公钥，不需要与CA机构实时交互就可验证server端证书有效性，但并非如此；</p>
+<h2 id="ca交互的必要性">CA交互的必要性</h2>
+<p>Digital certificates are normally expired after one year.
+But some situations might cause a certificate to be revoked before expiration.
+Situation Causes Revocation:</p>
+<ol>
+<li>Certificate is no longer used.</li>
+<li>Details of certificate are changed.</li>
+<li>The certificate owner&rsquo;s private key was compromised.</li>
+<li>Certificates were stolen from CA.</li>
+</ol>
+<p>Thus, it is important that the CA publishes approved certificates as well as revoked certificates in a timely fashion.</p>
+<h2 id="验证证书是否被废除">验证证书是否被废除</h2>
+<p>Three methods of checking the revocation status of a digital certificate.</p>
+<ol>
+<li>
+<p>The first method: <strong>Certificate Revocation List, or CRL</strong>
+Many CAs maintain an online CRLdatabase.Every time a client makes a secure connection to a site,it will go to contact the CA and download CRL and search through a long revocation list.</p>
+<p>This introduces a huge burden to a client.If the client is unable to download the CRL,by default the client will trust the certificate,thus defeating the purpose of revocation status checking.</p>
+<p>In addition, if the CA issues certificates to some high traffic sites,that&rsquo;s going to be an awful lot of requests to handle on the part of the CA.</p>
+</li>
+<li>
+<p>The second method is <strong>Online Certificate Status Protocol(OCSP)</strong>.
+This protocol performs read-time lookup of a certificate revocation status.</p>
+<p>Here are the steps when a client wants to connect a site:
+Step 1: Web server send its certificate to the client.
+Step 2: the web client, concerned that the certificate may have been revoked create an OCSP request to the CA.
+Step 3: OCSP responder uses the certificate serial number to check the status and responds with one of three possible values: good, revoked and unknown.</p>
+<p>The CA responder keeps frequent updates with CRL server to make sure th list is current.</p>
+<p>OCSP overcomes the main limitation of CRL: rather than having to download and search through an entrie Certificate revocation list(CRL), the client can check the status of a single certificate with the serial number, thus reducing overhead and burden on the client.</p>
+<p>However, OCSP still needs the client to go to the CA to check the certificate.There will be a huge amount of requests on the OCSP responder.</p>
+<p>Moreover, if the client fails to connect to the CA, then it is forced to decide between two options:
+neither of while is desirable:</p>
+<ol>
+<li>
+<p>The client may choose to continue the connection anyway, thus defeating the purpose of certificate status checking;</p>
+</li>
+<li>
+<p>It may choose to terminate the connect  assuming something is wrong with the certificate(false alarms).</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>Both CRL and OCSP put a huge burden on the client.
+Better solution?</p>
+<ol start="3">
+<li><strong>OCSP Stapling</strong>
+OCSP stapling shifts the burden from the client to the web server. With OCSP stapling, web server checks the status for all its clients.
+<ol>
+<li>At regular intervals, from serveral hours to several days, the web server will contact the OCSP responder to check revocation status of a certificate.</li>
+<li>The responder sends back a timestamped OCSP response signed by the CA.</li>
+<li>When the client wants to connect the web server, the web server sends the timestamped OCSP response stapled with the certificate to the client during the SSL/TLS handshake, because it is digitally signed timestamp. This saves the client a round trip to the CA. The web server can make a single request to CA. and staple the same response to all client requests.
+This also reduces the amount of requests on OCSP responder.</li>
+</ol>
+</li>
+</ol>
+<p>This makes the connection faster for all of your vistors and introduces a minimal overhead on web client, web server and CA.</p>
+<h2 id="总结">总结</h2>
+<p>OCSP Stapling 中 web server代替client验证， 仍然需要与CA交互；</p>
+<p>由于与CA交互过程中，域名DNS解析过慢，导致client ssl shake 过长；(部分区域解析慢，由于CA域名CDN智能解析，CDN边缘节点下线，域名仍然调度导致；使用letsencrypt免费证书问题)</p>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://cloud.tencent.com/developer/article/1017988">https://cloud.tencent.com/developer/article/1017988</a></li>
+<li><a href="https://www.youtube.com/watch?v=WXNKQ_otO_g&amp;t=21s">https://www.youtube.com/watch?v=WXNKQ_otO_g&amp;t=21s</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">olOwOlo</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-07-01
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/hello-world/">
+            <span class="next-text nav-default">Hello World</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">olOwOlo</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
