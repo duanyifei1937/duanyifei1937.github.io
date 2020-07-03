@@ -49,7 +49,7 @@
 <meta itemprop="description" content="HTTPS优化 谈到https优化，先得知道一次https中间经过了哪些动作？哪些地方可以优化？ HTTPS访问过程 可优化点 server - 产生用于密钥交换">
 <meta itemprop="datePublished" content="2020-07-02T11:32:41&#43;08:00" />
 <meta itemprop="dateModified" content="2020-07-02T11:32:41&#43;08:00" />
-<meta itemprop="wordCount" content="574">
+<meta itemprop="wordCount" content="770">
 
 
 
@@ -135,7 +135,7 @@
     <li><a href="#https访问过程">HTTPS访问过程</a></li>
     <li><a href="#可优化点">可优化点</a></li>
     <li><a href="#优化方面">优化方面</a></li>
-    <li><a href="#开启ocsp-staping">开启OCSP staping</a></li>
+    <li><a href="#nginx开启ocsp-staping">Nginx开启OCSP staping</a></li>
     <li><a href="#证书链完整的必要性">证书链完整的必要性</a></li>
   </ul>
 </nav>
@@ -219,8 +219,48 @@
 </span><span class="w"></span>- 预共享秘钥<span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><h2 id="开启ocsp-staping">开启OCSP staping</h2>
+</div><h2 id="nginx开启ocsp-staping">Nginx开启OCSP staping</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">server<span class="w"> </span>{<span class="w">
+</span><span class="w">
+</span><span class="w">    </span>ssl_certificate<span class="w"> </span>../cert/xxx.cn.pem;<span class="w">
+</span><span class="w">    </span>ssl_certificate_key<span class="w"> </span>../cert/xxx.cn.key;<span class="w">
+</span><span class="w">
+</span><span class="w">    </span>ssl_stapling<span class="w"> </span>on;<span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># 指定解析地址</span><span class="w">
+</span><span class="w">    </span><span class="c">#resolver 8.8.8.8;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># proxy_pass: http://ocsp.int-x3.letsencrypt.org;</span><span class="w">
+</span><span class="w">    </span>ssl_stapling_responder<span class="w"> </span>http<span class="p">:</span>//xxxx<span class="p">:</span><span class="m">80</span>;<span class="w">
+</span><span class="w">    </span>ssl_stapling_verify<span class="w"> </span>on;<span class="w">
+</span><span class="w"></span>}<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>详细参考： <a href="https://www.digicert.com/kb/csr-ssl-installation/nginx-openssl.htm#ssl_certificate_install">https://www.digicert.com/kb/csr-ssl-installation/nginx-openssl.htm#ssl_certificate_install</a></li>
+</ul>
 <h2 id="证书链完整的必要性">证书链完整的必要性</h2>
+<p>即使web server或CDN边缘节点部署了server证书，由于证书链不完整，也经常会出现“您的链接不是私密链接的情况”；此时，浏览器没有内置的二级ca公钥，无法认证；所以推荐部署证书将证书链写完整；</p>
+<p>记得在做CDN运维时还经常将不完整的证书链手动补全；(只要二级CA机构相同，证书链也相同)</p>
+<p>推荐 <a href="https://myssl.com/chain_download.html">https://myssl.com/chain_download.html</a> 工具；</p>
 
     </div>
 
