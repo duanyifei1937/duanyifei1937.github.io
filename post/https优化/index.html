@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Https优化 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="olOwOlo" /><meta name="description" content="HTTPS优化 谈到https优化，先得知道一次https中间经过了哪些动作？哪些地方可以优化？ HTTPS访问过程 可优化点 server - 产生用于密钥交换" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.73.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/https%E4%BC%98%E5%8C%96/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Https优化" />
+<meta property="og:description" content="HTTPS优化 谈到https优化，先得知道一次https中间经过了哪些动作？哪些地方可以优化？ HTTPS访问过程 可优化点 server - 产生用于密钥交换" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/https%E4%BC%98%E5%8C%96/" />
+<meta property="article:published_time" content="2020-07-02T11:32:41+08:00" />
+<meta property="article:modified_time" content="2020-07-02T11:32:41+08:00" />
+<meta itemprop="name" content="Https优化">
+<meta itemprop="description" content="HTTPS优化 谈到https优化，先得知道一次https中间经过了哪些动作？哪些地方可以优化？ HTTPS访问过程 可优化点 server - 产生用于密钥交换">
+<meta itemprop="datePublished" content="2020-07-02T11:32:41&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-02T11:32:41&#43;08:00" />
+<meta itemprop="wordCount" content="574">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Https优化"/>
+<meta name="twitter:description" content="HTTPS优化 谈到https优化，先得知道一次https中间经过了哪些动作？哪些地方可以优化？ HTTPS访问过程 可优化点 server - 产生用于密钥交换"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Https优化</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-07-02 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#https访问过程">HTTPS访问过程</a></li>
+    <li><a href="#可优化点">可优化点</a></li>
+    <li><a href="#优化方面">优化方面</a></li>
+    <li><a href="#开启ocsp-staping">开启OCSP staping</a></li>
+    <li><a href="#证书链完整的必要性">证书链完整的必要性</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="https优化">HTTPS优化</h1>
+<p>谈到https优化，先得知道一次https中间经过了哪些动作？哪些地方可以优化？</p>
+<h2 id="https访问过程">HTTPS访问过程</h2>
+<p><img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/20200703121542.png" alt="https"></p>
+<h2 id="可优化点">可优化点</h2>
+<ol>
+<li>server - 产生用于密钥交换的临时公私钥对（ECDHE）；</li>
+<li>client - 验证证书时访问 CA 获取 CRL 或者 OCSP；</li>
+<li>非对称加密解密处理“Pre-Master”。</li>
+</ol>
+<h2 id="优化方面">优化方面</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">硬件优化：<span class="w">
+</span><span class="w">  </span>- CPU(AES支持)；<span class="w">
+</span><span class="w">  </span>- SSL加速卡；<span class="w">
+</span><span class="w">  </span>- SSL加速服务器(专门的服务器用来加解密)；<span class="w">
+</span><span class="w">
+</span><span class="w"></span>- 软件优化：<span class="w">
+</span><span class="w">  </span>- 软件升级<span class="w">
+</span><span class="w">    </span>- openssl<span class="w">
+</span><span class="w">    </span>- kernel<span class="w">
+</span><span class="w">    </span>- nginx-version<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- 协议优化：<span class="w">
+</span><span class="w">    </span>- TLS1<span class="m">.3</span><span class="w"> </span>-- 1RTT<span class="w">
+</span><span class="w">    </span>- TLS1<span class="m">.2</span><span class="w"> </span>-- (握手时使用的密钥交换协议应当尽量选用椭圆曲线的<span class="w"> </span>ECDHE<span class="w"> </span>算法)<span class="w">
+</span><span class="w">
+</span><span class="w"></span>ssl_ciphers<span class="w"> </span>TLS13-AES<span class="m">-256</span>-GCM-SHA384<span class="p">:</span>TLS13-CHACHA20-POLY1305-SHA256<span class="p">:</span>EECDH+CHACHA20；(算法选择)<span class="w">
+</span><span class="w"></span>ssl_ecdh_curve<span class="w"> </span>X25519<span class="p">:</span>P<span class="m">-256</span>;(椭圆曲线)<span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- 证书优化：<span class="w">
+</span><span class="w">  </span>- CRL：废弃证书序号列表，文件过大；<span class="w">
+</span><span class="w">  </span>- OCSP：<span class="w"> </span>client每次访问ca<span class="p">,</span>获取ocsp<span class="w"> </span>response;<span class="w">
+</span><span class="w">  </span>- <span class="k">OCSP stapling</span><span class="p">:</span><span class="w"> </span>服务器预先访问ca或者ocsp响应，随证书一起发送client；<span class="w">
+</span><span class="w">
+</span><span class="w"></span>- 会话复用：<span class="w">
+</span><span class="w">  </span>master<span class="w"> </span>secret<span class="w"> </span>不更换(session保存在server)<span class="w">
+</span><span class="w">
+</span><span class="w"></span>- session<span class="w"> </span>ticket(保存在client)<span class="w">
+</span><span class="w">
+</span><span class="w"></span>- 预共享秘钥<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="开启ocsp-staping">开启OCSP staping</h2>
+<h2 id="证书链完整的必要性">证书链完整的必要性</h2>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">olOwOlo</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-07-02
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/ssl%E5%BB%BA%E8%BF%9E%E8%BF%87%E6%85%A2/">
+            <span class="next-text nav-default">Ssl建连过慢</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">olOwOlo</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
