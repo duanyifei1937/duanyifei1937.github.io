@@ -6,10 +6,82 @@
     <description>Recent content on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 02 Jul 2020 11:32:41 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jul 2020 11:31:39 +0800</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>M3db Query Bug</title>
+      <link>http://localhost:1313/post/m3db-query-bug/</link>
+      <pubDate>Tue, 14 Jul 2020 11:31:39 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/m3db-query-bug/</guid>
+      <description>M3DB Query Bug 被一个诡异的问题困惑很长时间； 问题描述 两dashboard相同查询语句，不同数据源(thanos and m3db)； 四条查询中，第二条数据查</description>
+    </item>
+    
+    <item>
+      <title>Prometheus Monitor Nginx</title>
+      <link>http://localhost:1313/post/prometheus-monitor-nginx/</link>
+      <pubDate>Mon, 13 Jul 2020 16:27:54 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/prometheus-monitor-nginx/</guid>
+      <description>Prometheus Monitor Nginx 方案选择 prometheus监控nginx主要有以下两种： nginx-prometheus-exporter 只是对nginx_stub_status界面的转换，metrics单一，不</description>
+    </item>
+    
+    <item>
+      <title>Lets Encrypt</title>
+      <link>http://localhost:1313/post/lets-encrypt/</link>
+      <pubDate>Wed, 08 Jul 2020 16:19:18 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/lets-encrypt/</guid>
+      <description>Let&amp;rsquo;s Encrypt Create Free Certificates 使用let&amp;rsquo;s encrypt以下两种验证方式： web-server验证方式 Certbot 必须部署在同web-server, 外部se</description>
+    </item>
+    
+    <item>
+      <title>Ingress Four Layer Loadbalance</title>
+      <link>http://localhost:1313/post/ingress-four-layer-loadbalance/</link>
+      <pubDate>Wed, 08 Jul 2020 15:10:42 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/ingress-four-layer-loadbalance/</guid>
+      <description>Nginx Ingress 实现四层负载 自定义ep实现配置： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 apiVersion:v1kind:Endpointsmetadata:name:m3-query-testnamespace:devopssubsets:- addresses:- hostname:cn-hz-h-comm-m3-00ip:10.111.146.239ports:- name:httpport:7231- addresses:- hostname:cn-hz-h-comm-m3-01ip:10.111.146.240ports:-</description>
+    </item>
+    
+    <item>
+      <title>Cert Manager</title>
+      <link>http://localhost:1313/post/cert-manager/</link>
+      <pubDate>Tue, 07 Jul 2020 16:06:17 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/cert-manager/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Consul Template</title>
+      <link>http://localhost:1313/post/consul-template/</link>
+      <pubDate>Tue, 07 Jul 2020 11:02:05 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/consul-template/</guid>
+      <description>Consul Template 作用 从consul拿到KV, 动态渲染config file. 发现集群内instance and service instance list; 应用 prometheus dynamic rule 1 2 3 4 5 6 7 8 9 10 11 $command=/usr/sbin/consul-template-consul-addr=1.2.3.4:80-template=&amp;#34;/data/prometheus-2.7.1.linux-amd64/templates/alerts.ctmpl:/data/prometheus-2.7.1.linux-amd64/services/alerts.yml:curl -X POST http://1.2.3.4:9090/-/reload&amp;#34;$catalerts.ctmplgroups:{{rangetree&amp;#34;alerts/service/&amp;#34;-}}{{- .Value}}{{- end}}# 修改ru</description>
+    </item>
+    
+    <item>
+      <title>Nginx Reload Action</title>
+      <link>http://localhost:1313/post/nginx-reload-action/</link>
+      <pubDate>Tue, 07 Jul 2020 10:27:27 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/nginx-reload-action/</guid>
+      <description>Nginx Reload 发生了什么动作？ 经常强调业务高峰期不能随意 nginx reload, 那reload 究竟做了什么动作？</description>
+    </item>
+    
+    <item>
+      <title>Docker Network</title>
+      <link>http://localhost:1313/post/docker-network/</link>
+      <pubDate>Mon, 06 Jul 2020 11:59:37 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/docker-network/</guid>
+      <description>单主机容器网络 介绍同主机内docker容器互通； Docker0 &amp;amp; eth0 交互； 如何inbound流量； 同主机容器互通 先介绍下搭建一个基础网络需要什么设备： 独立</description>
+    </item>
     
     <item>
       <title>Https优化</title>
@@ -35,7 +107,7 @@
       <pubDate>Wed, 01 Jul 2020 15:24:39 +0800</pubDate>
       
       <guid>http://localhost:1313/post/hello-world/</guid>
-      <description>hello world~</description>
+      <description>hello world~ 包括但不限于可能会写到： 技术类、生活感触、读书记录 .etc.</description>
     </item>
     
   </channel>

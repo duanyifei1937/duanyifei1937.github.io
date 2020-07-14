@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Prometheus Monitor Nginx - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="olOwOlo" /><meta name="description" content="Prometheus Monitor Nginx 方案选择 prometheus监控nginx主要有以下两种： nginx-prometheus-exporter 只是对nginx_stub_status界面的转换，metrics单一，不" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.73.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/prometheus-monitor-nginx/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Prometheus Monitor Nginx" />
+<meta property="og:description" content="Prometheus Monitor Nginx 方案选择 prometheus监控nginx主要有以下两种： nginx-prometheus-exporter 只是对nginx_stub_status界面的转换，metrics单一，不" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/prometheus-monitor-nginx/" />
+<meta property="article:published_time" content="2020-07-13T16:27:54+08:00" />
+<meta property="article:modified_time" content="2020-07-13T16:27:54+08:00" />
+<meta itemprop="name" content="Prometheus Monitor Nginx">
+<meta itemprop="description" content="Prometheus Monitor Nginx 方案选择 prometheus监控nginx主要有以下两种： nginx-prometheus-exporter 只是对nginx_stub_status界面的转换，metrics单一，不">
+<meta itemprop="datePublished" content="2020-07-13T16:27:54&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-13T16:27:54&#43;08:00" />
+<meta itemprop="wordCount" content="1126">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Prometheus Monitor Nginx"/>
+<meta name="twitter:description" content="Prometheus Monitor Nginx 方案选择 prometheus监控nginx主要有以下两种： nginx-prometheus-exporter 只是对nginx_stub_status界面的转换，metrics单一，不"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Prometheus Monitor Nginx</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-07-13 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#opreresty标准化安装">opreresty标准化安装</a>
+      <ul>
+        <li><a href="#kernel-variable">kernel variable</a></li>
+      </ul>
+    </li>
+    <li><a href="#nginx-grafana-dashboard">nginx grafana dashboard</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="prometheus-monitor-nginx">Prometheus Monitor Nginx</h1>
+<h1 id="方案选择">方案选择</h1>
+<p>prometheus监控nginx主要有以下两种：</p>
+<ul>
+<li><a href="https://github.com/nginxinc/nginx-prometheus-exporter">nginx-prometheus-exporter</a> 只是对nginx_stub_status界面的转换，metrics单一，不能满足需求；</li>
+<li><a href="https://github.com/knyar/nginx-lua-prometheus">nginx-lua-prometheus</a> 使用lua模块，可自定义metrics类型，推荐方式；</li>
+</ul>
+<h1 id="nginx-lua-prometheus-config">nginx-lua-prometheus config</h1>
+<p>配置部署比较简单，详细见 <a href="https://github.com/knyar/nginx-lua-prometheus#quick-start-guide">Quick start guide</a> 但请求信息以host为粒度，暴露了“host、status、 request_duration_seconds、connections、request_total”等metrics;</p>
+<p>我们在host基础上增加url级别的拆分：</p>
+<ul>
+<li>代码示例：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-lua" data-lang="lua"><span class="n">lua_shared_dict</span> <span class="n">prometheus_metrics</span> <span class="mi">10</span><span class="n">M</span><span class="p">;</span>
+
+<span class="n">init_worker_by_lua_block</span> <span class="p">{</span>
+  <span class="n">prometheus</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="s2">&#34;prometheus&#34;</span><span class="p">).</span><span class="n">init</span><span class="p">(</span><span class="s2">&#34;prometheus_metrics&#34;</span><span class="p">)</span>
+  <span class="n">metric_requests</span> <span class="o">=</span> <span class="n">prometheus</span><span class="p">:</span><span class="n">counter</span><span class="p">(</span>
+    <span class="s2">&#34;nginx_http_requests_total&#34;</span><span class="p">,</span> <span class="s2">&#34;Number of HTTP requests&#34;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&#34;host&#34;</span><span class="p">,</span> <span class="s2">&#34;status&#34;</span><span class="p">})</span>
+  <span class="n">metric_api_requests</span> <span class="o">=</span> <span class="n">prometheus</span><span class="p">:</span><span class="n">counter</span><span class="p">(</span><span class="s2">&#34;nginx_http_api_requests_total&#34;</span><span class="p">,</span> <span class="s2">&#34;Number of HTTP requests&#34;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&#34;host&#34;</span><span class="p">,</span> <span class="s2">&#34;api&#34;</span><span class="p">,</span> <span class="s2">&#34;status&#34;</span><span class="p">})</span>
+
+  <span class="n">metric_latency</span> <span class="o">=</span> <span class="n">prometheus</span><span class="p">:</span><span class="n">histogram</span><span class="p">(</span>
+    <span class="s2">&#34;nginx_http_request_duration_seconds&#34;</span><span class="p">,</span> <span class="s2">&#34;HTTP request latency&#34;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&#34;host&#34;</span><span class="p">})</span>
+  <span class="n">metric_connections</span> <span class="o">=</span> <span class="n">prometheus</span><span class="p">:</span><span class="n">gauge</span><span class="p">(</span>
+    <span class="s2">&#34;nginx_http_connections&#34;</span><span class="p">,</span> <span class="s2">&#34;Number of HTTP connections&#34;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&#34;state&#34;</span><span class="p">})</span>
+<span class="p">}</span>
+
+<span class="n">log_by_lua_block</span> <span class="p">{</span>
+  <span class="kd">local</span> <span class="n">server_name</span> <span class="o">=</span> <span class="n">ngx.var</span><span class="p">.</span><span class="n">server_name</span>
+  <span class="kd">local</span> <span class="n">status</span> <span class="o">=</span> <span class="n">ngx.var</span><span class="p">.</span><span class="n">status</span>
+  <span class="kd">local</span> <span class="n">request_time</span> <span class="o">=</span> <span class="n">ngx.var</span><span class="p">.</span><span class="n">request_time</span>
+  <span class="kd">local</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">ngx.var</span><span class="p">.</span><span class="n">uri</span>
+  <span class="kd">local</span> <span class="n">regex</span> <span class="o">=</span> <span class="s">[[\.[a-z]+\.[a-z]+$]]</span>
+  <span class="kd">local</span> <span class="n">m</span> <span class="o">=</span> <span class="n">ngx.re</span><span class="p">.</span><span class="n">match</span><span class="p">(</span><span class="n">server_name</span><span class="p">,</span> <span class="n">regex</span><span class="p">)</span>
+
+  <span class="kr">if</span> <span class="n">m</span> <span class="kr">then</span>
+      <span class="n">metric_requests</span><span class="p">:</span><span class="n">inc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="n">server_name</span><span class="p">,</span> <span class="n">status</span><span class="p">})</span>
+      <span class="n">metric_latency</span><span class="p">:</span><span class="n">observe</span><span class="p">(</span><span class="n">tonumber</span><span class="p">(</span><span class="n">request_time</span><span class="p">),</span> <span class="p">{</span><span class="n">server_name</span><span class="p">,</span> <span class="n">mark</span><span class="p">})</span>
+      <span class="n">metric_api_requests</span><span class="p">:</span><span class="n">inc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="n">server_name</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">mark</span><span class="p">})</span>
+  <span class="kr">end</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>生成指标：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">nginx_http_api_requests_total{host=&#34;test.dyf.com&#34;,api=&#34;/&#34;,status=&#34;200&#34;} 5
+nginx_http_api_requests_total{host=&#34;test.dyf.com&#34;,api=&#34;/lua_content&#34;,status=&#34;200&#34;} 3
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="opreresty标准化安装">opreresty标准化安装</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum install wget gcc git pcre-devel openssl-devel gcc-c++ -y
+
+mkdir /data/src &amp;&amp; cd /data/src
+wget https://github.com/openresty/openresty/releases/download/v1.15.8.2/openresty-1.15.8.2.tar.gz
+wget https://github.com/openssl/openssl/archive/OpenSSL_1_0_2s.tar.gz
+wget https://ftp.pcre.org/pub/pcre/pcre-8.43.tar.gz
+tar -vxzf pcre-8.43.tar.gz
+tar -vzxf OpenSSL_1_0_2s.tar.gz
+tar -vzxf openresty-1.15.8.2.tar.gz
+cd openresty-1.15.8.2
+ 
+# 1.13.6使用系统安装的prce包即可编译通过
+./configure --prefix=/data/openresty \
+    --with-http_stub_status_module \
+    --with-http_v2_module \
+    --with-http_realip_module \
+    --with-openssl=/data/src/openssl-OpenSSL_1_0_2s
+ 
+ 
+./configure --prefix=/data/openresty \
+    --with-http_stub_status_module \
+    --with-http_v2_module \
+    --with-http_realip_module \
+    --with-openssl=/data/src/openssl-OpenSSL_1_0_2s \
+    --with-pcre=/data/src/pcre-8.43
+ 
+gmake
+gmake install
+
+# 报错解决
+# 缺少pcre-devel
+the HTTP rewrite module requires the PCRE library
+yum install -y pcre-devel
+ 
+# 缺少openssl-devel
+./configure: error: SSL modules require the OpenSSL library.
+You can either do not enable the modules, or install the OpenSSL library
+into the system, or build the OpenSSL library statically from the source
+with nginx by using --with-openssl=&lt;path&gt; option.
+yum install -y openssl-devel
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="kernel-variable">kernel variable</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 关闭ipv6 CentOS 6 2.6内核无IPv6相关配置
+# net.ipv6.conf.all.disable_ipv6 = 1
+# net.ipv6.conf.default.disable_ipv6 = 1
+#开启路由转发
+net.ipv4.ip_forward = 1
+#core文件名中添加pid作为扩展名
+kernel.core_uses_pid = 1
+# 开启SYN洪水攻击保护
+net.ipv4.tcp_syncookies = 1
+#修改消息队列长度
+kernel.msgmnb = 65536
+kernel.msgmax = 65536
+#timewait的数量，默认180000
+net.ipv4.tcp_max_tw_buckets = 180000
+net.ipv4.tcp_sack = 1
+net.ipv4.tcp_window_scaling = 1
+# TCP读取缓冲区,单位Byte
+net.ipv4.tcp_rmem = 4096  87380   4194304
+# TCP发送缓冲区,单位Byte
+net.ipv4.tcp_wmem = 4096  16384  4194304
+net.core.wmem_default = 8388608
+net.core.rmem_default = 8388608
+net.core.rmem_max = 16777216
+net.core.wmem_max = 16777216
+#每个网络接口接收数据包的速率比内核处理这些包的速率快时，允许送到队列的数据包的最大数目
+net.core.netdev_max_backlog = 262144
+#限制仅仅是为了防止简单的DoS 攻击
+net.ipv4.tcp_max_orphans = 3276800
+#未收到客户端确认信息的连接请求的最大值
+net.ipv4.tcp_max_syn_backlog = 262144
+net.ipv4.tcp_timestamps = 0
+#内核放弃建立连接之前发送SYNACK 包的数量
+net.ipv4.tcp_synack_retries = 1
+#内核放弃建立连接之前发送SYN 包的数量
+net.ipv4.tcp_syn_retries = 1
+#启用timewait 快速回收
+#net.ipv4.tcp_tw_recycle = 1 ## 4.12内核已弃用
+#开启重用。允许将TIME-WAIT sockets 重新用于新的TCP 连接
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_fin_timeout = 1
+#当keepalive 起用的时候，TCP 发送keepalive 消息的频度。缺省是2 小时
+net.ipv4.tcp_keepalive_time = 30
+#允许系统打开的端口范围
+net.ipv4.ip_local_port_range = 10000 65000
+#系统中每个端口的最大监听队列的大小
+net.core.somaxconn = 2048
+#最大限度使用物理内存
+vm.swappiness = 0
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="nginx-grafana-dashboard">nginx grafana dashboard</h2>
+<ul>
+<li><a href="https://github.com/duanyifei1937/grafana-dashboard-collection/blob/master/nginx/nginx-360-dashboard.json">nginx dashboard</a></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/20200714200459.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/20200714200627.png" alt=""></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">olOwOlo</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-07-13
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/m3db-query-bug/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">M3db Query Bug</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/lets-encrypt/">
+            <span class="next-text nav-default">Lets Encrypt</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">olOwOlo</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

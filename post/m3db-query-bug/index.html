@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>M3db Query Bug - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="olOwOlo" /><meta name="description" content="M3DB Query Bug 被一个诡异的问题困惑很长时间； 问题描述 两dashboard相同查询语句，不同数据源(thanos and m3db)； 四条查询中，第二条数据查" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.73.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/m3db-query-bug/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="M3db Query Bug" />
+<meta property="og:description" content="M3DB Query Bug 被一个诡异的问题困惑很长时间； 问题描述 两dashboard相同查询语句，不同数据源(thanos and m3db)； 四条查询中，第二条数据查" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/m3db-query-bug/" />
+<meta property="article:published_time" content="2020-07-14T11:31:39+08:00" />
+<meta property="article:modified_time" content="2020-07-14T11:31:39+08:00" />
+<meta itemprop="name" content="M3db Query Bug">
+<meta itemprop="description" content="M3DB Query Bug 被一个诡异的问题困惑很长时间； 问题描述 两dashboard相同查询语句，不同数据源(thanos and m3db)； 四条查询中，第二条数据查">
+<meta itemprop="datePublished" content="2020-07-14T11:31:39&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-14T11:31:39&#43;08:00" />
+<meta itemprop="wordCount" content="677">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="M3db Query Bug"/>
+<meta name="twitter:description" content="M3DB Query Bug 被一个诡异的问题困惑很长时间； 问题描述 两dashboard相同查询语句，不同数据源(thanos and m3db)； 四条查询中，第二条数据查"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">M3db Query Bug</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-07-14 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#问题描述">问题描述</a></li>
+    <li><a href="#排查过程">排查过程</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="m3db-query-bug">M3DB Query Bug</h1>
+<blockquote>
+<p>被一个诡异的问题困惑很长时间；</p>
+</blockquote>
+<h2 id="问题描述">问题描述</h2>
+<p><img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/20200714113647.png" alt="xx"></p>
+<p>两dashboard相同查询语句，不同数据源(thanos and m3db)；</p>
+<p>四条查询中，第二条数据查询数据不一致： <code>sum(rate(nginx_http_api_requests_total[30s]))</code>；</p>
+<p>通过prometheus or thanos 查询结果正确且一致，大概3k;</p>
+<p>通过m3coordinator or m3query 查询仅仅3-5；</p>
+<h2 id="排查过程">排查过程</h2>
+<p>​	<code>sum(rate(nginx_http_api_requests_total[30s]))</code> 是通过 <a href="%5Bnginx-lua-prometheus%5D(https://github.com/knyar/nginx-lua-prometheus)">nginx-lua-prometheus</a> 扩展的、携带url的nginx请求总数；</p>
+<ul>
+<li>查询语句修改测试：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">查询语句</th>
+<th>Thanos</th>
+<th>M3query</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">sum(rate(nginx_http_requests_total[30s]))</td>
+<td>OK</td>
+<td>OK</td>
+</tr>
+<tr>
+<td align="center">sum(rate(nginx_http_api_requests_total[30s]))</td>
+<td>OK</td>
+<td>ERROR</td>
+</tr>
+<tr>
+<td align="center">sum(rate(nginx_http_requests_total{host=&quot;picturebook.ipalfish.com&rdquo;}[30s])) (查询2的子请求)</td>
+<td>OK</td>
+<td>OK</td>
+</tr>
+<tr>
+<td align="center">- record: nginx_http_dyf_request_total<!-- raw HTML omitted -->  expr: sum(rate(nginx_http_api_requests_total[30s]))  (使用record包装查询语句)</td>
+<td>OK</td>
+<td>OK</td>
+</tr>
+<tr>
+<td align="center">- record: nginx_http_api_dyf_request_total_dyf<!-- raw HTML omitted -->  expr: sum(rate(nginx_http_api_requests_total[30s])) (怀疑不能含有“<em>api</em>”关键字，无用)</td>
+<td>OK</td>
+<td>OK</td>
+</tr>
+<tr>
+<td align="center">- record: nginx_http_api_requests_total_duanyifei<!-- raw HTML omitted -->  expr: nginx_http_api_requests_total (直接改名)</td>
+<td>OK</td>
+<td>ERROR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>grafana query inspector:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">#</span> <span class="err">nginx_http_requests_total</span>
+<span class="err">request:Object</span>
+<span class="err">url:</span><span class="s2">&#34;api/datasources/proxy/31/api/v1/query_range?query=sum(rate(nginx_http_requests_total%5B30s%5D))&amp;start=1594706955&amp;end=1594707255&amp;step=15&#34;</span>
+<span class="err">method:</span><span class="s2">&#34;GET&#34;</span>
+<span class="err">response:Object</span>
+<span class="err">status:</span><span class="s2">&#34;success&#34;</span>
+<span class="err">data:Object</span>
+<span class="err">resultType:</span><span class="s2">&#34;matrix&#34;</span>
+<span class="err">result:Array</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="mi">0</span><span class="err">:Object</span>
+<span class="err">metric:Object</span>
+<span class="err">values:Array</span><span class="p">[</span><span class="mi">21</span><span class="p">]</span>
+<span class="mi">0</span><span class="err">:Array</span><span class="p">[</span><span class="mi">1594706955</span><span class="p">,</span><span class="mf">3614.9999999999995</span><span class="p">]</span>
+<span class="mi">1</span><span class="err">:Array</span><span class="p">[</span><span class="mi">1594706970</span><span class="p">,</span><span class="mf">3512.6666666666647</span><span class="p">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">#</span> <span class="err">nginx_http_api_requests_total</span>
+<span class="err">request:Object</span>
+<span class="err">url:</span><span class="s2">&#34;api/datasources/proxy/31/api/v1/query_range?query=sum(rate(nginx_http_api_requests_total%5B30s%5D))&amp;start=1594707045&amp;end=1594707345&amp;step=15&#34;</span>
+<span class="err">method:</span><span class="s2">&#34;GET&#34;</span>
+<span class="err">response:Object</span>
+<span class="err">status:</span><span class="s2">&#34;success&#34;</span>
+<span class="err">warnings:Array</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="err">#</span> <span class="err">warnings</span>
+<span class="mi">0</span><span class="err">:</span><span class="s2">&#34;m3db exceeded query limit: results not exhaustive&#34;</span>
+<span class="err">data:Object</span>
+<span class="err">resultType:</span><span class="s2">&#34;matrix&#34;</span>
+<span class="err">result:Array</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="mi">0</span><span class="err">:Object</span>
+<span class="err">metric:Object</span>
+<span class="err">values:Array</span><span class="p">[</span><span class="mi">21</span><span class="p">]</span>
+<span class="mi">0</span><span class="err">:Array</span><span class="p">[</span><span class="mi">1594707045</span><span class="p">,</span><span class="mf">22.04155111200002</span><span class="p">]</span>
+<span class="mi">1</span><span class="err">:Array</span><span class="p">[</span><span class="mi">1594707060</span><span class="p">,</span><span class="mf">16.234595555555536</span><span class="p">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>查询也只有一条警告，但导致了查询数据错误；</p>
+<p>issue 查 <code>m3db exceeded query limit: results not exhaustive</code>未解决；</p>
+<ul>
+<li>M3query 报错信息：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">{<span class="s2">&#34;level&#34;</span><span class="p">:</span><span class="s2">&#34;error&#34;</span><span class="p">,</span><span class="s2">&#34;ts&#34;</span><span class="p">:</span><span class="m">1594711874.15458</span><span class="p">,</span><span class="s2">&#34;msg&#34;</span><span class="p">:</span><span class="s2">&#34;range query error&#34;</span><span class="p">,</span><span class="s2">&#34;rqID&#34;</span><span class="p">:</span><span class="s2">&#34;4069daea-0e91-4de7-a412-24792682cee6&#34;</span><span class="p">,</span><span class="s2">&#34;error&#34;</span><span class="p">:</span><span class="s2">&#34;context canceled&#34;</span><span class="p">,</span><span class="s2">&#34;parsedOptions&#34;</span><span class="p">:</span>{<span class="s2">&#34;QueryOpts&#34;</span><span class="p">:</span>{<span class="s2">&#34;QueryContextOptions&#34;</span><span class="p">:</span>{<span class="s2">&#34;LimitMaxTimeseries&#34;</span><span class="p">:</span><span class="m">10000</span><span class="p">,</span><span class="s2">&#34;RestrictFetchType&#34;</span><span class="p">:</span><span class="kc">null</span>}}<span class="p">,</span><span class="s2">&#34;FetchOpts&#34;</span><span class="p">:</span>{<span class="s2">&#34;Remote&#34;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="s2">&#34;Limit&#34;</span><span class="p">:</span><span class="m">10000</span><span class="p">,</span><span class="s2">&#34;BlockType&#34;</span><span class="p">:</span><span class="m">0</span><span class="p">,</span><span class="s2">&#34;FanoutOptions&#34;</span><span class="p">:</span>{<span class="s2">&#34;FanoutUnaggregated&#34;</span><span class="p">:</span><span class="m">0</span><span class="p">,</span><span class="s2">&#34;FanoutAggregated&#34;</span><span class="p">:</span><span class="m">0</span><span class="p">,</span><span class="s2">&#34;FanoutAggregatedOptimized&#34;</span><span class="p">:</span><span class="m">0</span>}<span class="p">,</span><span class="s2">&#34;RestrictQueryOptions&#34;</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">&#34;Step&#34;</span><span class="p">:</span><span class="m">15000000000</span><span class="p">,</span><span class="s2">&#34;LookbackDuration&#34;</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">&#34;Enforcer&#34;</span><span class="p">:</span>{}<span class="p">,</span><span class="s2">&#34;Scope&#34;</span><span class="p">:</span>{}<span class="p">,</span><span class="s2">&#34;IncludeResolution&#34;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="s2">&#34;Timeout&#34;</span><span class="p">:</span><span class="m">0</span>}<span class="p">,</span><span class="s2">&#34;Params&#34;</span><span class="p">:</span>{<span class="s2">&#34;Start&#34;</span><span class="p">:</span><span class="s2">&#34;2020-07-14T15:26:00+08:00&#34;</span><span class="p">,</span><span class="s2">&#34;End&#34;</span><span class="p">:</span><span class="s2">&#34;2020-07-14T15:31:00+08:00&#34;</span><span class="p">,</span><span class="s2">&#34;Now&#34;</span><span class="p">:</span><span class="s2">&#34;2020-07-14T15:31:13.509522583+08:00&#34;</span><span class="p">,</span><span class="s2">&#34;Timeout&#34;</span><span class="p">:</span><span class="m">30000000000</span><span class="p">,</span><span class="s2">&#34;Step&#34;</span><span class="p">:</span><span class="m">15000000000</span><span class="p">,</span><span class="s2">&#34;Query&#34;</span><span class="p">:</span><span class="s2">&#34;sum(nginx_http_api_requests_latest_30s)&#34;</span><span class="p">,</span><span class="s2">&#34;Debug&#34;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="s2">&#34;KeepNans&#34;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="s2">&#34;IncludeEnd&#34;</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">&#34;BlockType&#34;</span><span class="p">:</span><span class="m">0</span><span class="p">,</span><span class="s2">&#34;FormatType&#34;</span><span class="p">:</span><span class="m">0</span><span class="p">,</span><span class="s2">&#34;LookbackDuration&#34;</span><span class="p">:</span><span class="m">300000000000</span>}<span class="p">,</span><span class="s2">&#34;CancelWatcher&#34;</span><span class="p">:</span>{}}}<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># Warning! Fetched 34461 series, but displaying only first 10000.</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># &#34;QueryOpts&#34;:{</span><span class="w">
+</span><span class="w">   </span><span class="s2">&#34;QueryContextOptions&#34;</span><span class="p">:</span>{<span class="w">
+</span><span class="w">      </span><span class="s2">&#34;LimitMaxTimeseries&#34;</span><span class="p">:</span><span class="m">10000</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="s2">&#34;RestrictFetchType&#34;</span><span class="p">:</span><span class="kc">null</span><span class="w">
+</span><span class="w">   </span>}<span class="w">
+</span><span class="w"></span>}<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="总结">总结</h2>
+<ul>
+<li>汇总下究竟发生了什么：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># prometheus record:
+groups:
+- name: ngx-records
+  interval: 30s
+  rules:
+  - record: nginx_http_api_requests_latest_30s
+    expr: rate(nginx_http_api_requests_total[30s])
+    
+# m3db error and thanos correct:
+sum(nginx_http_api_requests_latest_30s)
+
+# 加label后也可以正常查询:
+sum(nginx_http_api_requests_latest_30s{status=~&#34;4.*|5.*&#34;})
+
+# ---
+# 两者都可正常查询：
+  rules:
+  - record: nginx_http_api_requests_latest_30s
+	  expr: sum(rate(nginx_http_api_requests_total[30s]))
+	  
+# 统计了其他指标，只有LimitMaxTimeseries 过多有异常情况；
+# rate(nginx_http_api_requests_total[30s]) 吐出指标过多，超出query limit;
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>M3db issue 未提供<code>LimitMaxTimeseries</code>的配置修改，目前解决只能record预先聚合，如果大数据量大、且要根据label group by，使用m3query将导致数据不准；</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">olOwOlo</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-07-14
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/prometheus-monitor-nginx/">
+            <span class="next-text nav-default">Prometheus Monitor Nginx</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">olOwOlo</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
