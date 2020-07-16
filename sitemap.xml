@@ -3,20 +3,48 @@
   
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2020-07-14T11:31:39+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/post/m3db-query-bug/</loc>
-    <lastmod>2020-07-14T11:31:39+08:00</lastmod>
+    <lastmod>2020-07-16T21:02:26+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/post/</loc>
+    <lastmod>2020-07-16T21:02:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/prometheus-node-exporter-expand/</loc>
+    <lastmod>2020-07-16T21:02:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/handbook-5-controlling-processes/</loc>
+    <lastmod>2020-07-16T15:52:55+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/unix-and-linux-system-administration-handbook/</loc>
+    <lastmod>2020-07-16T15:51:35+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/prometheus-monitor-self/</loc>
+    <lastmod>2020-07-15T19:23:49+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/m3db-query-bug/</loc>
     <lastmod>2020-07-14T11:31:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

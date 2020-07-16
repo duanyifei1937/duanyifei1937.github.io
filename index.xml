@@ -6,10 +6,46 @@
     <description>Recent content on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 14 Jul 2020 11:31:39 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 16 Jul 2020 21:02:26 +0800</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Prometheus Node Exporter Expand</title>
+      <link>http://localhost:1313/post/prometheus-node-exporter-expand/</link>
+      <pubDate>Thu, 16 Jul 2020 21:02:26 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/prometheus-node-exporter-expand/</guid>
+      <description>Prometheus Node Exporter 扩展 如果针对某一文件大小增长报警怎么做呢? Node_exporter提供了一个非常实用的工具Textfile Collector; 支持暴露本地文件内met</description>
+    </item>
+    
+    <item>
+      <title>Handbook 5 Controlling Processes</title>
+      <link>http://localhost:1313/post/handbook-5-controlling-processes/</link>
+      <pubDate>Thu, 16 Jul 2020 15:52:55 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/handbook-5-controlling-processes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Unix and Linux System Administration Handbook</title>
+      <link>http://localhost:1313/post/unix-and-linux-system-administration-handbook/</link>
+      <pubDate>Thu, 16 Jul 2020 15:51:35 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/unix-and-linux-system-administration-handbook/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Prometheus Monitor Self</title>
+      <link>http://localhost:1313/post/prometheus-monitor-self/</link>
+      <pubDate>Wed, 15 Jul 2020 19:23:49 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/prometheus-monitor-self/</guid>
+      <description>Prometheus Monitor Self prometheus 自身性能很好，但也有一个极限； simple count: m3db 存储prometheus时间序列数据，一个重要的指标 blocksize 官方建议： 720 sample timeseries : count({__name__=~&amp;rdquo;.+&amp;rdquo;}) samples: rate(prometheus_tsdb_head_samples_appended_total[1m]) samples: yewu-prometheus: 14k/s sla: 800k/s aliyun-k8s: 23k monitor: 185k/s</description>
+    </item>
     
     <item>
       <title>M3db Query Bug</title>
