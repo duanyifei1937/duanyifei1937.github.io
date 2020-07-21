@@ -45,7 +45,7 @@
 <meta property="og:description" content="Hugo theme even example site." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://localhost:1313/" />
-<meta property="og:updated_time" content="2020-07-18T12:17:16+08:00" />
+<meta property="og:updated_time" content="2020-07-20T19:27:39+08:00" />
 <meta itemprop="name" content="Even - A super concise theme for Hugo">
 <meta itemprop="description" content="Hugo theme even example site."><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Even - A super concise theme for Hugo"/>
@@ -112,6 +112,44 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/m3db-issue/">M3db Issue</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-07-20 </span>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      记录一些m3db使用过程中的一些问题 m3db的优点 M3db 比起 thanos 其实比较重，相当于维护了一套一致性db, 和 elasticsearch很像； 但m3d
+    </div>
+    <div class="read-more">
+      <a href="/post/m3db-issue/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/prometheus-restart-too-slow/">Prometheus Restart Too Slow</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-07-20 </span>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Prometheus 将最近2h的数据存于memory, 并记录WAL临时块文件(类似于mysql binlog); 重启时需要加载所有WAL块，当2h内数据量过大，导致重启过慢。
+    </div>
+    <div class="read-more">
+      <a href="/post/prometheus-restart-too-slow/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/%E7%90%86%E8%B4%A2%E5%B0%8F%E9%97%AE%E9%A2%98pk/">理财小问题pk</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2020-07-18 </span>
@@ -163,44 +201,6 @@
     </div>
     <div class="read-more">
       <a href="/post/handbook-5-controlling-processes/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/unix-and-linux-system-administration-handbook/">Unix and Linux System Administration Handbook</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-07-16 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      
-    </div>
-    <div class="read-more">
-      <a href="/post/unix-and-linux-system-administration-handbook/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/prometheus-monitor-self/">Prometheus Monitor Self</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-07-15 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Prometheus Monitor Self prometheus 自身性能很好，但也有一个极限； simple count: m3db 存储prometheus时间序列数据，一个重要的指标 blocksize 官方建议： 720 sample timeseries : count({__name__=~&rdquo;.+&rdquo;}) samples: rate(prometheus_tsdb_head_samples_appended_total[1m]) samples: yewu-prometheus: 14k/s sla: 800k/s aliyun-k8s: 23k monitor: 185k/s
-    </div>
-    <div class="read-more">
-      <a href="/post/prometheus-monitor-self/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>

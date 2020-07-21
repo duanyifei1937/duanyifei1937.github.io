@@ -6,10 +6,28 @@
     <description>Recent content in Posts on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 18 Jul 2020 12:17:16 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 20 Jul 2020 19:27:39 +0800</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>M3db Issue</title>
+      <link>http://localhost:1313/post/m3db-issue/</link>
+      <pubDate>Mon, 20 Jul 2020 19:27:39 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/m3db-issue/</guid>
+      <description>记录一些m3db使用过程中的一些问题 m3db的优点 M3db 比起 thanos 其实比较重，相当于维护了一套一致性db, 和 elasticsearch很像； 但m3d</description>
+    </item>
+    
+    <item>
+      <title>Prometheus Restart Too Slow</title>
+      <link>http://localhost:1313/post/prometheus-restart-too-slow/</link>
+      <pubDate>Mon, 20 Jul 2020 11:06:29 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/prometheus-restart-too-slow/</guid>
+      <description>Prometheus 将最近2h的数据存于memory, 并记录WAL临时块文件(类似于mysql binlog); 重启时需要加载所有WAL块，当2h内数据量过大，导致重启过慢。</description>
+    </item>
     
     <item>
       <title>理财小问题pk</title>
