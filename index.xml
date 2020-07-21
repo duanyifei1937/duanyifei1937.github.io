@@ -26,7 +26,7 @@
       <pubDate>Mon, 20 Jul 2020 11:06:29 +0800</pubDate>
       
       <guid>http://localhost:1313/post/prometheus-restart-too-slow/</guid>
-      <description>Prometheus 将最近2h的数据存于memory, 并记录WAL临时块文件(类似于mysql binlog); 重启时需要加载所有WAL块，当2h内数据量过大，导致重启过慢。</description>
+      <description>Prometheus 将最近3h的数据存于memory, 并记录WAL临时块文件(类似于mysql binlog); 重启时需要加载所有WAL块，当2h内数据量过大，导致重启过慢。</description>
     </item>
     
     <item>
@@ -71,7 +71,7 @@
       <pubDate>Wed, 15 Jul 2020 19:23:49 +0800</pubDate>
       
       <guid>http://localhost:1313/post/prometheus-monitor-self/</guid>
-      <description>Prometheus Monitor Self prometheus 自身性能很好，但也有一个极限； simple count: m3db 存储prometheus时间序列数据，一个重要的指标 blocksize 官方建议： 720 sample timeseries : count({__name__=~&amp;rdquo;.+&amp;rdquo;}) samples: rate(prometheus_tsdb_head_samples_appended_total[1m]) samples: yewu-prometheus: 14k/s sla: 800k/s aliyun-k8s: 23k monitor: 185k/s</description>
+      <description>Prometheus Monitor Self 介绍了prometheus常见的一些报错、其和自身监控指标息息相关； prometheus 自身性能很好(号称单节点百万time series，数十个data</description>
     </item>
     
     <item>

@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="olOwOlo" /><meta name="description" content="Prometheus Monitor Self prometheus 自身性能很好，但也有一个极限； simple count: m3db 存储prometheus时间序列数据，一个重要的指标 blocksize 官方建议： 720 sample timeseries : count({__name__=~&amp;rdquo;.&#43;&amp;rdquo;}) samples: rate(prometheus_tsdb_head_samples_appended_total[1m]) samples: yewu-prometheus: 14k/s sla: 800k/s aliyun-k8s: 23k monitor: 185k/s" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="TianGou" /><meta name="description" content="Prometheus Monitor Self 介绍了prometheus常见的一些报错、其和自身监控指标息息相关； prometheus 自身性能很好(号称单节点百万time series，数十个data" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -40,22 +40,22 @@
 
 
 <meta property="og:title" content="Prometheus Monitor Self" />
-<meta property="og:description" content="Prometheus Monitor Self prometheus 自身性能很好，但也有一个极限； simple count: m3db 存储prometheus时间序列数据，一个重要的指标 blocksize 官方建议： 720 sample timeseries : count({__name__=~&rdquo;.&#43;&rdquo;}) samples: rate(prometheus_tsdb_head_samples_appended_total[1m]) samples: yewu-prometheus: 14k/s sla: 800k/s aliyun-k8s: 23k monitor: 185k/s" />
+<meta property="og:description" content="Prometheus Monitor Self 介绍了prometheus常见的一些报错、其和自身监控指标息息相关； prometheus 自身性能很好(号称单节点百万time series，数十个data" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/prometheus-monitor-self/" />
 <meta property="article:published_time" content="2020-07-15T19:23:49+08:00" />
 <meta property="article:modified_time" content="2020-07-15T19:23:49+08:00" />
 <meta itemprop="name" content="Prometheus Monitor Self">
-<meta itemprop="description" content="Prometheus Monitor Self prometheus 自身性能很好，但也有一个极限； simple count: m3db 存储prometheus时间序列数据，一个重要的指标 blocksize 官方建议： 720 sample timeseries : count({__name__=~&rdquo;.&#43;&rdquo;}) samples: rate(prometheus_tsdb_head_samples_appended_total[1m]) samples: yewu-prometheus: 14k/s sla: 800k/s aliyun-k8s: 23k monitor: 185k/s">
+<meta itemprop="description" content="Prometheus Monitor Self 介绍了prometheus常见的一些报错、其和自身监控指标息息相关； prometheus 自身性能很好(号称单节点百万time series，数十个data">
 <meta itemprop="datePublished" content="2020-07-15T19:23:49&#43;08:00" />
 <meta itemprop="dateModified" content="2020-07-15T19:23:49&#43;08:00" />
-<meta itemprop="wordCount" content="79">
+<meta itemprop="wordCount" content="553">
 
 
 
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Prometheus Monitor Self"/>
-<meta name="twitter:description" content="Prometheus Monitor Self prometheus 自身性能很好，但也有一个极限； simple count: m3db 存储prometheus时间序列数据，一个重要的指标 blocksize 官方建议： 720 sample timeseries : count({__name__=~&rdquo;.&#43;&rdquo;}) samples: rate(prometheus_tsdb_head_samples_appended_total[1m]) samples: yewu-prometheus: 14k/s sla: 800k/s aliyun-k8s: 23k monitor: 185k/s"/>
+<meta name="twitter:description" content="Prometheus Monitor Self 介绍了prometheus常见的一些报错、其和自身监控指标息息相关； prometheus 自身性能很好(号称单节点百万time series，数十个data"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -70,7 +70,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Even</a>
+    <a href="/" class="logo">TianGou</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -94,7 +94,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Even</a>
+  <a href="/" class="logo">TianGou</a>
 </div>
 
 <nav class="site-navbar">
@@ -123,6 +123,8 @@
       <div class="post-meta">
         <span class="post-time"> 2020-07-15 </span>
         
+          <span class="more-meta"> 553 words </span>
+          <span class="more-meta"> 2 mins read </span>
         
       </div>
     </header>
@@ -132,7 +134,15 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
+    <li><a href="#时间序列结构">时间序列结构</a></li>
+    <li><a href="#prometheus-self-metrics">prometheus self metrics</a>
+      <ul>
+        <li><a href="#simple-count">simple count</a></li>
+        <li><a href="#timeseries">Timeseries</a></li>
+        <li><a href="#out_of_order">out_of_order</a></li>
+      </ul>
+    </li>
+    <li><a href="#reference">Reference</a></li>
   </ul>
 </nav>
   </div>
@@ -140,35 +150,139 @@
     <div class="post-content">
       <h1 id="prometheus-monitor-self">Prometheus Monitor Self</h1>
 <blockquote>
-<p>prometheus 自身性能很好，但也有一个极限；</p>
+<p>介绍了prometheus常见的一些报错、其和自身监控指标息息相关；</p>
+<p>prometheus 自身性能很好(号称单节点百万time series，数十个datacenter;)，但也有一个极限；</p>
+</blockquote>
+<h2 id="时间序列结构">时间序列结构</h2>
+<blockquote>
+<p>先来介绍些基本概念；</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/20200721161651.png" alt="samples"></p>
+<p>相同metrics_name, 不同label 属于不同timeseries;</p>
+<p>samples 为不同时间点上的样本数据；(包含两个值：timestamp and samples_value)</p>
+<h2 id="prometheus-self-metrics">prometheus self metrics</h2>
+<blockquote>
+<p>一些指标说明；</p>
 </blockquote>
 <ul>
-<li>simple count:</li>
+<li>
+<p>target count;</p>
+</li>
+<li>
+<p>time series count;</p>
+</li>
+<li>
+<p>simples count / sec;</p>
+</li>
 </ul>
-<h2 id="heading"></h2>
+<h3 id="simple-count">simple count</h3>
+<ul>
+<li>
+<p>查询方式：</p>
+<p>samples:      rate(prometheus_tsdb_head_samples_appended_total[1m])</p>
+</li>
+<li>
+<p>计算当前总值</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># 线上部署多套prometheus</span><span class="w">
+</span><span class="w"></span><span class="k">samples</span><span class="p">:</span><span class="w">
+</span><span class="w"> </span><span class="k">yewu-prometheus</span><span class="p">:</span><span class="w"> </span>14k/s<span class="w">
+</span><span class="w"> </span><span class="k">sla</span><span class="p">:</span><span class="w">             </span>800k/s<span class="w">
+</span><span class="w"> </span><span class="k">aliyun-k8s</span><span class="p">:</span><span class="w">      </span>23k<span class="w">
+</span><span class="w"> </span><span class="k">monitor</span><span class="p">:</span><span class="w">         </span>185k/s<span class="w">
+</span><span class="w"> </span><span class="k">wuli-k8s</span><span class="p">:</span><span class="w">        </span>17k<span class="w">
+</span><span class="w"> 
+</span><span class="w"> </span><span class="c"># 总samples: 100w/sec</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="timeseries">Timeseries</h3>
+<ul>
+<li>
+<p>查询方式：</p>
+<p>timeseries :  count({__name__=~&rdquo;.+&rdquo;})</p>
+</li>
+<li>
+<p>当前总值</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">Timeseries</span><span class="p">:</span><span class="w"> 
+</span><span class="w"></span>sla<span class="p">:</span><span class="w">				</span>5086k<span class="w">
+</span><span class="w"></span>yewu-prom<span class="p">:</span><span class="w">	</span>150k<span class="w">
+</span><span class="w"></span>wuli-k8s<span class="p">:</span><span class="w">		</span>430k<span class="w">
+</span><span class="w"></span>ali-k8s<span class="p">:</span><span class="w">		</span>700k<span class="w">
+</span><span class="w"></span><span class="k">monitor</span><span class="p">:</span><span class="w">    </span>过大无法预估<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="out_of_order">out_of_order</h3>
 <blockquote>
-<p>m3db 存储prometheus时间序列数据，一个重要的指标 blocksize</p>
+<p>Prometheus 抓 metrics 乱序</p>
 </blockquote>
-<p>官方建议：</p>
-<p>720 sample</p>
-<p>timeseries :  count({__name__=~&rdquo;.+&rdquo;})
-samples:      rate(prometheus_tsdb_head_samples_appended_total[1m])</p>
-<p>samples:
-yewu-prometheus: 14k/s
-sla:             800k/s
-aliyun-k8s:      23k
-monitor:         185k/s
-wuli-k8s:        17k</p>
-<p>Timeseries:</p>
-<p>sla:    434 7316</p>
-<p>Blocksize == 30s</p>
+<ul>
+<li>报错日志</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">level=warn<span class="w"> </span>ts=<span class="ld">2020-07-21T08:35:21.474Z</span><span class="w"> </span>caller=scrape.go<span class="p">:</span><span class="m">1203</span><span class="w"> </span>component=<span class="s2">&#34;scrape manager&#34;</span><span class="w"> </span>scrape_pool=sla-yewu<span class="w"> </span>target=http<span class="p">:</span>//<span class="m">172.16.68.10</span><span class="p">:</span><span class="m">36015</span>/metrics<span class="w"> </span>msg=<span class="s2">&#34;Error on ingesting out-of-order samples&#34;</span><span class="w"> </span>num_dropped=<span class="m">15</span><span class="w">
+</span><span class="w"></span>level=warn<span class="w"> </span>ts=<span class="ld">2020-07-21T08:35:21.507Z</span><span class="w"> </span>caller=scrape.go<span class="p">:</span><span class="m">1203</span><span class="w"> </span>component=<span class="s2">&#34;scrape manager&#34;</span><span class="w"> </span>scrape_pool=sla-yewu<span class="w"> </span>target=http<span class="p">:</span>//<span class="m">10.111.201.26</span><span class="p">:</span><span class="m">55019</span>/metrics<span class="w"> </span>msg=<span class="s2">&#34;Error on ingesting out-of-order samples&#34;</span><span class="w"> </span>num_dropped=<span class="m">15</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>查询方式</li>
+</ul>
+<p>irate(prometheus_target_scrapes_sample_out_of_order_total[10m])</p>
+<ul>
+<li>
+<p>解决报错</p>
+<blockquote>
+<p>造成乱序原因很多，<a href="https://www.robustperception.io/debugging-out-of-order-samples">debug out of order</a></p>
+</blockquote>
+<p>如果都不是以上原因，认为为性能问题；</p>
+<p>测试中，解决此类报错和 target_count and pre_target_metrics 都有关系；</p>
+<p>如 一个target 34w metrics 可能10左右的target就造成报错；</p>
+<p>如 百个target 15w metrics 也可能造成报错；</p>
+</li>
+</ul>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://www.percona.com/blog/2018/09/20/prometheus-2-times-series-storage-performance-analyses/">https://www.percona.com/blog/2018/09/20/prometheus-2-times-series-storage-performance-analyses/</a></li>
+<li><a href="https://docs.google.com/document/d/11NUjmCOoMjhbs4UlJmAOPa2Bir9akytkRkvTqGSDxe0/edit#heading=h.8hly7a9kj7z0">https://docs.google.com/document/d/11NUjmCOoMjhbs4UlJmAOPa2Bir9akytkRkvTqGSDxe0/edit#heading=h.8hly7a9kj7z0</a></li>
+<li><a href="https://docs.mirantis.com/mcp/q4-18/mcp-operations-guide/lma/alerts/sl-alerts/prometheus-alerts.html">https://docs.mirantis.com/mcp/q4-18/mcp-operations-guide/lma/alerts/sl-alerts/prometheus-alerts.html</a></li>
+</ul>
 
     </div>
 
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">Author</span>
-    <span class="item-content">olOwOlo</span>
+    <span class="item-content">TianGou</span>
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
@@ -197,7 +311,25 @@ wuli-k8s:        17k</p>
     </footer>
   </article>
         </div>
-        
+        <div id="comments-gitment"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitment = new Gitment({
+        id: '2020-07-15 19:23:49 \u002b0800 CST',
+        title: 'Prometheus Monitor Self',
+        link: decodeURI(location.href),
+        desc: 'Prometheus Monitor Self 介绍了prometheus常见的一些报错、其和自身监控指标息息相关； prometheus 自身性能很好(号称单节点百万time series，数十个data',
+        owner: 'duanyifei1937',
+        repo: 'duanyifei1937.github.io',
+        oauth: {
+          client_id: '91a1c0bf07645268f2f9',
+          client_secret: '6088010a8217040b1d52fea04e0f284c3fc1bbcc'
+        }
+      });
+      gitment.render('comments-gitment');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
 
   
 
@@ -208,21 +340,10 @@ wuli-k8s:        17k</p>
 
     <footer id="footer" class="footer">
       <div class="social-links">
-      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
-      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
-      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
-      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
-      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
-      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
-      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
-      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
-      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
-      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
-      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
-      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
-      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+      <a href="duanyifei1937@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/duanyifei1937" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/191482708/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://duanyifei.gitbook.io/duanyifei/" class="iconfont icon-gitlab" title="gitlab"></a>
   <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
@@ -240,12 +361,11 @@ wuli-k8s:        17k</p>
 
   <span class="copyright-year">
     &copy; 
-    2017 - 
     2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
-    <span class="author">olOwOlo</span>
+    <span class="author">TianGou</span>
   </span>
 </div>
     </footer>
@@ -254,7 +374,7 @@ wuli-k8s:        17k</p>
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
@@ -263,6 +383,17 @@ wuli-k8s:        17k</p>
 
 <script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
 
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-173157756-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

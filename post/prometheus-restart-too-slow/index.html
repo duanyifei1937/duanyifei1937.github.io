@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="olOwOlo" /><meta name="description" content="Prometheus 将最近2h的数据存于memory, 并记录WAL临时块文件(类似于mysql binlog); 重启时需要加载所有WAL块，当2h内数据量过大，导致重启过慢。" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="TianGou" /><meta name="description" content="Prometheus 将最近3h的数据存于memory, 并记录WAL临时块文件(类似于mysql binlog); 重启时需要加载所有WAL块，当2h内数据量过大，导致重启过慢。" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -40,22 +40,22 @@
 
 
 <meta property="og:title" content="Prometheus Restart Too Slow" />
-<meta property="og:description" content="Prometheus 将最近2h的数据存于memory, 并记录WAL临时块文件(类似于mysql binlog); 重启时需要加载所有WAL块，当2h内数据量过大，导致重启过慢。" />
+<meta property="og:description" content="Prometheus 将最近3h的数据存于memory, 并记录WAL临时块文件(类似于mysql binlog); 重启时需要加载所有WAL块，当2h内数据量过大，导致重启过慢。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/prometheus-restart-too-slow/" />
 <meta property="article:published_time" content="2020-07-20T11:06:29+08:00" />
 <meta property="article:modified_time" content="2020-07-20T11:06:29+08:00" />
 <meta itemprop="name" content="Prometheus Restart Too Slow">
-<meta itemprop="description" content="Prometheus 将最近2h的数据存于memory, 并记录WAL临时块文件(类似于mysql binlog); 重启时需要加载所有WAL块，当2h内数据量过大，导致重启过慢。">
+<meta itemprop="description" content="Prometheus 将最近3h的数据存于memory, 并记录WAL临时块文件(类似于mysql binlog); 重启时需要加载所有WAL块，当2h内数据量过大，导致重启过慢。">
 <meta itemprop="datePublished" content="2020-07-20T11:06:29&#43;08:00" />
 <meta itemprop="dateModified" content="2020-07-20T11:06:29&#43;08:00" />
-<meta itemprop="wordCount" content="430">
+<meta itemprop="wordCount" content="87">
 
 
 
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Prometheus Restart Too Slow"/>
-<meta name="twitter:description" content="Prometheus 将最近2h的数据存于memory, 并记录WAL临时块文件(类似于mysql binlog); 重启时需要加载所有WAL块，当2h内数据量过大，导致重启过慢。"/>
+<meta name="twitter:description" content="Prometheus 将最近3h的数据存于memory, 并记录WAL临时块文件(类似于mysql binlog); 重启时需要加载所有WAL块，当2h内数据量过大，导致重启过慢。"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -70,7 +70,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Even</a>
+    <a href="/" class="logo">TianGou</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -94,7 +94,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Even</a>
+  <a href="/" class="logo">TianGou</a>
 </div>
 
 <nav class="site-navbar">
@@ -123,6 +123,8 @@
       <div class="post-meta">
         <span class="post-time"> 2020-07-20 </span>
         
+          <span class="more-meta"> 87 words </span>
+          <span class="more-meta"> 1 min read </span>
         
       </div>
     </header>
@@ -135,35 +137,19 @@
 </div>
     <div class="post-content">
       <blockquote>
-<p>Prometheus 将最近2h的数据存于memory, 并记录WAL临时块文件(类似于mysql binlog);</p>
+<p>Prometheus 将最近3h的数据存于memory, 并记录WAL临时块文件(类似于mysql binlog);</p>
 <p>重启时需要加载所有WAL块，当2h内数据量过大，导致重启过慢。</p>
 <p>如何解决？</p>
-<p>是否可以调整2h为更短？</p>
+<p>是否可以调整3h为更短？</p>
 </blockquote>
-<blockquote>
-<p>prometheus 默认memory中最多获取最近3h数据；每整点，2h 数据flush为block不可变数据；&lt;=1h数据依然位于mem;</p>
-<p>保留了1的数据为避免数据追加；</p>
-</blockquote>
-<blockquote>
-<p>最少可查最近3h数据；</p>
-</blockquote>
-<blockquote>
-<p>&ndash;storage.tsdb.retention.time=1m   How long to retain samples in storage.</p>
-<p>这个值只是标识在storege的保留时间，只说明block保留时间；</p>
-<p>例子：</p>
-<p>现在11:12， prometheus至少保留08:00 ~ 10:00为一个block;</p>
-<p>10:00 ~ 11:12 保存在wal;</p>
-<p>整点时(12:00)，10:00~12:00再打为一个block, 同时删除08:00 ~ 10:00 block;</p>
-<p>因此：如果设置retention.time=1m, 小于最小块时间1h, 可以查到的数据最近2h ~ 4h之间；</p>
-<p>并且，block为压缩数据，wal未压缩，大小占用不一致，至少保证prometheus space可以保存 1 block + 1 wal；</p>
-</blockquote>
+<p><img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/20200721151526.png" alt="prometheus gen block"></p>
 
     </div>
 
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">Author</span>
-    <span class="item-content">olOwOlo</span>
+    <span class="item-content">TianGou</span>
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
@@ -192,7 +178,25 @@
     </footer>
   </article>
         </div>
-        
+        <div id="comments-gitment"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitment = new Gitment({
+        id: '2020-07-20 11:06:29 \u002b0800 CST',
+        title: 'Prometheus Restart Too Slow',
+        link: decodeURI(location.href),
+        desc: 'Prometheus 将最近3h的数据存于memory, 并记录WAL临时块文件(类似于mysql binlog); 重启时需要加载所有WAL块，当2h内数据量过大，导致重启过慢。',
+        owner: 'duanyifei1937',
+        repo: 'duanyifei1937.github.io',
+        oauth: {
+          client_id: '91a1c0bf07645268f2f9',
+          client_secret: '6088010a8217040b1d52fea04e0f284c3fc1bbcc'
+        }
+      });
+      gitment.render('comments-gitment');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
 
   
 
@@ -203,21 +207,10 @@
 
     <footer id="footer" class="footer">
       <div class="social-links">
-      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
-      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
-      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
-      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
-      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
-      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
-      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
-      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
-      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
-      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
-      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
-      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
-      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+      <a href="duanyifei1937@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/duanyifei1937" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/191482708/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://duanyifei.gitbook.io/duanyifei/" class="iconfont icon-gitlab" title="gitlab"></a>
   <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
@@ -235,12 +228,11 @@
 
   <span class="copyright-year">
     &copy; 
-    2017 - 
     2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
-    <span class="author">olOwOlo</span>
+    <span class="author">TianGou</span>
   </span>
 </div>
     </footer>
@@ -249,7 +241,7 @@
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
@@ -258,6 +250,17 @@
 
 <script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
 
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-173157756-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 
