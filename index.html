@@ -45,7 +45,7 @@
 <meta property="og:description" content="TianGou Lee&#39;s Blog" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://localhost:1313/" />
-<meta property="og:updated_time" content="2020-07-20T19:27:39+08:00" />
+<meta property="og:updated_time" content="2020-07-27T10:44:21+08:00" />
 <meta itemprop="name" content="Even - A super concise theme for Hugo">
 <meta itemprop="description" content="TianGou Lee&#39;s Blog"><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Even - A super concise theme for Hugo"/>
@@ -112,12 +112,75 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/prometheus-metrics-types/">Prometheus metrics Types</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-07-27 </span>
+      
+        <span class="more-meta"> 116 words </span>
+        <span class="more-meta"> 1 min read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      四种核心数据类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例
+    </div>
+    <div class="read-more">
+      <a href="/post/prometheus-metrics-types/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/m3db-migration-plan/">M3db Migration Plan</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-07-24 </span>
+      
+        <span class="more-meta"> 326 words </span>
+        <span class="more-meta"> 1 min read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      m3db测试有一段时间了，基本提出的问题都得以解决； 定义下集群规模及迁移计划 规模 namespaces配置 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+    </div>
+    <div class="read-more">
+      <a href="/post/m3db-migration-plan/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/m3db-handle-deploy/">M3db Handle Deploy</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-07-22 </span>
+      
+        <span class="more-meta"> 1459 words </span>
+        <span class="more-meta"> 3 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      m3db 手工部署 总结 M3db 写入、查询性能确实比thanos方式高很多，但不完善地方也很多： 并且文档缺失，最佳实践配置缺失； 角色分类 Coordinator: 部署同promet
+    </div>
+    <div class="read-more">
+      <a href="/post/m3db-handle-deploy/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/m3db-issue/">M3db Issue</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2020-07-20 </span>
       
-        <span class="more-meta"> 628 words </span>
-        <span class="more-meta"> 2 mins read </span>
+        <span class="more-meta"> 1759 words </span>
+        <span class="more-meta"> 4 mins read </span>
     </div>
   </header>
   
@@ -154,7 +217,7 @@
 
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/%E7%90%86%E8%B4%A2%E5%B0%8F%E9%97%AE%E9%A2%98pk/">理财小问题pk</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/financial-management-pk/">理财小问题pk</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2020-07-18 </span>
       
@@ -168,7 +231,7 @@
       出一道理财小问题 问题 支付宝推出“养老金”理财项目，我们来计算下它究竟是否合适； 支付宝规则： 1 2 # 假设每月投入1k, 一年12k, 投至60岁，投
     </div>
     <div class="read-more">
-      <a href="/post/%E7%90%86%E8%B4%A2%E5%B0%8F%E9%97%AE%E9%A2%98pk/" class="read-more-link">Read more...</a>
+      <a href="/post/financial-management-pk/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -253,69 +316,6 @@
     </div>
     <div class="read-more">
       <a href="/post/prometheus-monitor-self/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/m3db-query-bug/">M3db Query Bug</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-07-14 </span>
-      
-        <span class="more-meta"> 677 words </span>
-        <span class="more-meta"> 2 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      M3DB Query Bug 被一个诡异的问题困惑很长时间； 问题描述 两dashboard相同查询语句，不同数据源(thanos and m3db)； 四条查询中，第二条数据查
-    </div>
-    <div class="read-more">
-      <a href="/post/m3db-query-bug/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/prometheus-monitor-nginx/">Prometheus Monitor Nginx</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-07-13 </span>
-      
-        <span class="more-meta"> 1206 words </span>
-        <span class="more-meta"> 3 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Prometheus Monitor Nginx 方案选择 prometheus监控nginx主要有以下两种： nginx-prometheus-exporter 只是对nginx_stub_status界面的转换，metrics单一，不
-    </div>
-    <div class="read-more">
-      <a href="/post/prometheus-monitor-nginx/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/lets-encrypt/">Lets Encrypt</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-07-08 </span>
-      
-        <span class="more-meta"> 365 words </span>
-        <span class="more-meta"> 1 min read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Let&rsquo;s Encrypt Create Free Certificates 使用let&rsquo;s encrypt以下两种验证方式： web-server验证方式 Certbot 必须部署在同web-server, 外部se
-    </div>
-    <div class="read-more">
-      <a href="/post/lets-encrypt/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>

@@ -45,7 +45,7 @@
 <meta property="og:description" content="TianGou Lee&#39;s Blog" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://localhost:1313/" />
-<meta property="og:updated_time" content="2020-07-20T19:27:39+08:00" />
+<meta property="og:updated_time" content="2020-07-27T10:44:21+08:00" />
 <meta itemprop="name" content="Even - A super concise theme for Hugo">
 <meta itemprop="description" content="TianGou Lee&#39;s Blog"><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Even - A super concise theme for Hugo"/>
@@ -112,6 +112,69 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/m3db-query-bug/">M3db Query Bug</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-07-14 </span>
+      
+        <span class="more-meta"> 677 words </span>
+        <span class="more-meta"> 2 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      M3DB Query Bug 被一个诡异的问题困惑很长时间； 问题描述 两dashboard相同查询语句，不同数据源(thanos and m3db)； 四条查询中，第二条数据查
+    </div>
+    <div class="read-more">
+      <a href="/post/m3db-query-bug/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/prometheus-monitor-nginx/">Prometheus Monitor Nginx</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-07-13 </span>
+      
+        <span class="more-meta"> 1206 words </span>
+        <span class="more-meta"> 3 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Prometheus Monitor Nginx 方案选择 prometheus监控nginx主要有以下两种： nginx-prometheus-exporter 只是对nginx_stub_status界面的转换，metrics单一，不
+    </div>
+    <div class="read-more">
+      <a href="/post/prometheus-monitor-nginx/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/lets-encrypt/">Lets Encrypt</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-07-08 </span>
+      
+        <span class="more-meta"> 365 words </span>
+        <span class="more-meta"> 1 min read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Let&rsquo;s Encrypt Create Free Certificates 使用let&rsquo;s encrypt以下两种验证方式： web-server验证方式 Certbot 必须部署在同web-server, 外部se
+    </div>
+    <div class="read-more">
+      <a href="/post/lets-encrypt/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/ingress-four-layer-loadbalance/">Ingress Four Layer Loadbalance</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2020-07-08 </span>
@@ -137,14 +200,14 @@
     <div class="post-meta">
       <span class="post-time"> 2020-07-07 </span>
       
-        <span class="more-meta"> 0 words </span>
-        <span class="more-meta"> 0 mins read </span>
+        <span class="more-meta"> 59 words </span>
+        <span class="more-meta"> 1 min read </span>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      
+      k8s原生证书管理工具，支持Let’s Encrypt, HashiCorp Vault, Venafi，self signed; 1 2 3 $kgetapiserviceNAMESERVICEAVAILABLEAGEv1alpha1.acme.yourcompany.comcert-manager/alidns-webhookFalse(FailedDiscoveryCheck)2m35s 1 2 3 4 5 6 7 8 Status:Conditions:Last Transition Time:2020-07-29T07:08:44ZMessage: failing or missing response from https://10.254.246.95:443: bad status from https://10.254.246.95:443:403Reason:FailedDiscoveryCheckStatus:FalseType:AvailableEvents:&lt;none&gt;
     </div>
     <div class="read-more">
       <a href="/post/cert-manager/" class="read-more-link">Read more...</a>
@@ -238,42 +301,21 @@
 
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/ssl%E5%BB%BA%E8%BF%9E%E8%BF%87%E6%85%A2/">Ssl建连过慢</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/ssl-connection-too-slow/">Ssl建连过慢</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2020-07-01 </span>
       
-        <span class="more-meta"> 1228 words </span>
+        <span class="more-meta"> 1219 words </span>
         <span class="more-meta"> 3 mins read </span>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      SSL 建连过慢问题排查 问题描述 如下： 1 2 3 4 5 6 7 8 9 10 11 12 【unloadevent:0ms】【DNSresolving:1ms】【TCPcon
+      问题描述 如下： 1 2 3 4 5 6 7 8 9 10 11 12 【unloadevent:0ms】【DNSresolving:1ms】【TCPconnection:1
     </div>
     <div class="read-more">
-      <a href="/post/ssl%E5%BB%BA%E8%BF%9E%E8%BF%87%E6%85%A2/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/hello-world/">Hello World</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-07-01 </span>
-      
-        <span class="more-meta"> 28 words </span>
-        <span class="more-meta"> 1 min read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      hello world~ 包括但不限于可能会写到： 技术类、生活感触、读书记录 .etc.
-    </div>
-    <div class="read-more">
-      <a href="/post/hello-world/" class="read-more-link">Read more...</a>
+      <a href="/post/ssl-connection-too-slow/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -285,7 +327,10 @@
         <i class="iconfont icon-left"></i>
         <span class="prev-text">Prev</span>
       </a>
-    
+    <a class="next" href="/page/3/">
+        <span class="next-text">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
   </nav>
         </div>
         

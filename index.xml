@@ -6,10 +6,37 @@
     <description>Recent content on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 20 Jul 2020 19:27:39 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jul 2020 10:44:21 +0800</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Prometheus metrics Types</title>
+      <link>http://localhost:1313/post/prometheus-metrics-types/</link>
+      <pubDate>Mon, 27 Jul 2020 10:44:21 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/prometheus-metrics-types/</guid>
+      <description>四种核心数据类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例</description>
+    </item>
+    
+    <item>
+      <title>M3db Migration Plan</title>
+      <link>http://localhost:1313/post/m3db-migration-plan/</link>
+      <pubDate>Fri, 24 Jul 2020 10:56:38 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/m3db-migration-plan/</guid>
+      <description>m3db测试有一段时间了，基本提出的问题都得以解决； 定义下集群规模及迁移计划 规模 namespaces配置 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18</description>
+    </item>
+    
+    <item>
+      <title>M3db Handle Deploy</title>
+      <link>http://localhost:1313/post/m3db-handle-deploy/</link>
+      <pubDate>Wed, 22 Jul 2020 17:07:31 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/m3db-handle-deploy/</guid>
+      <description>m3db 手工部署 总结 M3db 写入、查询性能确实比thanos方式高很多，但不完善地方也很多： 并且文档缺失，最佳实践配置缺失； 角色分类 Coordinator: 部署同promet</description>
+    </item>
     
     <item>
       <title>M3db Issue</title>
@@ -31,10 +58,10 @@
     
     <item>
       <title>理财小问题pk</title>
-      <link>http://localhost:1313/post/%E7%90%86%E8%B4%A2%E5%B0%8F%E9%97%AE%E9%A2%98pk/</link>
+      <link>http://localhost:1313/post/financial-management-pk/</link>
       <pubDate>Sat, 18 Jul 2020 12:17:16 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/%E7%90%86%E8%B4%A2%E5%B0%8F%E9%97%AE%E9%A2%98pk/</guid>
+      <guid>http://localhost:1313/post/financial-management-pk/</guid>
       <description>出一道理财小问题 问题 支付宝推出“养老金”理财项目，我们来计算下它究竟是否合适； 支付宝规则： 1 2 # 假设每月投入1k, 一年12k, 投至60岁，投</description>
     </item>
     
@@ -116,7 +143,7 @@
       <pubDate>Tue, 07 Jul 2020 16:06:17 +0800</pubDate>
       
       <guid>http://localhost:1313/post/cert-manager/</guid>
-      <description></description>
+      <description>k8s原生证书管理工具，支持Let’s Encrypt, HashiCorp Vault, Venafi，self signed; 1 2 3 $kgetapiserviceNAMESERVICEAVAILABLEAGEv1alpha1.acme.yourcompany.comcert-manager/alidns-webhookFalse(FailedDiscoveryCheck)2m35s 1 2 3 4 5 6 7 8 Status:Conditions:Last Transition Time:2020-07-29T07:08:44ZMessage: failing or missing response from https://10.254.246.95:443: bad status from https://10.254.246.95:443:403Reason:FailedDiscoveryCheckStatus:FalseType:AvailableEvents:&amp;lt;none&amp;gt;</description>
     </item>
     
     <item>
@@ -157,11 +184,11 @@
     
     <item>
       <title>Ssl建连过慢</title>
-      <link>http://localhost:1313/post/ssl%E5%BB%BA%E8%BF%9E%E8%BF%87%E6%85%A2/</link>
+      <link>http://localhost:1313/post/ssl-connection-too-slow/</link>
       <pubDate>Wed, 01 Jul 2020 15:51:31 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/ssl%E5%BB%BA%E8%BF%9E%E8%BF%87%E6%85%A2/</guid>
-      <description>SSL 建连过慢问题排查 问题描述 如下： 1 2 3 4 5 6 7 8 9 10 11 12 【unloadevent:0ms】【DNSresolving:1ms】【TCPcon</description>
+      <guid>http://localhost:1313/post/ssl-connection-too-slow/</guid>
+      <description>问题描述 如下： 1 2 3 4 5 6 7 8 9 10 11 12 【unloadevent:0ms】【DNSresolving:1ms】【TCPconnection:1</description>
     </item>
     
     <item>

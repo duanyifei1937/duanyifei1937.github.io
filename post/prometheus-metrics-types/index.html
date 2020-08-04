@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Cert Manager - Even - A super concise theme for Hugo</title>
+  <title>Prometheus metrics Types - Even - A super concise theme for Hugo</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="TianGou" /><meta name="description" content="k8s原生证书管理工具，支持Let’s Encrypt, HashiCorp Vault, Venafi，self signed; 1 2 3 $kgetapiserviceNAMESERVICEAVAILABLEAGEv1alpha1.acme.yourcompany.comcert-manager/alidns-webhookFalse(FailedDiscoveryCheck)2m35s 1 2 3 4 5 6 7 8 Status:Conditions:Last Transition Time:2020-07-29T07:08:44ZMessage: failing or missing response from https://10.254.246.95:443: bad status from https://10.254.246.95:443:403Reason:FailedDiscoveryCheckStatus:FalseType:AvailableEvents:&amp;lt;none&amp;gt;" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="TianGou" /><meta name="description" content="四种核心数据类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.73.0 with theme even" />
 
 
-<link rel="canonical" href="http://localhost:1313/post/cert-manager/" />
+<link rel="canonical" href="http://localhost:1313/post/prometheus-metrics-types/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -39,23 +39,23 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Cert Manager" />
-<meta property="og:description" content="k8s原生证书管理工具，支持Let’s Encrypt, HashiCorp Vault, Venafi，self signed; 1 2 3 $kgetapiserviceNAMESERVICEAVAILABLEAGEv1alpha1.acme.yourcompany.comcert-manager/alidns-webhookFalse(FailedDiscoveryCheck)2m35s 1 2 3 4 5 6 7 8 Status:Conditions:Last Transition Time:2020-07-29T07:08:44ZMessage: failing or missing response from https://10.254.246.95:443: bad status from https://10.254.246.95:443:403Reason:FailedDiscoveryCheckStatus:FalseType:AvailableEvents:&lt;none&gt;" />
+<meta property="og:title" content="Prometheus metrics Types" />
+<meta property="og:description" content="四种核心数据类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/post/cert-manager/" />
-<meta property="article:published_time" content="2020-07-07T16:06:17+08:00" />
-<meta property="article:modified_time" content="2020-07-07T16:06:17+08:00" />
-<meta itemprop="name" content="Cert Manager">
-<meta itemprop="description" content="k8s原生证书管理工具，支持Let’s Encrypt, HashiCorp Vault, Venafi，self signed; 1 2 3 $kgetapiserviceNAMESERVICEAVAILABLEAGEv1alpha1.acme.yourcompany.comcert-manager/alidns-webhookFalse(FailedDiscoveryCheck)2m35s 1 2 3 4 5 6 7 8 Status:Conditions:Last Transition Time:2020-07-29T07:08:44ZMessage: failing or missing response from https://10.254.246.95:443: bad status from https://10.254.246.95:443:403Reason:FailedDiscoveryCheckStatus:FalseType:AvailableEvents:&lt;none&gt;">
-<meta itemprop="datePublished" content="2020-07-07T16:06:17&#43;08:00" />
-<meta itemprop="dateModified" content="2020-07-07T16:06:17&#43;08:00" />
-<meta itemprop="wordCount" content="59">
+<meta property="og:url" content="http://localhost:1313/post/prometheus-metrics-types/" />
+<meta property="article:published_time" content="2020-07-27T10:44:21+08:00" />
+<meta property="article:modified_time" content="2020-07-27T10:44:21+08:00" />
+<meta itemprop="name" content="Prometheus metrics Types">
+<meta itemprop="description" content="四种核心数据类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例">
+<meta itemprop="datePublished" content="2020-07-27T10:44:21&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-27T10:44:21&#43;08:00" />
+<meta itemprop="wordCount" content="116">
 
 
 
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Cert Manager"/>
-<meta name="twitter:description" content="k8s原生证书管理工具，支持Let’s Encrypt, HashiCorp Vault, Venafi，self signed; 1 2 3 $kgetapiserviceNAMESERVICEAVAILABLEAGEv1alpha1.acme.yourcompany.comcert-manager/alidns-webhookFalse(FailedDiscoveryCheck)2m35s 1 2 3 4 5 6 7 8 Status:Conditions:Last Transition Time:2020-07-29T07:08:44ZMessage: failing or missing response from https://10.254.246.95:443: bad status from https://10.254.246.95:443:403Reason:FailedDiscoveryCheckStatus:FalseType:AvailableEvents:&lt;none&gt;"/>
+<meta name="twitter:title" content="Prometheus metrics Types"/>
+<meta name="twitter:description" content="四种核心数据类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -118,12 +118,12 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Cert Manager</h1>
+      <h1 class="post-title">Prometheus metrics Types</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2020-07-07 </span>
+        <span class="post-time"> 2020-07-27 </span>
         
-          <span class="more-meta"> 59 words </span>
+          <span class="more-meta"> 116 words </span>
           <span class="more-meta"> 1 min read </span>
         
       </div>
@@ -132,51 +132,54 @@
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
-    <nav id="TableOfContents"></nav>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#四种核心数据类型">四种核心数据类型</a></li>
+    <li><a href="#histogram-vs-summary">Histogram vs Summary</a></li>
+    <li><a href="#count-and-sum-of-observations">Count and sum of observations</a></li>
+  </ul>
+</nav>
   </div>
 </div>
     <div class="post-content">
-      <blockquote>
-<p>k8s原生证书管理工具，支持<a href="https://letsencrypt.org/">Let’s Encrypt</a>, <a href="https://www.vaultproject.io/">HashiCorp Vault</a>, <a href="https://www.venafi.com/">Venafi</a>，self signed;</p>
-</blockquote>
+      <h2 id="四种核心数据类型">四种核心数据类型</h2>
 <ul>
+<li>Counter
+<ul>
+<li>单调递增</li>
+<li>重启重置为0</li>
+</ul>
+</li>
+<li>Guage
+<ul>
+<li>上下浮动值；</li>
+<li>也用于计数(并发数上升、下降值)</li>
+</ul>
+</li>
+<li>Histogram
+<ul>
+<li>百分位数计算；</li>
+</ul>
+</li>
+<li>Summary
+<ul>
+<li>和Histogram类似；</li>
+<li>参数值为 比例值；Histogram 参数值为数据值；</li>
+</ul>
+</li>
+</ul>
+<h2 id="histogram-vs-summary">Histogram vs Summary</h2>
+<ul>
+<li>
+<h2 id="count-and-sum-of-observations">Count and sum of observations</h2>
+<ul>
+<li>够可为负值，不能使用<code>rate()</code>方法；</li>
+</ul>
+</li>
+<li></li>
 <li></li>
 </ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml">$<span class="w"> </span>k<span class="w"> </span>get<span class="w"> </span>apiservice<span class="w">
-</span><span class="w"></span>NAME<span class="w">                                   </span>SERVICE<span class="w">                       </span>AVAILABLE<span class="w">                      </span>AGE<span class="w">
-</span><span class="w"></span>v1alpha1.acme.yourcompany.com<span class="w">          </span>cert-manager/alidns-webhook<span class="w">   </span>False<span class="w"> </span>(FailedDiscoveryCheck)<span class="w">   </span>2m35s<span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">Status</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">Conditions</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">Last Transition Time</span><span class="p">:</span><span class="w">  </span><span class="ld">2020-07-29T07:08:44Z</span><span class="w">
-</span><span class="w">    </span><span class="k">Message:               failing or missing response from https://10.254.246.95:443: bad status from https://10.254.246.95:443</span><span class="p">:</span><span class="w"> </span><span class="m">403</span><span class="w">
-</span><span class="w">    </span><span class="k">Reason</span><span class="p">:</span><span class="w">                </span>FailedDiscoveryCheck<span class="w">
-</span><span class="w">    </span><span class="k">Status</span><span class="p">:</span><span class="w">                </span>False<span class="w">
-</span><span class="w">    </span><span class="k">Type</span><span class="p">:</span><span class="w">                  </span>Available<span class="w">
-</span><span class="w"></span><span class="k">Events</span><span class="p">:</span><span class="w">                    </span>&lt;none&gt;<span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div>
+
     </div>
 
     <div class="post-copyright">
@@ -187,7 +190,7 @@
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2020-07-07
+        2020-07-27
         
     </span>
   </p>
@@ -197,13 +200,9 @@
 <footer class="post-footer">
       
       <nav class="post-nav">
-        <a class="prev" href="/post/ingress-four-layer-loadbalance/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Ingress Four Layer Loadbalance</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/consul-template/">
-            <span class="next-text nav-default">Consul Template</span>
+        
+        <a class="next" href="/post/m3db-migration-plan/">
+            <span class="next-text nav-default">M3db Migration Plan</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -216,10 +215,10 @@
     <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
       var gitment = new Gitment({
-        id: '2020-07-07 16:06:17 \u002b0800 CST',
-        title: 'Cert Manager',
+        id: '2020-07-27 10:44:21 \u002b0800 CST',
+        title: 'Prometheus metrics Types',
         link: decodeURI(location.href),
-        desc: 'k8s原生证书管理工具，支持Let’s Encrypt, HashiCorp Vault, Venafi，self signed; 1 2 3 $kgetapiserviceNAMESERVICEAVAILABLEAGEv1alpha1.acme.yourcompany.comcert-manager\/alidns-webhookFalse(FailedDiscoveryCheck)2m35s 1 2 3 4 5 6 7 8 Status:Conditions:Last Transition Time:2020-07-29T07:08:44ZMessage: failing or missing response from https:\/\/10.254.246.95:443: bad status from https:\/\/10.254.246.95:443:403Reason:FailedDiscoveryCheckStatus:FalseType:AvailableEvents:\u0026lt;none\u0026gt;',
+        desc: '四种核心数据类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例',
         owner: 'duanyifei1937',
         repo: 'duanyifei1937.github.io',
         oauth: {

@@ -49,7 +49,7 @@
 <meta itemprop="description" content="记录一些m3db使用过程中的一些问题 m3db的优点 M3db 比起 thanos 其实比较重，相当于维护了一套一致性db, 和 elasticsearch很像； 但m3d">
 <meta itemprop="datePublished" content="2020-07-20T19:27:39&#43;08:00" />
 <meta itemprop="dateModified" content="2020-07-20T19:27:39&#43;08:00" />
-<meta itemprop="wordCount" content="628">
+<meta itemprop="wordCount" content="1759">
 
 
 
@@ -123,8 +123,8 @@
       <div class="post-meta">
         <span class="post-time"> 2020-07-20 </span>
         
-          <span class="more-meta"> 628 words </span>
-          <span class="more-meta"> 2 mins read </span>
+          <span class="more-meta"> 1759 words </span>
+          <span class="more-meta"> 4 mins read </span>
         
       </div>
     </header>
@@ -135,8 +135,17 @@
     <nav id="TableOfContents">
   <ul>
     <li><a href="#m3db的优点">m3db的优点</a></li>
+    <li><a href="#m3db缺点">m3db缺点</a></li>
     <li><a href="#m3coordinator-datapoint-too-far">m3coordinator datapoint too far</a></li>
     <li><a href="#m3coordinator-带宽使用问题">m3coordinator 带宽使用问题</a></li>
+    <li><a href="#自定义retention-time">自定义retention time</a></li>
+    <li><a href="#数据丢点">数据丢点</a></li>
+    <li><a href="#m3agg-与m3coor压缩">m3agg 与m3coor压缩</a></li>
+    <li><a href="#配置生效问题">配置生效问题</a></li>
+    <li><a href="#修改namespace必须重启m3dbnode生效">修改namespace必须重启m3dbnode生效</a></li>
+    <li><a href="#m3dbnode-重启后半天不提供read-write没问题">m3dbnode 重启后半天不提供read, write没问题</a></li>
+    <li><a href="#增加全局label">增加全局label</a></li>
+    <li><a href="#磁盘占用过多">磁盘占用过多</a></li>
   </ul>
 </nav>
   </div>
@@ -151,6 +160,10 @@
 <ul>
 <li>自定义事件粒度压缩(thanos只能超过40h generation 1min;  &gt;10d generation 5min; 并且无法调整, 在数据量过大需要即时压缩时，无法满足需求；)</li>
 </ul>
+<h2 id="m3db缺点">m3db缺点</h2>
+<blockquote>
+<p>文档不完善、很多问题没有解决；</p>
+</blockquote>
 <h2 id="m3coordinator-datapoint-too-far">m3coordinator datapoint too far</h2>
 <p>m3coordinator往m3db里写数据，偶发性报错：<code>datapoint too far</code>;</p>
 <p>报错后数据无法写入，只能restart prometheus得以解决；</p>
@@ -183,6 +196,204 @@
 <li>额外增加的tag;</li>
 </ol>
 <p>使用LZ4 未完成 <a href="https://github.com/m3db/m3/pull/2079">https://github.com/m3db/m3/pull/2079</a></p>
+<h2 id="自定义retention-time">自定义retention time</h2>
+<blockquote>
+<p>thanos 可以实现unagg数据保留7d, 1min agg 数据保留15d, 5min 数据保留一个月；(节约存储成本 + 提高查询性能)</p>
+<p>m3db没有该功能;</p>
+<p>由于只能有一个unagg namespaces, 只能定义一个保留时间，不同prometheus 就必须保留相同时间；</p>
+<p>尝试：写入间隔15s的数据但定义为agg数据，但写入报错；(不能用该歪门邪道方式)</p>
+<p>即使使用同一个unagg namespace, 有没办法只保留超出规定时间的压缩数据(降样本数据)，删除掉为压缩数据？</p>
+</blockquote>
+<h2 id="数据丢点">数据丢点</h2>
+<p><img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/20200722110144.png" alt="test gap"></p>
+<p>prometheus 可以拉到样本，未写入db；</p>
+<p>m3coor日志：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">{<span class="s2">&#34;level&#34;</span><span class="p">:</span><span class="s2">&#34;error&#34;</span><span class="p">,</span><span class="s2">&#34;ts&#34;</span><span class="p">:</span><span class="m">1595379997.863534</span><span class="p">,</span><span class="s2">&#34;msg&#34;</span><span class="p">:</span><span class="s2">&#34;write error&#34;</span><span class="p">,</span><span class="s2">&#34;remoteAddr&#34;</span><span class="p">:</span><span class="s2">&#34;10.111.203.37:24459&#34;</span><span class="p">,</span><span class="s2">&#34;httpResponseStatusCode&#34;</span><span class="p">:</span><span class="m">400</span><span class="p">,</span><span class="s2">&#34;numRegularErrors&#34;</span><span class="p">:</span><span class="m">0</span><span class="p">,</span><span class="s2">&#34;numBadRequestErrors&#34;</span><span class="p">:</span><span class="m">9</span><span class="p">,</span><span class="s2">&#34;lastRegularError&#34;</span><span class="p">:</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="s2">&#34;lastBadRequestErr&#34;</span><span class="p">:</span><span class="s2">&#34;failed to meet consistency level majority with 1/3 success, 3 nodes responded, errors: [error writing to host cn-hz-h-comm-m3db-test02: Error({Type:BAD_REQUEST Message:datapoint too far in past: id={__name__=\&#34;palfish_api_request_duration_bucket\&#34;,api=\&#34;RPC-SendMsg\&#34;,group_name=\&#34;base\&#34;,instance=\&#34;172.16.49.9:41981\&#34;,job=\&#34;sla-yewu\&#34;,le=\&#34;5000\&#34;,servname=\&#34;wechatrobot\&#34;}, off_by=57m34.987s, timestamp=22 Jul 20 07:59 +0800, past_limit=22 Jul 20 08:56 +0800, timestamp_unix_nanos=1595375942013000000, past_limit_unix_nanos=1595379397000000000}) error writing to host cn-hz-h-comm-m3db-test00: Error({Type:BAD_REQUEST Message:datapoint too far in past: id={__name__=\&#34;palfish_api_request_duration_bucket\&#34;,api=\&#34;RPC-SendMsg\&#34;,group_name=\&#34;base\&#34;,instance=\&#34;172.16.49.9:41981\&#34;,job=\&#34;sla-yewu\&#34;,le=\&#34;5000\&#34;,servname=\&#34;wechatrobot\&#34;}, off_by=57m34.987s, timestamp=22 Jul 20 07:59 +0800, past_limit=22 Jul 20 08:56 +0800, timestamp_unix_nanos=1595375942013000000, past_limit_unix_nanos=1595379397000000000})]&#34;</span>}<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>依旧是延时问题，prometheus 未拆节点，通过slb挂多个m3coor解决性能问题;</p>
+<p>需要注意：</p>
+<p>​	slb长连接分配不均，导致部分节点cpu过高，崩溃队列阻塞；</p>
+<p>​	最好的方式： prometheus 拆分；</p>
+<h2 id="m3agg-与m3coor压缩">m3agg 与m3coor压缩</h2>
+<blockquote>
+<p>官方说m3agg 与 m3coor是二选一方案； m3agg 比起m3coor 为集群操作，可用性更高；</p>
+<p>但实际使用过程中发现很多点没有说清楚，觉得官网文档或者最佳时间甚少；</p>
+</blockquote>
+<ul>
+<li>m3agg配置问题</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># m3db offical docs 没有详细说明，只能一步步测试效果；</span><span class="w">
+</span><span class="w"></span><span class="c"># m3agg 只提供了以下可调整；</span><span class="w">
+</span><span class="w"></span><span class="c"># 但这是在相同namespaces生成高粒度样本点？</span><span class="w">
+</span><span class="w"></span><span class="k">defaultStoragePolicies</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- 1m<span class="p">:</span>192h<span class="w">
+</span><span class="w">    </span>- 5m<span class="p">:</span>192h<span class="w">
+</span><span class="w">    </span>- 1h<span class="p">:</span>192h<span class="w">
+</span><span class="w">    
+</span><span class="w"></span><span class="c"># 之前这样认为，因此query使用如下配置：</span><span class="w">
+</span><span class="w"></span><span class="k">clusters</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">namespaces</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">namespace</span><span class="p">:</span><span class="w"> </span>1week_namespace<span class="w">
+</span><span class="w">        </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>unaggregated<span class="w">
+</span><span class="w">        </span><span class="k">retention</span><span class="p">:</span><span class="w"> </span>48h<span class="w">
+</span><span class="w">
+</span><span class="w">      </span>- <span class="k">namespace</span><span class="p">:</span><span class="w"> </span>1week_namespace<span class="w">
+</span><span class="w">        </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>aggregated<span class="w">
+</span><span class="w">        </span><span class="k">retention</span><span class="p">:</span><span class="w"> </span>72h<span class="w">
+</span><span class="w">        </span><span class="k">resolution</span><span class="p">:</span><span class="w"> </span>1m<span class="w">
+</span><span class="w">
+</span><span class="w">      </span>- <span class="k">namespace</span><span class="p">:</span><span class="w"> </span>1week_namespace<span class="w">
+</span><span class="w">        </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>aggregated<span class="w">
+</span><span class="w">        </span><span class="k">retention</span><span class="p">:</span><span class="w"> </span>96h<span class="w">
+</span><span class="w">        </span><span class="k">resolution</span><span class="p">:</span><span class="w"> </span>5m<span class="w">
+</span><span class="w">        
+</span><span class="w"></span><span class="c"># 通过发批量查询响应时间并没有发现查询有任何提高，认为m3agg并未生成高压缩样本数据；</span><span class="w">
+</span><span class="w"></span><span class="c"># 但即使没有压缩，10s也是秒查3d数据，性能确实比thanos好很多；</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>既然m3agg没用，改为coor自己生成降样本数据；</p>
+<ul>
+<li>api create namespaces:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># http://m3dbnode:7201/api/v1/services/m3db/namespace</span><span class="w">
+</span><span class="w"></span>{<span class="w">
+</span><span class="w">  </span><span class="k">&#34;name&#34;: </span><span class="s2">&#34;namespace_1m_3d&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="k">&#34;options&#34;: </span>{<span class="w">
+</span><span class="w">    </span><span class="k">&#34;bootstrapEnabled&#34;: </span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="k">&#34;flushEnabled&#34;: </span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="k">&#34;writesToCommitLog&#34;: </span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="k">&#34;cleanupEnabled&#34;: </span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="k">&#34;repairEnabled&#34;: </span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="k">&#34;retentionOptions&#34;: </span>{<span class="w">
+</span><span class="w">      </span><span class="k">&#34;retentionPeriodDuration&#34;: </span><span class="s2">&#34;72h&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="k">&#34;blockSizeDuration&#34;: </span><span class="s2">&#34;3m&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="k">&#34;bufferFutureDuration&#34;: </span><span class="s2">&#34;2m&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="k">&#34;bufferPastDuration&#34;: </span><span class="s2">&#34;2m&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="k">&#34;blockDataExpiry&#34;: </span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="k">&#34;blockDataExpiryAfterNotAccessPeriodDuration&#34;: </span><span class="s2">&#34;5m&#34;</span><span class="w">
+</span><span class="w">    </span>}<span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="k">&#34;snapshotEnabled&#34;: </span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="k">&#34;indexOptions&#34;: </span>{<span class="w">
+</span><span class="w">      </span><span class="k">&#34;enabled&#34;: </span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="k">&#34;blockSizeDuration&#34;: </span><span class="s2">&#34;3m&#34;</span><span class="w">
+</span><span class="w">    </span>}<span class="w">
+</span><span class="w">  </span>}<span class="w">
+</span><span class="w"></span>}<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>m3coor增加响应写入配置；</li>
+<li>改为了m3coor直接写入粗时间粒度数据；</li>
+</ul>
+</li>
+</ul>
+<h2 id="配置生效问题">配置生效问题</h2>
+<blockquote>
+<p>m3dbnode config file &amp;&amp; api 哪个才生效？</p>
+<p>m3db多个组件配置文件看似没有生效，api？</p>
+</blockquote>
+<h2 id="修改namespace必须重启m3dbnode生效">修改namespace必须重启m3dbnode生效</h2>
+<blockquote>
+<p>修改namespace参数必须重启生效；</p>
+</blockquote>
+<h2 id="m3dbnode-重启后半天不提供read-write没问题">m3dbnode 重启后半天不提供read, write没问题</h2>
+<ul>
+<li>m3dbnode存储数据过多，index bootstrapper 长时间不启动；</li>
+<li>目前清空数据可解决，官网也为解决该问题；<a href="https://github.com/m3db/m3/issues/1969">Slow index bootstrapped</a></li>
+</ul>
+<h2 id="增加全局label">增加全局label</h2>
+<blockquote>
+<p>多pormetheus 发送相同数据给m3db, 增加global label:</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 全局label, 不会在target页面内展示；只用于alert、多集群拆分；
+global:
+  external_labels:
+    replica: test-sla
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="磁盘占用过多">磁盘占用过多</h2>
+<blockquote>
+<p>空间换时间的做法，即使agg后的数据，存储量仍然无法接受；</p>
+</blockquote>
 
     </div>
 
@@ -204,7 +415,11 @@
 <footer class="post-footer">
       
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/m3db-handle-deploy/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">M3db Handle Deploy</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
         <a class="next" href="/post/prometheus-restart-too-slow/">
             <span class="next-text nav-default">Prometheus Restart Too Slow</span>
             <span class="next-text nav-mobile">Next</span>
