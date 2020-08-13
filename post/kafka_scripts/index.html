@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>kafka_scripts - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="TianGou" /><meta name="description" content="Kafka 脚本简介 kafka 脚本使用方式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 [work@vm172-16-16-4 kafka_2.11-0.10.0.0]$ ls -1 bin/ connect-distributed.sh connect-standalone.sh kafka-acls.sh kafka-configs.sh kafka-console-consumer.sh kafka-console-producer.sh kafka-consumer-groups.sh kafka-consumer-offset-checker.sh kafka-consumer-perf-test.sh kafka-mirror-maker.s kafka-preferred-replica-election.sh kafka-producer-perf-test.sh kafka-reassign-partitions.sh kafka-replay-log-producer.sh kafka-replica-verification.sh kafka-run-class.sh kafka-server-start.sh kafka-server-stop.sh kafka-simple-consumer-shell.sh kafka-topics.sh # Topic 的增删" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.73.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/kafka_scripts/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="kafka_scripts" />
+<meta property="og:description" content="Kafka 脚本简介 kafka 脚本使用方式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 [work@vm172-16-16-4 kafka_2.11-0.10.0.0]$ ls -1 bin/ connect-distributed.sh connect-standalone.sh kafka-acls.sh kafka-configs.sh kafka-console-consumer.sh kafka-console-producer.sh kafka-consumer-groups.sh kafka-consumer-offset-checker.sh kafka-consumer-perf-test.sh kafka-mirror-maker.s kafka-preferred-replica-election.sh kafka-producer-perf-test.sh kafka-reassign-partitions.sh kafka-replay-log-producer.sh kafka-replica-verification.sh kafka-run-class.sh kafka-server-start.sh kafka-server-stop.sh kafka-simple-consumer-shell.sh kafka-topics.sh # Topic 的增删" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/kafka_scripts/" />
+<meta property="article:published_time" content="2018-07-20T16:06:17+08:00" />
+<meta property="article:modified_time" content="2018-07-20T16:06:17+08:00" />
+<meta itemprop="name" content="kafka_scripts">
+<meta itemprop="description" content="Kafka 脚本简介 kafka 脚本使用方式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 [work@vm172-16-16-4 kafka_2.11-0.10.0.0]$ ls -1 bin/ connect-distributed.sh connect-standalone.sh kafka-acls.sh kafka-configs.sh kafka-console-consumer.sh kafka-console-producer.sh kafka-consumer-groups.sh kafka-consumer-offset-checker.sh kafka-consumer-perf-test.sh kafka-mirror-maker.s kafka-preferred-replica-election.sh kafka-producer-perf-test.sh kafka-reassign-partitions.sh kafka-replay-log-producer.sh kafka-replica-verification.sh kafka-run-class.sh kafka-server-start.sh kafka-server-stop.sh kafka-simple-consumer-shell.sh kafka-topics.sh # Topic 的增删">
+<meta itemprop="datePublished" content="2018-07-20T16:06:17&#43;08:00" />
+<meta itemprop="dateModified" content="2018-07-20T16:06:17&#43;08:00" />
+<meta itemprop="wordCount" content="2226">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="kafka_scripts"/>
+<meta name="twitter:description" content="Kafka 脚本简介 kafka 脚本使用方式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 [work@vm172-16-16-4 kafka_2.11-0.10.0.0]$ ls -1 bin/ connect-distributed.sh connect-standalone.sh kafka-acls.sh kafka-configs.sh kafka-console-consumer.sh kafka-console-producer.sh kafka-consumer-groups.sh kafka-consumer-offset-checker.sh kafka-consumer-perf-test.sh kafka-mirror-maker.s kafka-preferred-replica-election.sh kafka-producer-perf-test.sh kafka-reassign-partitions.sh kafka-replay-log-producer.sh kafka-replica-verification.sh kafka-run-class.sh kafka-server-start.sh kafka-server-stop.sh kafka-simple-consumer-shell.sh kafka-topics.sh # Topic 的增删"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">TianGou</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">TianGou</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">kafka_scripts</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-07-20 </span>
+        
+          <span class="more-meta"> 2226 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#各脚本使用方法">各脚本使用方法</a>
+      <ul>
+        <li><a href="#kafka-topicssh">kafka-topics.sh</a></li>
+        <li><a href="#kafka-configssh">kafka-configs.sh</a></li>
+        <li><a href="#kafka-preferred-replica-electionsh">kafka-preferred-replica-election.sh</a></li>
+        <li><a href="#kafka-mirror-makersh">kafka-mirror-maker.sh</a></li>
+        <li><a href="#kafka-consumer-groupssh">kafka-consumer-groups.sh</a></li>
+      </ul>
+    </li>
+    <li><a href="#kafka-reassign-partitionssh">kafka-reassign-partitions.sh</a></li>
+    <li><a href="#kafka-producer-perf-testsh">kafka-producer-perf-test.sh</a></li>
+    <li><a href="#增加分区">增加分区</a></li>
+    <li><a href="#测试-producer--comsumer">测试 producer &amp; comsumer:</a>
+      <ul>
+        <li><a href="#kafka-consumer-groupssh-1">kafka-consumer-groups.sh</a></li>
+        <li><a href="#kafka-console-consumersh">kafka-console-consumer.sh</a></li>
+        <li><a href="#kafka-topicssh-1">kafka-topics.sh</a></li>
+        <li><a href="#kafka-reassign-partitionssh-1">kafka-reassign-partitions.sh</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="kafka-脚本简介">Kafka 脚本简介</h1>
+<p>kafka 脚本使用方式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Bash" data-lang="Bash"><span class="o">[</span>work@vm172-16-16-4 kafka_2.11-0.10.0.0<span class="o">]</span>$ ls -1 bin/
+connect-distributed.sh 
+connect-standalone.sh
+kafka-acls.sh
+kafka-configs.sh
+kafka-console-consumer.sh
+kafka-console-producer.sh
+kafka-consumer-groups.sh
+kafka-consumer-offset-checker.sh
+kafka-consumer-perf-test.sh
+kafka-mirror-maker.s
+kafka-preferred-replica-election.sh
+kafka-producer-perf-test.sh
+kafka-reassign-partitions.sh
+kafka-replay-log-producer.sh
+kafka-replica-verification.sh
+kafka-run-class.sh
+kafka-server-start.sh
+kafka-server-stop.sh
+kafka-simple-consumer-shell.sh
+kafka-topics.sh <span class="c1"># Topic 的增删查改</span>
+kafka-verifiable-consumer.sh
+kafka-verifiable-producer.sh
+windows <span class="c1"># windows 版脚本目录</span>
+zookeeper-security-migration.sh
+zookeeper-server-start.sh
+zookeeper-server-stop.sh
+zookeeper-shell.sh
+</code></pre></td></tr></table>
+</div>
+</div><p>直接运行脚本，不加任何参数可以显示该脚本的功能以及用法</p>
+<h2 id="各脚本使用方法">各脚本使用方法</h2>
+<h3 id="kafka-topicssh">kafka-topics.sh</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建 Topic</span>
+bin/kafka-topics.sh --zookeeper zk_host:port <span class="se">\
+</span><span class="se"></span>--create <span class="se">\
+</span><span class="se"></span>--topic my_topic_name <span class="se">\
+</span><span class="se"></span>--partitions <span class="m">20</span> <span class="se">\
+</span><span class="se"></span>--replication-factor <span class="m">3</span> <span class="se">\
+</span><span class="se"></span>--config <span class="nv">x</span><span class="o">=</span>y
+<span class="c1"># replication-factor 不能大于当前可用的 broker数</span>
+
+<span class="c1"># 修改 Topic</span>
+bin/kafka-topics.sh --zookeeper zk_host:port <span class="se">\
+</span><span class="se"></span>--alter <span class="se">\
+</span><span class="se"></span>--topic my_topic_name <span class="se">\
+</span><span class="se"></span>--partitions <span class="m">40</span>
+<span class="c1"># partition 数量只能增加不能减少</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="kafka-configssh">kafka-configs.sh</h3>
+<h4 id="修改配置">修改配置</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">bin/kafka-configs.sh --zookeeper localhost:2181 <span class="se">\
+</span><span class="se"></span>--entity-type topics <span class="se">\
+</span><span class="se"></span>--entity-name my-topic <span class="se">\
+</span><span class="se"></span>--alter <span class="se">\
+</span><span class="se"></span>--add-config max.message.bytes<span class="o">=</span><span class="m">128000</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>entity-type</strong> 指定修改配置的层级</li>
+<li><strong>entity-name</strong> 指定该层级下的某个实体，这里层级是 Tpoic 则对应的就是 Topic Name</li>
+<li><strong>alter</strong> 指定操作类型</li>
+<li><strong>add-config</strong> 操作类型为 <strong>增加</strong> (<code>max.message.bytes=128000</code> )</li>
+</ul>
+<p>如果配置存在需要修改也是用 <code>--add-config</code> 覆写</p>
+<h4 id="查看配置">查看配置</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">bin/kafka-configs.sh --zookeeper localhost:2181 <span class="se">\
+</span><span class="se"></span>--entity-type topics <span class="se">\
+</span><span class="se"></span>--entity-name my-topic <span class="se">\
+</span><span class="se"></span>--describe
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="删除配置">删除配置</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">bin/kafka-configs.sh --zookeeper localhost:2181 <span class="se">\
+</span><span class="se"></span>--entity-type topics <span class="se">\
+</span><span class="se"></span>--entity-name my-topic <span class="se">\
+</span><span class="se"></span>--alter <span class="se">\
+</span><span class="se"></span>--delete-config max.message.bytes
+</code></pre></td></tr></table>
+</div>
+</div><hr>
+<p>Topic 的配置信息存储在 zookeeper 的 <code>/config/topics/topic-name</code> 节点中，也可以直接通过 zookeeper 查看：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Bash" data-lang="Bash">$ zookeeper-client -server 172.16.16.8:2181
+<span class="o">[</span>zk: 172.16.16.8:2181<span class="o">(</span>CONNECTED<span class="o">)</span> 0<span class="o">]</span> ls /brokers/ids
+<span class="o">[</span>1003, 1002, 1001<span class="o">]</span>
+<span class="o">[</span>zk: 172.16.16.8:2181<span class="o">(</span>CONNECTED<span class="o">)</span> 2<span class="o">]</span> get /brokers/ids/1003
+<span class="o">{</span><span class="s2">&#34;jmx_port&#34;</span>:9999,<span class="s2">&#34;timestamp&#34;</span>:<span class="s2">&#34;1521785759103&#34;</span>,<span class="s2">&#34;endpoints&#34;</span>:<span class="o">[</span><span class="s2">&#34;PLAINTEXT://vm172-16-16-19.ksc.com:8004&#34;</span><span class="o">]</span>,<span class="s2">&#34;host&#34;</span>:<span class="s2">&#34;vm172-16-16-19.ksc.com&#34;</span>,<span class="s2">&#34;version&#34;</span>:3,<span class="s2">&#34;port&#34;</span>:8004<span class="o">}</span>
+<span class="nv">cZxid</span> <span class="o">=</span> 0x100002b9d
+<span class="nv">ctime</span> <span class="o">=</span> Fri Mar <span class="m">23</span> 14:15:59 CST <span class="m">2018</span>
+<span class="nv">mZxid</span> <span class="o">=</span> 0x100002b9d
+<span class="nv">mtime</span> <span class="o">=</span> Fri Mar <span class="m">23</span> 14:15:59 CST <span class="m">2018</span>
+<span class="nv">pZxid</span> <span class="o">=</span> 0x100002b9d
+<span class="nv">cversion</span> <span class="o">=</span> <span class="m">0</span>
+<span class="nv">dataVersion</span> <span class="o">=</span> <span class="m">0</span>
+<span class="nv">aclVersion</span> <span class="o">=</span> <span class="m">0</span>
+<span class="nv">ephemeralOwner</span> <span class="o">=</span> 0x1622415e8bf0004
+<span class="nv">dataLength</span> <span class="o">=</span> <span class="m">157</span>
+<span class="nv">numChildren</span> <span class="o">=</span> <span class="m">0</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="kafka-preferred-replica-electionsh">kafka-preferred-replica-election.sh</h3>
+<p>选举 partition leader 使其均匀分布在各 broker 上，默认情况下 auto.leader.rebalance.enable=true，不需要手动执行该脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">bin/kafka-preferred-replica-election.sh --zookeeper zk_host:port
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="kafka-mirror-makersh">kafka-mirror-maker.sh</h3>
+<p>集群镜像工具，用来迁移数据，原理就是在源集群这边放生产者，在目的集群放消费者，因此目的集群的 partition 数、 offset 可以和源集群的不一样</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Bash" data-lang="Bash">bin/kafka-mirror-maker.sh <span class="se">\
+</span><span class="se"></span>--consumer.config consumer.properties <span class="se">\
+</span><span class="se"></span>--producer.config producer.properties <span class="se">\
+</span><span class="se"></span>--whitelist my-topic
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>whitelist: 需要迁移的 Topic，支持正则表达式， 也可以使用 blacklist（new consumer 不能使用，默认是 old consumer， 通过 <code>--new.consumer</code> 可以使用新消费者客户端）</li>
+</ul>
+<h3 id="kafka-consumer-groupssh">kafka-consumer-groups.sh</h3>
+<p>Kafka 消费组管理工具</p>
+<h4 id="1-列出所有消费组">1. 列出所有消费组</h4>
+<p><strong>基于zookeeper 的客户端</strong>(不是使用 Java consumer API 的客户端)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">bin/kafka-consumer-groups.sh --zookeeper localhost:2181 <span class="se">\
+</span><span class="se"></span>--list
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>不是基于 zookeeper 的客户端</strong> (使用 Java consumer API 的客户端)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 <span class="se">\
+</span><span class="se"></span>--list <span class="se">\
+</span><span class="se"></span>--new-consumer
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="2-查看消费组的消费情况">2. 查看消费组的消费情况</h4>
+<p><strong>基于zookeeper 的客户端</strong>(不是使用 Java consumer API 的客户端)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">bin/kafka-consumer-groups.sh --zookeeper localhost:2181 <span class="se">\
+</span><span class="se"></span>--describe <span class="se">\
+</span><span class="se"></span>--group my-group
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>不是基于 zookeeper 的客户端</strong> (使用 Java consumer API 的客户端)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">bin/kafka-consumer-groups.sh --new-consumer <span class="se">\
+</span><span class="se"></span>--bootstrap-server localhost:9092 <span class="se">\
+</span><span class="se"></span>--describe <span class="se">\
+</span><span class="se"></span>--group my-group
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="3-显示给定-group-的消费延迟">3. 显示给定 group 的消费延迟</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># old consumer</span>
+bin/kafka-consumer-groups.sh --describe <span class="se">\
+</span><span class="se"></span>--zookeeper localhost:2181 <span class="se">\
+</span><span class="se"></span>--group perf-consumer-18955
+
+<span class="c1"># new consumer</span>
+bin/kafka-consumer-groups.sh --describe <span class="se">\
+</span><span class="se"></span>--bootstrap-server localhost:9092 <span class="se">\
+</span><span class="se"></span>--new-consumer <span class="se">\
+</span><span class="se"></span>--group group-id
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="kafka-reassign-partitionssh">kafka-reassign-partitions.sh</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">重新分配分区的工具，具有三个模式：
+- --generate: 给定 Topic 列表<span class="o">(</span><span class="sb">`</span>--topics-to-move-json-file<span class="sb">`</span><span class="o">)</span>和 Broker 列表<span class="o">(</span><span class="sb">`</span>--broker-list<span class="sb">`</span><span class="o">)</span>， 生产 partition 分配方案
+- --execute: 根据分配方案执行分区的迁移，方案可以是 <span class="sb">`</span>--generate<span class="sb">`</span> 生成的也可以自定义， 通过 <span class="sb">`</span>--reassignment-json-file<span class="sb">`</span> 指定
+- --verify：查看分区迁移的执行情况， 可以是 successfully completed, failed 或者 in progress
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="kafka-producer-perf-testsh">kafka-producer-perf-test.sh</h2>
+<p>生产端性能测试</p>
+<ul>
+<li>&ndash;topic： topic 名称</li>
+<li>&ndash;num-records： 消息数量</li>
+<li>&ndash;throughput： 吞吐量，每秒最多发送的消息数量</li>
+<li>&ndash;record-size： 消息大小</li>
+<li>&ndash;payload-file： 消息来源文件</li>
+<li>&ndash;payload-delimiter： 消息来源文件中分隔消息的符号（默认为换行符）</li>
+<li>&ndash;print-metrics： 测试结束后显示统计数据，默认 false</li>
+<li>&ndash;producer-props： 生产者相关配置 PROP-NAME=PROP-VALUE， 例如 bootstrap.servers 等等</li>
+<li>&ndash;producer.config： 存有生产者相关配置的文件</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ol>
+<li>&ndash;record-size 和 &ndash;payload-file 必须有一个但不能都有</li>
+<li>&ndash;producer-props 的优先级高于 &ndash;producer.config</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Bash" data-lang="Bash">bin/kafka-producer-perf-test.sh <span class="se">\
+</span><span class="se"></span>--topic test000 <span class="se">\
+</span><span class="se"></span>--num-records <span class="m">100000000</span> <span class="se">\
+</span><span class="se"></span>--record-size <span class="m">10</span> <span class="se">\
+</span><span class="se"></span>--throughput <span class="m">500000</span> <span class="se">\
+</span><span class="se"></span>--producer-props bootstrap.servers<span class="o">=</span>vm172-16-16-8.ksc.com:8000,vm172-16-16-16.ksc.com:8002,vm172-16-16-19.ksc.com:8004
+
+bin/kafka-producer-perf-test.sh <span class="se">\
+</span><span class="se"></span>--topic test000 <span class="se">\
+</span><span class="se"></span>--num-records <span class="m">10000</span> <span class="se">\
+</span><span class="se"></span>--record-size <span class="m">10</span> <span class="se">\
+</span><span class="se"></span>--throughput <span class="m">500</span> <span class="se">\
+</span><span class="se"></span>--producer-props bootstrap.servers<span class="o">=</span>vm10-46-29-40.ksc.com:9092
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="增加分区">增加分区</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Bash" data-lang="Bash">bin/kafka-topics.sh <span class="se">\
+</span><span class="se"></span>--alter <span class="se">\
+</span><span class="se"></span>--zookeeper localhost:2181 <span class="se">\
+</span><span class="se"></span>--partitions <span class="m">30</span> <span class="se">\
+</span><span class="se"></span>--topic topic1
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="测试-producer--comsumer">测试 producer &amp; comsumer:</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">创建生产者：
+bin/kafka-producer-perf-test.sh --topic dyf1 <span class="se">\
+</span><span class="se"></span>--num-records <span class="m">1000</span> <span class="se">\
+</span><span class="se"></span>--record-size <span class="m">10</span> <span class="se">\
+</span><span class="se"></span>--throughput <span class="m">10</span> <span class="se">\
+</span><span class="se"></span>--producer-props bootstrap.servers<span class="o">=</span>localhost:9092
+
+创建消费者：
+bin/kafka-console-consumer.sh --new-consumer <span class="se">\
+</span><span class="se"></span>--bootstrap-server localhost:9092 <span class="se">\
+</span><span class="se"></span>--topic dyf1
+
+查看消费情况：
+bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list --new-consumer
+
+
+bin/kafka-consumer-groups.sh --new-consumer <span class="se">\
+</span><span class="se"></span>--bootstrap-server localhost:9092 <span class="se">\
+</span><span class="se"></span>--group console-consumer-12485 <span class="se">\
+</span><span class="se"></span>--describe
+</code></pre></td></tr></table>
+</div>
+</div><hr>
+<h3 id="kafka-consumer-groupssh-1">kafka-consumer-groups.sh</h3>
+<ul>
+<li>
+<p>list consumer group:
+<code>bin/kafka-consumer-groups.sh --new-consumer --bootstrap-server localhost:8000  --list</code></p>
+</li>
+<li>
+<p>show consumer info:
+<code>bin/kafka-consumer-groups.sh --new-consumer --bootstrap-server localhost:8000  --describe</code></p>
+</li>
+</ul>
+<h3 id="kafka-console-consumersh">kafka-console-consumer.sh</h3>
+<ul>
+<li>create consumer(查看是否有实时消费数据)
+<code>bin/kafka-console-consumer.sh --new-consumer \ --bootstrap-server localhost:9092 \ --topic dyf1 [--from-beginning]</code></li>
+</ul>
+<h3 id="kafka-topicssh-1">kafka-topics.sh</h3>
+<ul>
+<li>
+<p>list topics
+<code>bin/kafka-topics.sh --zookeeper localhost:2181 --list</code></p>
+</li>
+<li>
+<p>show topic info:
+<code>bin/kafka-topics.sh --zookeeper 172.16.16.8:2181 --describe --topic kvision-log</code></p>
+</li>
+<li>
+<p>create topic:
+<code>bin/kafka-topics.sh --zookeeper 172.16.16.8:2181 --create --replication-factor 2 --partitions 4 --topic test_created_topic</code></p>
+</li>
+<li>
+<p>increase topic:
+(消费者数量⼤大于⽬目前tpoic的partition个数，则需要增加此topic的partition个数)
+<code>bin/kafka-topics.sh --alter --zookeeper localhost:2181 --partitions 8 --topic test_created_topic</code></p>
+</li>
+<li>
+<p>modify topic retention time:
+<code>bin/kafka-topics.sh --zookeeper 10.19.24.13:2181 --alter --topic kvision-log --config retention.ms=3600000</code></p>
+</li>
+</ul>
+<h3 id="kafka-reassign-partitionssh-1">kafka-reassign-partitions.sh</h3>
+<p>重新分配分区的工具，具有三个模式：</p>
+<ol>
+<li>generate: 给定 Topic 列表(–topics-to-move-json-file)和 Broker 列表(–broker-list)， 生产 partition 分配方案</li>
+<li>execute: 根据分配方案执行分区的迁移，方案可以是 –generate 生成的也可以自定义， 通过 –reassignment-json-file 指定</li>
+<li>verify：查看分区迁移的执行情况， 可以是 successfully completed, failed 或者 in progress</li>
+</ol>
+<p>例如测试环境下对test_created_topic进行重分片，具体操作：</p>
+<ol>
+<li>使用Kafka-topics.sh查看当前topic的分片状态，可以看到test_created_topic只分配在1001和1002两台broker上,现在想将此topic分配到1001，1002和1003上，首先手写一个json文件，列出想要重新分配的topic</li>
+</ol>
+<ul>
+<li>topiclist.json</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+<span class="nt">&#34;topics&#34;</span><span class="p">:</span> <span class="p">[{</span><span class="nt">&#34;topic&#34;</span><span class="p">:</span> <span class="s2">&#34;test_created_topic&#34;</span><span class="p">}],</span>
+<span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>执行指令</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">./bin/kafka-reassign-partitions.sh --zookeeper localhost:2181 <span class="se">\
+</span><span class="se"></span>--topics-to-move-json-file topiclist.json <span class="se">\
+</span><span class="se"></span>--broker-list <span class="s2">&#34;1001,1002,1003&#34;</span> --generate
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>指令执行完毕，会打印出如下信息：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">Current partition replica assignment
+ 
+<span class="o">{</span><span class="s2">&#34;version&#34;</span>:1,<span class="s2">&#34;partitions&#34;</span>:<span class="o">[{</span><span class="s2">&#34;topic&#34;</span>:<span class="s2">&#34;test_created_topic&#34;</span>,<span class="s2">&#34;partition&#34;</span>:0,<span class="s2">&#34;replicas&#34;</span>:<span class="o">[</span>1001,1002<span class="o">]}</span>,<span class="o">{</span><span class="s2">&#34;topic&#34;</span>:<span class="s2">&#34;test_created_topic&#34;</span>,<span class="s2">&#34;partition&#34;</span>:1,<span class="s2">&#34;replicas&#34;</span>:<span class="o">[</span>1002,1001<span class="o">]}</span>,<span class="o">{</span><span class="s2">&#34;topic&#34;</span>:<span class="s2">&#34;test_created_topic&#34;</span>,<span class="s2">&#34;partition&#34;</span>:3,<span class="s2">&#34;replicas&#34;</span>:<span class="o">[</span>1002,1001<span class="o">]}</span>,<span class="o">{</span><span class="s2">&#34;topic&#34;</span>:<span class="s2">&#34;test_created_topic&#34;</span>,<span class="s2">&#34;partition&#34;</span>:2,<span class="s2">&#34;replicas&#34;</span>:<span class="o">[</span>1001,1002<span class="o">]}]}</span>
+ 
+Proposed partition reassignment configuration
+ 
+<span class="o">{</span><span class="s2">&#34;version&#34;</span>:1,<span class="s2">&#34;partitions&#34;</span>:<span class="o">[{</span><span class="s2">&#34;topic&#34;</span>:<span class="s2">&#34;test_created_topic&#34;</span>,<span class="s2">&#34;partition&#34;</span>:0,<span class="s2">&#34;replicas&#34;</span>:<span class="o">[</span>1003,1001<span class="o">]}</span>,<span class="o">{</span><span class="s2">&#34;topic&#34;</span>:<span class="s2">&#34;test_created_topic&#34;</span>,<span class="s2">&#34;partition&#34;</span>:1,<span class="s2">&#34;replicas&#34;</span>:<span class="o">[</span>1001,1002<span class="o">]}</span>,<span class="o">{</span><span class="s2">&#34;topic&#34;</span>:<span class="s2">&#34;test_created_topic&#34;</span>,<span class="s2">&#34;partition&#34;</span>:3,<span class="s2">&#34;replicas&#34;</span>:<span class="o">[</span>1003,1002<span class="o">]}</span>,<span class="o">{</span><span class="s2">&#34;topic&#34;</span>:<span class="s2">&#34;test_created_topic&#34;</span>,<span class="s2">&#34;partition&#34;</span>:2,<span class="s2">&#34;replicas&#34;</span>:<span class="o">[</span>1002,1003<span class="o">]}]}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Current partition replica assignment表示当前的消息存储状况。Proposed partition reassignment configuration表示迁移后的消息存储状况。
+将迁移后的Proposed partition reassignment configuration这一部分的json存入一个文件 例如re.json，供–execute命令使用。</p>
+<ol start="3">
+<li>
+<p>执行–execute
+<code>bin/kafka-reassign-partitions.sh --zookeeper localhost:2181 --reassignment-json-file re.json --execute</code></p>
+</li>
+<li>
+<p>可以查看观察进度
+<code>/bin/kafka-reassign-partitions.sh --zookeeper localhost:2181 --reassignment-json-file re.json --verify</code></p>
+</li>
+<li>
+<p>确认完成：
+<code>bin/kafka-topics.sh --zookeeper 172.16.16.8:2181 --describe --topic kvision-log</code></p>
+</li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">TianGou</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2018-07-20
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/hello-world/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Hello World</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="comments-gitment"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitment = new Gitment({
+        id: '2018-07-20 16:06:17 \u002b0800 CST',
+        title: 'kafka_scripts',
+        link: decodeURI(location.href),
+        desc: 'Kafka 脚本简介 kafka 脚本使用方式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 [work@vm172-16-16-4 kafka_2.11-0.10.0.0]$ ls -1 bin\/ connect-distributed.sh connect-standalone.sh kafka-acls.sh kafka-configs.sh kafka-console-consumer.sh kafka-console-producer.sh kafka-consumer-groups.sh kafka-consumer-offset-checker.sh kafka-consumer-perf-test.sh kafka-mirror-maker.s kafka-preferred-replica-election.sh kafka-producer-perf-test.sh kafka-reassign-partitions.sh kafka-replay-log-producer.sh kafka-replica-verification.sh kafka-run-class.sh kafka-server-start.sh kafka-server-stop.sh kafka-simple-consumer-shell.sh kafka-topics.sh # Topic 的增删',
+        owner: 'duanyifei1937',
+        repo: 'duanyifei1937.github.io',
+        oauth: {
+          client_id: '91a1c0bf07645268f2f9',
+          client_secret: '6088010a8217040b1d52fea04e0f284c3fc1bbcc'
+        }
+      });
+      gitment.render('comments-gitment');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="duanyifei1937@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/duanyifei1937" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/191482708/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://duanyifei.gitbook.io/duanyifei/" class="iconfont icon-gitlab" title="gitlab"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">TianGou</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-173157756-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

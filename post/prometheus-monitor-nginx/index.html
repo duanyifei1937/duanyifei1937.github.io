@@ -49,7 +49,7 @@
 <meta itemprop="description" content="Prometheus Monitor Nginx 方案选择 prometheus监控nginx主要有以下两种： nginx-prometheus-exporter 只是对nginx_stub_status界面的转换，metrics单一，不">
 <meta itemprop="datePublished" content="2020-07-13T16:27:54&#43;08:00" />
 <meta itemprop="dateModified" content="2020-07-13T16:27:54&#43;08:00" />
-<meta itemprop="wordCount" content="1206">
+<meta itemprop="wordCount" content="450">
 
 
 
@@ -123,8 +123,8 @@
       <div class="post-meta">
         <span class="post-time"> 2020-07-13 </span>
         
-          <span class="more-meta"> 1206 words </span>
-          <span class="more-meta"> 3 mins read </span>
+          <span class="more-meta"> 450 words </span>
+          <span class="more-meta"> 1 min read </span>
         
       </div>
     </header>
@@ -134,11 +134,6 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#opreresty标准化安装">opreresty标准化安装</a>
-      <ul>
-        <li><a href="#kernel-variable">kernel variable</a></li>
-      </ul>
-    </li>
     <li><a href="#nginx-grafana-dashboard">nginx grafana dashboard</a></li>
   </ul>
 </nav>
@@ -231,198 +226,6 @@
 <td class="lntd">
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">nginx_http_api_requests_total{host=&#34;test.dyf.com&#34;,api=&#34;/&#34;,status=&#34;200&#34;} 5
 nginx_http_api_requests_total{host=&#34;test.dyf.com&#34;,api=&#34;/lua_content&#34;,status=&#34;200&#34;} 3
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="opreresty标准化安装">opreresty标准化安装</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum install wget gcc git pcre-devel openssl-devel gcc-c++ -y
-
-mkdir /data/src &amp;&amp; cd /data/src
-wget https://github.com/openresty/openresty/releases/download/v1.15.8.2/openresty-1.15.8.2.tar.gz
-wget https://github.com/openssl/openssl/archive/OpenSSL_1_0_2s.tar.gz
-wget https://ftp.pcre.org/pub/pcre/pcre-8.43.tar.gz
-tar -vxzf pcre-8.43.tar.gz
-tar -vzxf OpenSSL_1_0_2s.tar.gz
-tar -vzxf openresty-1.15.8.2.tar.gz
-cd openresty-1.15.8.2
- 
-# 1.13.6使用系统安装的prce包即可编译通过
-./configure --prefix=/data/openresty \
-    --with-http_stub_status_module \
-    --with-http_v2_module \
-    --with-http_realip_module \
-    --with-openssl=/data/src/openssl-OpenSSL_1_0_2s
- 
- 
-./configure --prefix=/data/openresty \
-    --with-http_stub_status_module \
-    --with-http_v2_module \
-    --with-http_realip_module \
-    --with-openssl=/data/src/openssl-OpenSSL_1_0_2s \
-    --with-pcre=/data/src/pcre-8.43
- 
-gmake
-gmake install
-
-# 报错解决
-# 缺少pcre-devel
-the HTTP rewrite module requires the PCRE library
-yum install -y pcre-devel
- 
-# 缺少openssl-devel
-./configure: error: SSL modules require the OpenSSL library.
-You can either do not enable the modules, or install the OpenSSL library
-into the system, or build the OpenSSL library statically from the source
-with nginx by using --with-openssl=&lt;path&gt; option.
-yum install -y openssl-devel
-
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="kernel-variable">kernel variable</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 关闭ipv6 CentOS 6 2.6内核无IPv6相关配置
-# net.ipv6.conf.all.disable_ipv6 = 1
-# net.ipv6.conf.default.disable_ipv6 = 1
-#开启路由转发
-net.ipv4.ip_forward = 1
-#core文件名中添加pid作为扩展名
-kernel.core_uses_pid = 1
-# 开启SYN洪水攻击保护
-net.ipv4.tcp_syncookies = 1
-#修改消息队列长度
-kernel.msgmnb = 65536
-kernel.msgmax = 65536
-#timewait的数量，默认180000
-net.ipv4.tcp_max_tw_buckets = 180000
-net.ipv4.tcp_sack = 1
-net.ipv4.tcp_window_scaling = 1
-# TCP读取缓冲区,单位Byte
-net.ipv4.tcp_rmem = 4096  87380   4194304
-# TCP发送缓冲区,单位Byte
-net.ipv4.tcp_wmem = 4096  16384  4194304
-net.core.wmem_default = 8388608
-net.core.rmem_default = 8388608
-net.core.rmem_max = 16777216
-net.core.wmem_max = 16777216
-#每个网络接口接收数据包的速率比内核处理这些包的速率快时，允许送到队列的数据包的最大数目
-net.core.netdev_max_backlog = 262144
-#限制仅仅是为了防止简单的DoS 攻击
-net.ipv4.tcp_max_orphans = 3276800
-#未收到客户端确认信息的连接请求的最大值
-net.ipv4.tcp_max_syn_backlog = 262144
-net.ipv4.tcp_timestamps = 0
-#内核放弃建立连接之前发送SYNACK 包的数量
-net.ipv4.tcp_synack_retries = 1
-#内核放弃建立连接之前发送SYN 包的数量
-net.ipv4.tcp_syn_retries = 1
-#启用timewait 快速回收
-#net.ipv4.tcp_tw_recycle = 1 ## 4.12内核已弃用
-#开启重用。允许将TIME-WAIT sockets 重新用于新的TCP 连接
-net.ipv4.tcp_tw_reuse = 1
-net.ipv4.tcp_fin_timeout = 1
-#当keepalive 起用的时候，TCP 发送keepalive 消息的频度。缺省是2 小时
-net.ipv4.tcp_keepalive_time = 30
-#允许系统打开的端口范围
-net.ipv4.ip_local_port_range = 10000 65000
-#系统中每个端口的最大监听队列的大小
-net.core.somaxconn = 2048
-#最大限度使用物理内存
-vm.swappiness = 0
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="nginx-grafana-dashboard">nginx grafana dashboard</h2>

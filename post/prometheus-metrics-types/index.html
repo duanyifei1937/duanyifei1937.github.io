@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="TianGou" /><meta name="description" content="四种核心数据类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="TianGou" /><meta name="description" content="四种指标类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例值；" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -40,22 +40,22 @@
 
 
 <meta property="og:title" content="Prometheus metrics Types" />
-<meta property="og:description" content="四种核心数据类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例" />
+<meta property="og:description" content="四种指标类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例值；" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/prometheus-metrics-types/" />
 <meta property="article:published_time" content="2020-07-27T10:44:21+08:00" />
 <meta property="article:modified_time" content="2020-07-27T10:44:21+08:00" />
 <meta itemprop="name" content="Prometheus metrics Types">
-<meta itemprop="description" content="四种核心数据类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例">
+<meta itemprop="description" content="四种指标类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例值；">
 <meta itemprop="datePublished" content="2020-07-27T10:44:21&#43;08:00" />
 <meta itemprop="dateModified" content="2020-07-27T10:44:21&#43;08:00" />
-<meta itemprop="wordCount" content="116">
+<meta itemprop="wordCount" content="121">
 
 
 
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Prometheus metrics Types"/>
-<meta name="twitter:description" content="四种核心数据类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例"/>
+<meta name="twitter:description" content="四种指标类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例值；"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -123,7 +123,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-07-27 </span>
         
-          <span class="more-meta"> 116 words </span>
+          <span class="more-meta"> 121 words </span>
           <span class="more-meta"> 1 min read </span>
         
       </div>
@@ -134,15 +134,14 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#四种核心数据类型">四种核心数据类型</a></li>
-    <li><a href="#histogram-vs-summary">Histogram vs Summary</a></li>
-    <li><a href="#count-and-sum-of-observations">Count and sum of observations</a></li>
+    <li><a href="#四种指标类型">四种指标类型</a></li>
+    <li><a href="#rate-vs-irate">rate() vs irate()</a></li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      <h2 id="四种核心数据类型">四种核心数据类型</h2>
+      <h2 id="四种指标类型">四种指标类型</h2>
 <ul>
 <li>Counter
 <ul>
@@ -168,16 +167,14 @@
 </ul>
 </li>
 </ul>
-<h2 id="histogram-vs-summary">Histogram vs Summary</h2>
+<h2 id="rate-vs-irate">rate() vs irate()</h2>
+<blockquote>
+<p>找个时间看下源码😿</p>
+</blockquote>
 <ul>
-<li>
-<h2 id="count-and-sum-of-observations">Count and sum of observations</h2>
-<ul>
-<li>够可为负值，不能使用<code>rate()</code>方法；</li>
-</ul>
-</li>
-<li></li>
-<li></li>
+<li>irate() 比 rate() 更加灵敏；</li>
+<li>Rate() 时间间隔点的每秒平均；</li>
+<li>irate() ~~</li>
 </ul>
 
     </div>
@@ -200,7 +197,11 @@
 <footer class="post-footer">
       
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/elasticsearch%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Elasticsearch备份恢复</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
         <a class="next" href="/post/m3db-migration-plan/">
             <span class="next-text nav-default">M3db Migration Plan</span>
             <span class="next-text nav-mobile">Next</span>
@@ -218,7 +219,7 @@
         id: '2020-07-27 10:44:21 \u002b0800 CST',
         title: 'Prometheus metrics Types',
         link: decodeURI(location.href),
-        desc: '四种核心数据类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例',
+        desc: '四种指标类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例值；',
         owner: 'duanyifei1937',
         repo: 'duanyifei1937.github.io',
         oauth: {

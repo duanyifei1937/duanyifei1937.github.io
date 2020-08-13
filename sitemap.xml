@@ -3,14 +3,98 @@
   
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2020-07-27T10:44:21+08:00</lastmod>
+    <lastmod>2020-08-13T21:41:13+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/nginx-issue/</loc>
+    <lastmod>2020-08-13T21:41:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2020-07-27T10:44:21+08:00</lastmod>
+    <lastmod>2020-08-13T21:41:13+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/nginx-ingress-grpc/</loc>
+    <lastmod>2020-08-13T19:31:40+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/k8s-resource-dashboard/</loc>
+    <lastmod>2020-08-13T17:29:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/openresty-install/</loc>
+    <lastmod>2020-08-13T10:26:10+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/nginx-lua%E5%AE%9E%E7%8E%B0dynamic-upstream/</loc>
+    <lastmod>2020-08-13T09:58:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/kafka%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E4%B8%8D%E4%B8%A2%E5%A4%B1/</loc>
+    <lastmod>2020-08-12T14:25:19+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/kafkacat-usage/</loc>
+    <lastmod>2020-08-12T09:51:27+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/logstash%E5%86%99%E5%85%A5elasticsearch%E5%A4%B1%E8%B4%A5/</loc>
+    <lastmod>2020-08-11T21:15:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/kafka%E9%AB%98%E5%8F%AF%E7%94%A8%E6%96%B9%E6%A1%88/</loc>
+    <lastmod>2020-08-05T19:27:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/etcd%E5%A4%87%E4%BB%BD%E5%8F%8A%E6%81%A2%E5%A4%8D-v3/</loc>
+    <lastmod>2020-08-05T19:25:35+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/victoriametrics/</loc>
+    <lastmod>2020-08-05T10:52:15+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/elasticsearch%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D/</loc>
+    <lastmod>2020-08-05T10:30:58+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -128,13 +212,6 @@
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/nginx-reload-action/</loc>
-    <lastmod>2020-07-07T10:27:27+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>http://localhost:1313/post/docker-network/</loc>
     <lastmod>2020-07-06T11:59:37+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -158,6 +235,13 @@
   <url>
     <loc>http://localhost:1313/post/hello-world/</loc>
     <lastmod>2020-07-01T15:24:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/kafka_scripts/</loc>
+    <lastmod>2018-07-20T16:06:17+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

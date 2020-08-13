@@ -6,10 +6,118 @@
     <description>Recent content on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 27 Jul 2020 10:44:21 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 13 Aug 2020 21:41:13 +0800</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Nginx Issue</title>
+      <link>http://localhost:1313/post/nginx-issue/</link>
+      <pubDate>Thu, 13 Aug 2020 21:41:13 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/nginx-issue/</guid>
+      <description>记录一些NGINX配置过程中需要注意的点 [toc] Ngx upstream proxy_pass 是否带 &amp;lsquo;/&amp;rsquo; 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 # 在nginx中配</description>
+    </item>
+    
+    <item>
+      <title>Nginx Ingress Grpc</title>
+      <link>http://localhost:1313/post/nginx-ingress-grpc/</link>
+      <pubDate>Thu, 13 Aug 2020 19:31:40 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/nginx-ingress-grpc/</guid>
+      <description>  https://github.com/kubernetes/ingress-nginx/tree/master/docs/examples/grpc  </description>
+    </item>
+    
+    <item>
+      <title>K8s Resource Dashboard</title>
+      <link>http://localhost:1313/post/k8s-resource-dashboard/</link>
+      <pubDate>Thu, 13 Aug 2020 17:29:03 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/k8s-resource-dashboard/</guid>
+      <description>自绘制Kubernetes Resource Dashboard 多图预警 包含指标内容 Reference https://www.replex.io/blog/kubernetes-in-production-the-ultimate-guide-to-monitoring-resource-metrics</description>
+    </item>
+    
+    <item>
+      <title>Openresty Install</title>
+      <link>http://localhost:1313/post/openresty-install/</link>
+      <pubDate>Thu, 13 Aug 2020 10:26:10 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/openresty-install/</guid>
+      <description>opreresty标准化安装 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 yum install wget gcc git pcre-devel openssl-devel gcc-c++ -y mkdir /data/src &amp;amp;&amp;amp; cd /data/src wget</description>
+    </item>
+    
+    <item>
+      <title>Nginx Lua实现dynamic Upstream</title>
+      <link>http://localhost:1313/post/nginx-lua%E5%AE%9E%E7%8E%B0dynamic-upstream/</link>
+      <pubDate>Thu, 13 Aug 2020 09:58:14 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/nginx-lua%E5%AE%9E%E7%8E%B0dynamic-upstream/</guid>
+      <description>需求说明 如图： 再多个Region部署了前置节点，每个前置区域都由slb + 2ngx接流量；全部回源到杭州，主线为aliyun cen 专线；备线采用调</description>
+    </item>
+    
+    <item>
+      <title>Kafka如何保证数据不丢失</title>
+      <link>http://localhost:1313/post/kafka%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E4%B8%8D%E4%B8%A2%E5%A4%B1/</link>
+      <pubDate>Wed, 12 Aug 2020 14:25:19 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/kafka%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E4%B8%8D%E4%B8%A2%E5%A4%B1/</guid>
+      <description>https://medium.com/real-time-streaming/apache-kafka-mirror-maker-1400efeca94d</description>
+    </item>
+    
+    <item>
+      <title>Kafkacat Usage</title>
+      <link>http://localhost:1313/post/kafkacat-usage/</link>
+      <pubDate>Wed, 12 Aug 2020 09:51:27 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/kafkacat-usage/</guid>
+      <description>Kafkacat 提供了CLI信息展示； Examples 查看kafka集群整体信息： -L kafkacat -b 192.168.150.68:9092 -L kafkacat -b 192.168.150.68:9092 -L -t test stdin and stdout测试数据produce and consumer: 1 2 3 tail-f/var/log/syslog|kafkacat-b192.168.150.68:9092-ttestkafkacat-b192.168.150.68:9092-ttest</description>
+    </item>
+    
+    <item>
+      <title>Logstash写入Elasticsearch失败</title>
+      <link>http://localhost:1313/post/logstash%E5%86%99%E5%85%A5elasticsearch%E5%A4%B1%E8%B4%A5/</link>
+      <pubDate>Tue, 11 Aug 2020 21:15:31 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/logstash%E5%86%99%E5%85%A5elasticsearch%E5%A4%B1%E8%B4%A5/</guid>
+      <description>logstash warning: 1 2 3 4 5 6 [2020-03-04T17:52:00,930][WARN][logstash.outputs.elasticsearch][main]CouldnotindexeventtoElasticsearch.{:status=&amp;gt;400,:action=&amp;gt;[&amp;#34;index&amp;#34;,{:_id=&amp;gt;nil,:_index=&amp;gt;&amp;#34;report-2020.03.04&amp;#34;,:_type=&amp;gt;&amp;#34;_doc&amp;#34;,:routing=&amp;gt;nil},#&amp;lt;LogStash::Event:0x1438208d&amp;gt;], :response=&amp;gt;{&amp;#34;index&amp;#34;=&amp;gt;{&amp;#34;_index&amp;#34;=&amp;gt;&amp;#34;report-2020.03.04&amp;#34;, &amp;#34;_type&amp;#34;=&amp;gt;&amp;#34;_doc&amp;#34;, &amp;#34;_id&amp;#34;=&amp;gt;&amp;#34;txf1pHABuH8mzvG1jeFy&amp;#34;, &amp;#34;status&amp;#34;=&amp;gt;400, &amp;#34;error&amp;#34;=&amp;gt;{&amp;#34;type&amp;#34;=&amp;gt;&amp;#34;mapper_parsing_exception&amp;#34;,&amp;#34;reason&amp;#34;=&amp;gt;&amp;#34;failed to parse field [content.warning] of type [long] in document with id &amp;#39;txf1pHABuH8mzvG1jeFy&amp;#39;. Preview of field&amp;#39;s value: &amp;#39;{warningMsg=当前视频播放出现卡顿324ms, warningCode=2105, extInfo=}&amp;#39;&amp;#34;,&amp;#34;caused_by&amp;#34;=&amp;gt;{&amp;#34;type&amp;#34;=&amp;gt;&amp;#34;i_o_exception&amp;#34;,&amp;#34;reason&amp;#34;=&amp;gt;&amp;#34;Current token (START_OBJECT) not numeric, can</description>
+    </item>
+    
+    <item>
+      <title>Kafka高可用方案</title>
+      <link>http://localhost:1313/post/kafka%E9%AB%98%E5%8F%AF%E7%94%A8%E6%96%B9%E6%A1%88/</link>
+      <pubDate>Wed, 05 Aug 2020 19:27:20 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/kafka%E9%AB%98%E5%8F%AF%E7%94%A8%E6%96%B9%E6%A1%88/</guid>
+      <description>kafka集群本身是高可用的(Replication的使用)； 同时提供跨cluster(或者叫跨datacenter)的message镜像复</description>
+    </item>
+    
+    <item>
+      <title>Etcd备份及恢复-v3</title>
+      <link>http://localhost:1313/post/etcd%E5%A4%87%E4%BB%BD%E5%8F%8A%E6%81%A2%E5%A4%8D-v3/</link>
+      <pubDate>Wed, 05 Aug 2020 19:25:35 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/etcd%E5%A4%87%E4%BB%BD%E5%8F%8A%E6%81%A2%E5%A4%8D-v3/</guid>
+      <description>V3.4.9 etcd etcd数据备份 snapshot 1 2 3 4 # Snapshot can only be requested from one etcd nodeENDPOINTS=$HOST_1:2379etcdctl--endpoints=$ENDPOINTSsnapshotsavemy.db 查看快照文件信息 1 etcdctl--write-out=table--endpoints=$ENDPOINTSsnapshotstatusmy.db etcd数据恢复 生成snapshot后可以在本地恢复，或者在新集群注入</description>
+    </item>
+    
+    <item>
+      <title>VictoriaMetrics</title>
+      <link>http://localhost:1313/post/victoriametrics/</link>
+      <pubDate>Wed, 05 Aug 2020 10:52:15 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/victoriametrics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch备份恢复</title>
+      <link>http://localhost:1313/post/elasticsearch%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D/</link>
+      <pubDate>Wed, 05 Aug 2020 10:30:58 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/elasticsearch%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D/</guid>
+      <description>es集群数据导出备份、增量备份、数据灌入与恢复； 备份方式 Snapshot and restore 针对指定indices做增量快照、及恢复； 主要用于indices数据损坏(本集</description>
+    </item>
     
     <item>
       <title>Prometheus metrics Types</title>
@@ -17,7 +125,7 @@
       <pubDate>Mon, 27 Jul 2020 10:44:21 +0800</pubDate>
       
       <guid>http://localhost:1313/post/prometheus-metrics-types/</guid>
-      <description>四种核心数据类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例</description>
+      <description>四种指标类型 Counter 单调递增 重启重置为0 Guage 上下浮动值； 也用于计数(并发数上升、下降值) Histogram 百分位数计算； Summary 和Histogram类似； 参数值为 比例值；</description>
     </item>
     
     <item>
@@ -156,15 +264,6 @@
     </item>
     
     <item>
-      <title>Nginx Reload Action</title>
-      <link>http://localhost:1313/post/nginx-reload-action/</link>
-      <pubDate>Tue, 07 Jul 2020 10:27:27 +0800</pubDate>
-      
-      <guid>http://localhost:1313/post/nginx-reload-action/</guid>
-      <description>Nginx Reload 发生了什么动作？ 经常强调业务高峰期不能随意 nginx reload, 那reload 究竟做了什么动作？</description>
-    </item>
-    
-    <item>
       <title>Docker Network</title>
       <link>http://localhost:1313/post/docker-network/</link>
       <pubDate>Mon, 06 Jul 2020 11:59:37 +0800</pubDate>
@@ -198,6 +297,15 @@
       
       <guid>http://localhost:1313/post/hello-world/</guid>
       <description>hello world~ 包括但不限于可能会写到： 技术类、生活感触、读书记录 .etc.</description>
+    </item>
+    
+    <item>
+      <title>kafka_scripts</title>
+      <link>http://localhost:1313/post/kafka_scripts/</link>
+      <pubDate>Fri, 20 Jul 2018 16:06:17 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/kafka_scripts/</guid>
+      <description>Kafka 脚本简介 kafka 脚本使用方式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 [work@vm172-16-16-4 kafka_2.11-0.10.0.0]$ ls -1 bin/ connect-distributed.sh connect-standalone.sh kafka-acls.sh kafka-configs.sh kafka-console-consumer.sh kafka-console-producer.sh kafka-consumer-groups.sh kafka-consumer-offset-checker.sh kafka-consumer-perf-test.sh kafka-mirror-maker.s kafka-preferred-replica-election.sh kafka-producer-perf-test.sh kafka-reassign-partitions.sh kafka-replay-log-producer.sh kafka-replica-verification.sh kafka-run-class.sh kafka-server-start.sh kafka-server-stop.sh kafka-simple-consumer-shell.sh kafka-topics.sh # Topic 的增删</description>
     </item>
     
   </channel>
