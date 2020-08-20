@@ -6,10 +6,29 @@
     <description>Recent content on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 13 Aug 2020 21:41:13 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 18 Aug 2020 17:06:32 +0800</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ngx Modify Upstream Keepalive_timeout Not Work</title>
+      <link>http://localhost:1313/post/ngx-modify-upstream-keepalive_timeout-not-work/</link>
+      <pubDate>Tue, 18 Aug 2020 17:06:32 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/ngx-modify-upstream-keepalive_timeout-not-work/</guid>
+      <description>nginx upstream 修改Keepalive_timeout 不生效； nginx 作为代理连接upstream上游时，默认使用http1.0, 不能建立ngx &amp;ndash;&amp;gt; upstre</description>
+    </item>
+    
+    <item>
+      <title>Nginx Lua Learning</title>
+      <link>http://localhost:1313/post/nginx-lua-learning/</link>
+      <pubDate>Fri, 14 Aug 2020 10:40:58 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/nginx-lua-learning/</guid>
+      <description>Nginx 11 Steps  https://www.cnblogs.com/zhenyuyaodidiao/p/9288430.html  NGINX Variables  http://blog.sina.com.cn/s/articlelist_1834459124_1_1.html
+  nginx variable  Reference  https://github.com/openresty/nginx-tutorials  </description>
+    </item>
     
     <item>
       <title>Nginx Issue</title>
@@ -35,7 +54,7 @@
       <pubDate>Thu, 13 Aug 2020 17:29:03 +0800</pubDate>
       
       <guid>http://localhost:1313/post/k8s-resource-dashboard/</guid>
-      <description>自绘制Kubernetes Resource Dashboard 多图预警 包含指标内容 Reference https://www.replex.io/blog/kubernetes-in-production-the-ultimate-guide-to-monitoring-resource-metrics</description>
+      <description>自绘制Kubernetes Resource Dashboard 多图预警 包含指标内容 request &amp;amp; limit &amp;amp; current &amp;amp; total metrics: cpu mem target: containers pod node namespace cluster Option: request limit current usage Capacity resource saturation Note: 排除资源预留； Ratio 比例； 1 2 3 4 5 6 7 8 9</description>
     </item>
     
     <item>
@@ -297,6 +316,15 @@
       
       <guid>http://localhost:1313/post/hello-world/</guid>
       <description>hello world~ 包括但不限于可能会写到： 技术类、生活感触、读书记录 .etc.</description>
+    </item>
+    
+    <item>
+      <title>Nginx Upstream Health Check</title>
+      <link>http://localhost:1313/post/nginx-upstream-health-check/</link>
+      <pubDate>Tue, 14 Aug 2018 11:39:58 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/nginx-upstream-health-check/</guid>
+      <description>Nginx Upstream Healch Check 背景 解决无损上线及Nginx-upstream后端层故障； 目前配置及存在的问题 1 2 3 4 5 6 7 8 9 10 11 12 13 server { listen 80; server_name internal.abc.net; location /dw { proxy_pass http://internal-ai-dw; } } upstream</description>
     </item>
     
     <item>

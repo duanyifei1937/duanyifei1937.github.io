@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="TianGou" /><meta name="description" content="自绘制Kubernetes Resource Dashboard 多图预警 包含指标内容 Reference https://www.replex.io/blog/kubernetes-in-production-the-ultimate-guide-to-monitoring-resource-metrics" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="TianGou" /><meta name="description" content="自绘制Kubernetes Resource Dashboard 多图预警 包含指标内容 request &amp;amp; limit &amp;amp; current &amp;amp; total metrics: cpu mem target: containers pod node namespace cluster Option: request limit current usage Capacity resource saturation Note: 排除资源预留； Ratio 比例； 1 2 3 4 5 6 7 8 9" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -40,22 +40,22 @@
 
 
 <meta property="og:title" content="K8s Resource Dashboard" />
-<meta property="og:description" content="自绘制Kubernetes Resource Dashboard 多图预警 包含指标内容 Reference https://www.replex.io/blog/kubernetes-in-production-the-ultimate-guide-to-monitoring-resource-metrics" />
+<meta property="og:description" content="自绘制Kubernetes Resource Dashboard 多图预警 包含指标内容 request &amp; limit &amp; current &amp; total metrics: cpu mem target: containers pod node namespace cluster Option: request limit current usage Capacity resource saturation Note: 排除资源预留； Ratio 比例； 1 2 3 4 5 6 7 8 9" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/k8s-resource-dashboard/" />
 <meta property="article:published_time" content="2020-08-13T17:29:03+08:00" />
 <meta property="article:modified_time" content="2020-08-13T17:29:03+08:00" />
 <meta itemprop="name" content="K8s Resource Dashboard">
-<meta itemprop="description" content="自绘制Kubernetes Resource Dashboard 多图预警 包含指标内容 Reference https://www.replex.io/blog/kubernetes-in-production-the-ultimate-guide-to-monitoring-resource-metrics">
+<meta itemprop="description" content="自绘制Kubernetes Resource Dashboard 多图预警 包含指标内容 request &amp; limit &amp; current &amp; total metrics: cpu mem target: containers pod node namespace cluster Option: request limit current usage Capacity resource saturation Note: 排除资源预留； Ratio 比例； 1 2 3 4 5 6 7 8 9">
 <meta itemprop="datePublished" content="2020-08-13T17:29:03&#43;08:00" />
 <meta itemprop="dateModified" content="2020-08-13T17:29:03&#43;08:00" />
-<meta itemprop="wordCount" content="27">
+<meta itemprop="wordCount" content="216">
 
 
 
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="K8s Resource Dashboard"/>
-<meta name="twitter:description" content="自绘制Kubernetes Resource Dashboard 多图预警 包含指标内容 Reference https://www.replex.io/blog/kubernetes-in-production-the-ultimate-guide-to-monitoring-resource-metrics"/>
+<meta name="twitter:description" content="自绘制Kubernetes Resource Dashboard 多图预警 包含指标内容 request &amp; limit &amp; current &amp; total metrics: cpu mem target: containers pod node namespace cluster Option: request limit current usage Capacity resource saturation Note: 排除资源预留； Ratio 比例； 1 2 3 4 5 6 7 8 9"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -123,7 +123,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-08-13 </span>
         
-          <span class="more-meta"> 27 words </span>
+          <span class="more-meta"> 216 words </span>
           <span class="more-meta"> 1 min read </span>
         
       </div>
@@ -146,7 +146,220 @@
 <p>多图预警</p>
 </blockquote>
 <h2 id="包含指标内容">包含指标内容</h2>
-<h2 id="reference">Reference</h2>
+<p>request &amp; limit &amp; current  &amp; total</p>
+<ul>
+<li>
+<p>metrics:</p>
+<ul>
+<li>cpu</li>
+<li>mem</li>
+</ul>
+</li>
+<li>
+<p>target:</p>
+<ul>
+<li>containers</li>
+<li>pod</li>
+<li>node</li>
+<li>namespace</li>
+<li>cluster</li>
+</ul>
+</li>
+<li>
+<p>Option:</p>
+<ul>
+<li>request</li>
+<li>limit</li>
+<li>current usage</li>
+<li>Capacity</li>
+<li>resource saturation</li>
+</ul>
+</li>
+<li>
+<p>Note:</p>
+<ul>
+<li>排除资源预留；</li>
+<li>Ratio 比例；</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">- <span class="k">usage</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">all pod cpu usage</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>sum(rate(container_cpu_usage_seconds_total{container_name!=<span class="s2">&#34;POD&#34;</span><span class="p">,</span>pod_name!=<span class="s2">&#34;&#34;</span>}<span class="p">[</span>5m<span class="p">]</span>))<span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- <span class="k">indiviual instance of each container</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>rate(container_cpu_usage_seconds_total{container_name!=<span class="s2">&#34;POD&#34;</span><span class="p">,</span>pod_name!=<span class="s2">&#34;&#34;</span>}<span class="p">[</span>5m<span class="p">]</span>)<span class="w">
+</span><span class="w">    </span>sum(rate(container_cpu_usage_seconds_total{container_name!=<span class="s2">&#34;POD&#34;</span><span class="p">,</span>pod_name!=<span class="s2">&#34;&#34;</span>}<span class="p">[</span>5m<span class="p">]</span>))<span class="w"> </span>by<span class="w"> </span>(container_name)<span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- <span class="k">indiviual instance of each pod</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>sum(rate(container_cpu_usage_seconds_total{container_name!=<span class="s2">&#34;POD&#34;</span><span class="p">,</span>pod_name!=<span class="s2">&#34;&#34;</span>}<span class="p">[</span>5m<span class="p">]</span>))<span class="w"> </span>by<span class="w"> </span>(pod_name)<span class="w"> 
+</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- <span class="k">namespace</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>sum(rate(container_cpu_usage_seconds_total{container_name!=<span class="s2">&#34;POD&#34;</span><span class="p">,</span>namespace!=<span class="s2">&#34;&#34;</span>}<span class="p">[</span>5m<span class="p">]</span>))<span class="w"> </span>by<span class="w"> </span>(namespace)<span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- <span class="k">k8s mem</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>sum(container_memory_usage_bytes{container_name!=<span class="s2">&#34;POD&#34;</span><span class="p">,</span>container_name!=<span class="s2">&#34;&#34;</span>})<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- <span class="k">node mem</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>sum(container_memory_usage_bytes{container_name!=<span class="s2">&#34;POD&#34;</span><span class="p">,</span>container_name!=<span class="s2">&#34;&#34;</span>})<span class="w"> </span>by<span class="w"> </span>(node)<span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">request</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">all</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>sum(kube_pod_container_resource_requests_cpu_cores)<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- <span class="k">pod</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>sum(kube_pod_container_resource_requests_cpu_cores)<span class="w"> </span>by<span class="w"> </span>(pod)<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- <span class="k">namespace</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>sum(kube_pod_container_resource_requests_cpu_cores)<span class="w"> </span>by<span class="w"> </span>(namespace)<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- <span class="k">k8s mem</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>sum(kube_pod_container_resource_requests_memory_bytes)<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- <span class="k">node mem</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>sum(kube_pod_container_resource_requests_memory_bytes)<span class="w"> </span>by<span class="w"> </span>(node)<span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">limit</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">all containers</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>sum(kube_pod_container_resource_limits_cpu_cores)<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- <span class="k">namespace</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>sum(kube_pod_container_resource_limits_cpu_cores)<span class="w"> </span>by<span class="w"> </span>(namespace)<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- <span class="k">k8s mem</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>sum(kube_pod_container_resource_limits_memory_bytes)<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- <span class="k">node mem</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>sum(kube_pod_container_resource_limits_memory_bytes)<span class="w"> </span>by<span class="w"> </span>(node)<span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- <span class="k">limit Commitment</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>(sum(kube_pod_container_resource_limits_memory_bytes)<span class="w"> </span>/<span class="w"> </span><span class="p">:</span>node_memory_MemTotal<span class="p">:</span>sum)<span class="cp">*100</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">request</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">cpu request commitment</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>sum(kube_pod_container_resource_requests_cpu_cores)<span class="w"> </span>/<span class="w"> </span>sum(node<span class="p">:</span>node_num_cpu<span class="p">:</span>sum)<span class="cp">*100</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- <span class="k">node</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>(sum(kube_pod_container_resource_requests_cpu_cores)<span class="w">  </span>by<span class="w"> </span>(node)<span class="w"> </span>/<span class="w"> </span>node<span class="p">:</span>node_num_cpu<span class="p">:</span>sum)<span class="cp">*100</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">Saturation(饱和度)</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">k8s</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>sum(node_load1)<span class="w"> </span>by<span class="w"> </span>(node)<span class="w"> </span>/<span class="w"> </span>count(node_cpu{mode=<span class="s2">&#34;system&#34;</span>})<span class="w"> </span>by<span class="w"> </span>(node)<span class="cp">*100</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- <span class="k">node</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>node<span class="p">:</span>node_cpu_saturation_load1<span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- capacity<span class="w">
+</span><span class="w"></span>- current<span class="w"> </span>usage<span class="w">
+</span><span class="w"></span>- request<span class="w">
+</span><span class="w"></span>- limit<span class="w">
+</span><span class="w"></span>- resource<span class="w"> </span>saturation<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="reference">Reference</h2>
 <ul>
 <li><a href="https://www.replex.io/blog/kubernetes-in-production-the-ultimate-guide-to-monitoring-resource-metrics">https://www.replex.io/blog/kubernetes-in-production-the-ultimate-guide-to-monitoring-resource-metrics</a></li>
 </ul>
@@ -193,7 +406,7 @@
         id: '2020-08-13 17:29:03 \u002b0800 CST',
         title: 'K8s Resource Dashboard',
         link: decodeURI(location.href),
-        desc: '自绘制Kubernetes Resource Dashboard 多图预警 包含指标内容 Reference https:\/\/www.replex.io\/blog\/kubernetes-in-production-the-ultimate-guide-to-monitoring-resource-metrics',
+        desc: '自绘制Kubernetes Resource Dashboard 多图预警 包含指标内容 request \u0026amp; limit \u0026amp; current \u0026amp; total metrics: cpu mem target: containers pod node namespace cluster Option: request limit current usage Capacity resource saturation Note: 排除资源预留； Ratio 比例； 1 2 3 4 5 6 7 8 9',
         owner: 'duanyifei1937',
         repo: 'duanyifei1937.github.io',
         oauth: {

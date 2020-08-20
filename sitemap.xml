@@ -3,20 +3,34 @@
   
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2020-08-13T21:41:13+08:00</lastmod>
+    <lastmod>2020-08-18T17:06:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://localhost:1313/post/nginx-issue/</loc>
-    <lastmod>2020-08-13T21:41:13+08:00</lastmod>
+    <loc>http://localhost:1313/post/ngx-modify-upstream-keepalive_timeout-not-work/</loc>
+    <lastmod>2020-08-18T17:06:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://localhost:1313/post/</loc>
+    <lastmod>2020-08-18T17:06:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/nginx-lua-learning/</loc>
+    <lastmod>2020-08-14T10:40:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/nginx-issue/</loc>
     <lastmod>2020-08-13T21:41:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -235,6 +249,13 @@
   <url>
     <loc>http://localhost:1313/post/hello-world/</loc>
     <lastmod>2020-07-01T15:24:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/nginx-upstream-health-check/</loc>
+    <lastmod>2018-08-14T11:39:58+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
