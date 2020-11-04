@@ -39,15 +39,6 @@
     </item>
     
     <item>
-      <title>Nginx Move</title>
-      <link>http://localhost:1313/post/nginx-move/</link>
-      <pubDate>Tue, 01 Sep 2020 11:13:22 +0800</pubDate>
-      
-      <guid>http://localhost:1313/post/nginx-move/</guid>
-      <description>20200902 线上业务Nginx动静态分离 操作涉及 Dynamic-web 由两台增加到四台； 大概~20个slb(业务slb + 安全slb) 下挂节点由web1+web4 改为4台d</description>
-    </item>
-    
-    <item>
       <title></title>
       <link>http://localhost:1313/post/%E4%B8%BA%E4%BA%86%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E4%BA%86%E4%B8%80%E4%B8%AA%E7%B3%BB%E7%BB%9F/</link>
       <pubDate>Fri, 28 Aug 2020 09:04:08 +0800</pubDate>
