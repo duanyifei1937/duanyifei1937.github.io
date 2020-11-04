@@ -45,7 +45,7 @@
 <meta property="og:description" content="TianGou Lee&#39;s Blog" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://localhost:1313/" />
-<meta property="og:updated_time" content="2020-08-18T17:06:32+08:00" />
+<meta property="og:updated_time" content="2020-11-04T21:06:13+08:00" />
 <meta itemprop="name" content="Even - A super concise theme for Hugo">
 <meta itemprop="description" content="TianGou Lee&#39;s Blog"><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Even - A super concise theme for Hugo"/>
@@ -110,6 +110,132 @@
       <div class="content-wrapper">
         <div id="content" class="content">
           <section id="posts" class="posts">
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/m3db-query-bug/">M3db Query Bug</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-07-14 </span>
+      
+        <span class="more-meta"> 677 words </span>
+        <span class="more-meta"> 2 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      M3DB Query Bug 被一个诡异的问题困惑很长时间； 问题描述 两dashboard相同查询语句，不同数据源(thanos and m3db)； 四条查询中，第二条数据查
+    </div>
+    <div class="read-more">
+      <a href="/post/m3db-query-bug/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/prometheus-monitor-nginx/">Prometheus Monitor Nginx</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-07-13 </span>
+      
+        <span class="more-meta"> 450 words </span>
+        <span class="more-meta"> 1 min read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Prometheus Monitor Nginx 方案选择 prometheus监控nginx主要有以下两种： nginx-prometheus-exporter 只是对nginx_stub_status界面的转换，metrics单一，不
+    </div>
+    <div class="read-more">
+      <a href="/post/prometheus-monitor-nginx/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/lets-encrypt/">Lets Encrypt</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-07-08 </span>
+      
+        <span class="more-meta"> 365 words </span>
+        <span class="more-meta"> 1 min read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Let&rsquo;s Encrypt Create Free Certificates 使用let&rsquo;s encrypt以下两种验证方式： web-server验证方式 Certbot 必须部署在同web-server, 外部se
+    </div>
+    <div class="read-more">
+      <a href="/post/lets-encrypt/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/ingress-four-layer-loadbalance/">Ingress Four Layer Loadbalance</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-07-08 </span>
+      
+        <span class="more-meta"> 192 words </span>
+        <span class="more-meta"> 1 min read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Nginx Ingress 实现四层负载 自定义ep实现配置： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 apiVersion:v1kind:Endpointsmetadata:name:m3-query-testnamespace:devopssubsets:- addresses:- hostname:cn-hz-h-comm-m3-00ip:10.111.146.239ports:- name:httpport:7231- addresses:- hostname:cn-hz-h-comm-m3-01ip:10.111.146.240ports:-
+    </div>
+    <div class="read-more">
+      <a href="/post/ingress-four-layer-loadbalance/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/cert-manager/">Cert Manager</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-07-07 </span>
+      
+        <span class="more-meta"> 59 words </span>
+        <span class="more-meta"> 1 min read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      k8s原生证书管理工具，支持Let’s Encrypt, HashiCorp Vault, Venafi，self signed; 1 2 3 $kgetapiserviceNAMESERVICEAVAILABLEAGEv1alpha1.acme.yourcompany.comcert-manager/alidns-webhookFalse(FailedDiscoveryCheck)2m35s 1 2 3 4 5 6 7 8 Status:Conditions:Last Transition Time:2020-07-29T07:08:44ZMessage: failing or missing response from https://10.254.246.95:443: bad status from https://10.254.246.95:443:403Reason:FailedDiscoveryCheckStatus:FalseType:AvailableEvents:&lt;none&gt;
+    </div>
+    <div class="read-more">
+      <a href="/post/cert-manager/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/consul-template/">Consul Template</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-07-07 </span>
+      
+        <span class="more-meta"> 342 words </span>
+        <span class="more-meta"> 1 min read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Consul Template 作用 从consul拿到KV, 动态渲染config file. 发现集群内instance and service instance list; 应用 prometheus dynamic rule 1 2 3 4 5 6 7 8 9 10 11 $command=/usr/sbin/consul-template-consul-addr=1.2.3.4:80-template=&#34;/data/prometheus-2.7.1.linux-amd64/templates/alerts.ctmpl:/data/prometheus-2.7.1.linux-amd64/services/alerts.yml:curl -X POST http://1.2.3.4:9090/-/reload&#34;$catalerts.ctmplgroups:{{rangetree&#34;alerts/service/&#34;-}}{{- .Value}}{{- end}}# 修改ru
+    </div>
+    <div class="read-more">
+      <a href="/post/consul-template/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
     <article class="post">
   <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/docker-network/">Docker Network</a></h1>
@@ -194,48 +320,6 @@
   </div>
 </article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/nginx-upstream-health-check/">Nginx Upstream Health Check</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-08-14 </span>
-      
-        <span class="more-meta"> 2944 words </span>
-        <span class="more-meta"> 6 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Nginx Upstream Healch Check 背景 解决无损上线及Nginx-upstream后端层故障； 目前配置及存在的问题 1 2 3 4 5 6 7 8 9 10 11 12 13 server { listen 80; server_name internal.abc.net; location /dw { proxy_pass http://internal-ai-dw; } } upstream
-    </div>
-    <div class="read-more">
-      <a href="/post/nginx-upstream-health-check/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/kafka_scripts/">kafka_scripts</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-07-20 </span>
-      
-        <span class="more-meta"> 2226 words </span>
-        <span class="more-meta"> 5 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Kafka 脚本简介 kafka 脚本使用方式 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 [work@vm172-16-16-4 kafka_2.11-0.10.0.0]$ ls -1 bin/ connect-distributed.sh connect-standalone.sh kafka-acls.sh kafka-configs.sh kafka-console-consumer.sh kafka-console-producer.sh kafka-consumer-groups.sh kafka-consumer-offset-checker.sh kafka-consumer-perf-test.sh kafka-mirror-maker.s kafka-preferred-replica-election.sh kafka-producer-perf-test.sh kafka-reassign-partitions.sh kafka-replay-log-producer.sh kafka-replica-verification.sh kafka-run-class.sh kafka-server-start.sh kafka-server-stop.sh kafka-simple-consumer-shell.sh kafka-topics.sh # Topic 的增删
-    </div>
-    <div class="read-more">
-      <a href="/post/kafka_scripts/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
     </section>
   
   <nav class="pagination">
@@ -243,7 +327,10 @@
         <i class="iconfont icon-left"></i>
         <span class="prev-text">Prev</span>
       </a>
-    
+    <a class="next" href="/page/5/">
+        <span class="next-text">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
   </nav>
         </div>
         

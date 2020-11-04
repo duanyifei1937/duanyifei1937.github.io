@@ -49,7 +49,7 @@
 <meta itemprop="description" content="记录一些NGINX配置过程中需要注意的点 [toc] Ngx upstream proxy_pass 是否带 &lsquo;/&rsquo; 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 # 在nginx中配">
 <meta itemprop="datePublished" content="2020-08-13T21:41:13&#43;08:00" />
 <meta itemprop="dateModified" content="2020-08-13T21:41:13&#43;08:00" />
-<meta itemprop="wordCount" content="1474">
+<meta itemprop="wordCount" content="1488">
 
 
 
@@ -123,7 +123,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-08-13 </span>
         
-          <span class="more-meta"> 1474 words </span>
+          <span class="more-meta"> 1488 words </span>
           <span class="more-meta"> 3 mins read </span>
         
       </div>
@@ -146,6 +146,7 @@
         <li><a href="#ngx----upstream使用长连接">Ngx &ndash;&gt; upstream(使用长连接)</a></li>
       </ul>
     </li>
+    <li><a href="#root--alias-区别">root &amp; alias 区别：</a></li>
     <li><a href="#reference">Reference</a></li>
   </ul>
 </nav>
@@ -346,6 +347,13 @@ location  /proxy/ {
 <li>
 <p>Keepalive xxx: 设置过小，高并发下反复震荡，不断关闭、重建连接；</p>
 <h3 id="ngx----upstream使用长连接">Ngx &ndash;&gt; upstream(使用长连接)</h3>
+<h2 id="root--alias-区别">root &amp; alias 区别：</h2>
+<ul>
+<li>root: 追加；</li>
+</ul>
+</li>
+<li>
+<p>alias: 替换；</p>
 <h2 id="reference">Reference</h2>
 <ul>
 <li><a href="https://lanjingling.github.io/2016/06/11/nginx-https-keepalived-youhua/">https://lanjingling.github.io/2016/06/11/nginx-https-keepalived-youhua/</a></li>

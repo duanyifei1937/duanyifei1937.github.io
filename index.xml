@@ -6,10 +6,73 @@
     <description>Recent content on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 18 Aug 2020 17:06:32 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 04 Nov 2020 21:06:13 +0800</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Abc</title>
+      <link>http://localhost:1313/post/abc/</link>
+      <pubDate>Wed, 04 Nov 2020 21:06:13 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/abc/</guid>
+      <description>abc test</description>
+    </item>
+    
+    <item>
+      <title>Python File</title>
+      <link>http://localhost:1313/post/python-file/</link>
+      <pubDate>Sun, 25 Oct 2020 11:09:14 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/python-file/</guid>
+      <description>python file I/O </description>
+    </item>
+    
+    <item>
+      <title>CORS</title>
+      <link>http://localhost:1313/post/cors/</link>
+      <pubDate>Thu, 10 Sep 2020 11:23:08 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/cors/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nginx Move</title>
+      <link>http://localhost:1313/post/nginx-move/</link>
+      <pubDate>Tue, 01 Sep 2020 11:13:22 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/nginx-move/</guid>
+      <description>20200902 线上业务Nginx动静态分离 操作涉及 Dynamic-web 由两台增加到四台； 大概~20个slb(业务slb + 安全slb) 下挂节点由web1+web4 改为4台d</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://localhost:1313/post/%E4%B8%BA%E4%BA%86%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E4%BA%86%E4%B8%80%E4%B8%AA%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Fri, 28 Aug 2020 09:04:08 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/%E4%B8%BA%E4%BA%86%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E4%BA%86%E4%B8%80%E4%B8%AA%E7%B3%BB%E7%BB%9F/</guid>
+      <description>发现一个很奇怪的现象： 大家都在开发一个又一个系统：aa平台、bb平台 大多数都在为了开发一个系统而开发一个系统； 其实见过几个就会知道，都大同小</description>
+    </item>
+    
+    <item>
+      <title>ETCD可视化工具</title>
+      <link>http://localhost:1313/post/etcd%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Mon, 24 Aug 2020 11:31:33 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/etcd%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7/</guid>
+      <description>etcd-manager https://github.com/evildecay/etcdkeeper 自己画个tree</description>
+    </item>
+    
+    <item>
+      <title>Kafka MirrorMark</title>
+      <link>http://localhost:1313/post/kafka-mirrormark/</link>
+      <pubDate>Sun, 23 Aug 2020 16:37:59 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/kafka-mirrormark/</guid>
+      <description>Kafka MirrorMark 跨datacenter集群消息同步工具； v2.4以上支持MirrorMark2(包含v2.4) MirrorMark1 The source and destination clusters are completely independent entities: they can have different numbers of partitions and the offsets will</description>
+    </item>
     
     <item>
       <title>Ngx Modify Upstream Keepalive_timeout Not Work</title>
@@ -103,15 +166,6 @@
     </item>
     
     <item>
-      <title>Kafka高可用方案</title>
-      <link>http://localhost:1313/post/kafka%E9%AB%98%E5%8F%AF%E7%94%A8%E6%96%B9%E6%A1%88/</link>
-      <pubDate>Wed, 05 Aug 2020 19:27:20 +0800</pubDate>
-      
-      <guid>http://localhost:1313/post/kafka%E9%AB%98%E5%8F%AF%E7%94%A8%E6%96%B9%E6%A1%88/</guid>
-      <description>kafka集群本身是高可用的(Replication的使用)； 同时提供跨cluster(或者叫跨datacenter)的message镜像复</description>
-    </item>
-    
-    <item>
       <title>Etcd备份及恢复-v3</title>
       <link>http://localhost:1313/post/etcd%E5%A4%87%E4%BB%BD%E5%8F%8A%E6%81%A2%E5%A4%8D-v3/</link>
       <pubDate>Wed, 05 Aug 2020 19:25:35 +0800</pubDate>
@@ -126,7 +180,7 @@
       <pubDate>Wed, 05 Aug 2020 10:52:15 +0800</pubDate>
       
       <guid>http://localhost:1313/post/victoriametrics/</guid>
-      <description></description>
+      <description>对比m3db/thanos, 确认VictoriaMetrics 以下问题： 数据去重 当multiple prometheus 同时监控相同target; 由于时钟间隔造</description>
     </item>
     
     <item>

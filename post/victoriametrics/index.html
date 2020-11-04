@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="TianGou" /><meta name="description" content="" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="TianGou" /><meta name="description" content="对比m3db/thanos, 确认VictoriaMetrics 以下问题： 数据去重 当multiple prometheus 同时监控相同target; 由于时钟间隔造" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -40,22 +40,22 @@
 
 
 <meta property="og:title" content="VictoriaMetrics" />
-<meta property="og:description" content="" />
+<meta property="og:description" content="对比m3db/thanos, 确认VictoriaMetrics 以下问题： 数据去重 当multiple prometheus 同时监控相同target; 由于时钟间隔造" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/victoriametrics/" />
 <meta property="article:published_time" content="2020-08-05T10:52:15+08:00" />
 <meta property="article:modified_time" content="2020-08-05T10:52:15+08:00" />
 <meta itemprop="name" content="VictoriaMetrics">
-<meta itemprop="description" content="">
+<meta itemprop="description" content="对比m3db/thanos, 确认VictoriaMetrics 以下问题： 数据去重 当multiple prometheus 同时监控相同target; 由于时钟间隔造">
 <meta itemprop="datePublished" content="2020-08-05T10:52:15&#43;08:00" />
 <meta itemprop="dateModified" content="2020-08-05T10:52:15&#43;08:00" />
-<meta itemprop="wordCount" content="0">
+<meta itemprop="wordCount" content="700">
 
 
 
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="VictoriaMetrics"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:description" content="对比m3db/thanos, 确认VictoriaMetrics 以下问题： 数据去重 当multiple prometheus 同时监控相同target; 由于时钟间隔造"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -123,8 +123,8 @@
       <div class="post-meta">
         <span class="post-time"> 2020-08-05 </span>
         
-          <span class="more-meta"> 0 words </span>
-          <span class="more-meta"> 0 mins read </span>
+          <span class="more-meta"> 700 words </span>
+          <span class="more-meta"> 2 mins read </span>
         
       </div>
     </header>
@@ -132,11 +132,142 @@
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
-    <nav id="TableOfContents"></nav>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#数据去重">数据去重</a></li>
+    <li><a href="#数据量存储大小问题">数据量存储大小问题</a></li>
+    <li><a href="#victoria-增删节点流程">Victoria 增、删节点流程</a></li>
+    <li><a href="#多种保留时间">多种保留时间</a></li>
+    <li><a href="#资源配额only-storage-node">资源配额(only storage node)</a></li>
+    <li><a href="#降样本">降样本</a></li>
+    <li><a href="#prometheus-remote-write-性能优化">prometheus remote write 性能优化</a></li>
+    <li><a href="#storage-故障恢复后vminsert-mem飙高">storage 故障恢复后，vminsert mem飙高；</a></li>
+    <li><a href="#victoria-实时数据延时">victoria 实时数据延时</a></li>
+  </ul>
+</nav>
   </div>
 </div>
     <div class="post-content">
-      
+      <blockquote>
+<p>对比m3db/thanos, 确认VictoriaMetrics 以下问题：</p>
+</blockquote>
+<h2 id="数据去重">数据去重</h2>
+<blockquote>
+<p>当multiple prometheus 同时监控相同target;</p>
+<p>由于时钟间隔造成的重复数据；</p>
+</blockquote>
+<ul>
+<li>查数据时去重：
+<ul>
+<li>thanos/m3db 相同指标数据增加<code>external_labels不同label</code>, 查询时忽略查询(数据缺失可部分响应；)</li>
+</ul>
+</li>
+<li>写数据时去重：
+<ul>
+<li>victoria 写入时忽略相同metrics(保证external_labels相同)；特定时间间隔内重复写入丢弃；</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据量存储大小问题">数据量存储大小问题</h2>
+<ul>
+<li>m3db降样本数据存储成本过高，1min + 5min 几乎等价不压缩数据，并且3RF, 投票写入；</li>
+<li>Victoria 无上层降样本数据，存储成本 == prometheus存储；</li>
+</ul>
+<h2 id="victoria-增删节点流程">Victoria 增、删节点流程</h2>
+<blockquote>
+<p>暂时未提供rebalance功能；vmctl</p>
+</blockquote>
+<h2 id="多种保留时间">多种保留时间</h2>
+<blockquote>
+<p>路由到不同retention的节点；</p>
+<p>Vmauth;</p>
+</blockquote>
+<h2 id="资源配额only-storage-node">资源配额(only storage node)</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">- 资源配额估算：<span class="w">
+</span><span class="w">  </span>- <span class="k">RAM</span><span class="p">:</span><span class="w"> 
+</span><span class="w">    </span>1M<span class="w"> </span>active<span class="w"> </span>time<span class="w"> </span>series<span class="w"> </span>=~<span class="w"> </span>1GB<span class="w">
+</span><span class="w">  </span>- <span class="k">CPU</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>1M<span class="w"> </span>data_points/second<span class="w"> </span>=~<span class="w"> </span>4C<span class="w">
+</span><span class="w">  </span>- <span class="k">Disk</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>100k<span class="w"> </span>data_points/second<span class="w"> </span><span class="m">1</span><span class="w"> </span>Month<span class="w"> </span>~<span class="w"> </span>260GB<span class="w">
+</span><span class="w">    </span>800k<span class="w"> </span>==<span class="w"> </span>2080G<span class="w"> </span>/<span class="w"> </span>m<span class="w">
+</span><span class="w">  </span>- <span class="k">Network</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>与label数量、大小相关<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="降样本">降样本</h2>
+<p>VictoriaMetrics 说自己性能强劲、压缩比高，不需要降样本；</p>
+<h2 id="prometheus-remote-write-性能优化">prometheus remote write 性能优化</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">- 增加写入性能：<span class="w">
+</span><span class="w"></span><span class="c"># memory usage = number_of_shards * (capacity + max_samples_per_send)</span><span class="w">
+</span><span class="w"></span><span class="c"># 30 * 100KB = 3M</span><span class="w">
+</span><span class="w"></span><span class="c"># capacity: per shard have number of samples;</span><span class="w">
+</span><span class="w"></span><span class="c"># 减少发送次数，增加每次数量；</span><span class="w">
+</span><span class="w">  </span><span class="k">remote_write</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">url</span><span class="p">:</span><span class="w"> </span>http<span class="p">:</span>//&lt;victoriametrics-addr&gt;<span class="p">:</span><span class="m">8428</span>/api/v1/write<span class="w">
+</span><span class="w">    </span><span class="k">queue_config</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">max_samples_per_send</span><span class="p">:</span><span class="w"> </span><span class="m">10000</span><span class="w">
+</span><span class="w">      </span><span class="k">capacity</span><span class="p">:</span><span class="w"> </span><span class="m">20000</span><span class="w">
+</span><span class="w">      </span><span class="k">max_shards</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="storage-故障恢复后vminsert-mem飙高">storage 故障恢复后，vminsert mem飙高；</h2>
+<p>挤压数据冲到insert组件；</p>
+<p>隔离部署，合理规划insert mem使用；</p>
+<h2 id="victoria-实时数据延时">victoria 实时数据延时</h2>
+<p><img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/20200909110040.png" alt="delay-select"></p>
+<p>如图，Victoria select 实时查询比prometheus直接查询延时大概4mins;</p>
+<p>优化：(并非vicroria组件性能问题，remote-write参数限制)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># 数据180k/s; samples每次写入20000，单个shard容纳60000, 最大30个shard;</span><span class="w">
+</span><span class="w"></span><span class="k">remote_write</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;http://10.111.146.241:8480/insert/2/prometheus/api/v1/write&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">queue_config</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">max_samples_per_send</span><span class="p">:</span><span class="w"> </span><span class="m">20000</span><span class="w">
+</span><span class="w">      </span><span class="k">capacity</span><span class="p">:</span><span class="w"> </span><span class="m">60000</span><span class="w">
+</span><span class="w">      </span><span class="k">max_shards</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     <div class="post-copyright">
@@ -179,7 +310,7 @@
         id: '2020-08-05 10:52:15 \u002b0800 CST',
         title: 'VictoriaMetrics',
         link: decodeURI(location.href),
-        desc: '',
+        desc: '对比m3db\/thanos, 确认VictoriaMetrics 以下问题： 数据去重 当multiple prometheus 同时监控相同target; 由于时钟间隔造',
         owner: 'duanyifei1937',
         repo: 'duanyifei1937.github.io',
         oauth: {

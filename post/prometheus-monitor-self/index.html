@@ -49,7 +49,7 @@
 <meta itemprop="description" content="Prometheus Monitor Self 介绍了prometheus常见的一些报错、其和自身监控指标息息相关； prometheus 自身性能很好(号称单节点百万time series，数十个data">
 <meta itemprop="datePublished" content="2020-07-15T19:23:49&#43;08:00" />
 <meta itemprop="dateModified" content="2020-07-15T19:23:49&#43;08:00" />
-<meta itemprop="wordCount" content="556">
+<meta itemprop="wordCount" content="558">
 
 
 
@@ -123,7 +123,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-07-15 </span>
         
-          <span class="more-meta"> 556 words </span>
+          <span class="more-meta"> 558 words </span>
           <span class="more-meta"> 2 mins read </span>
         
       </div>
@@ -203,10 +203,10 @@
 <pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># 线上部署多套prometheus</span><span class="w">
 </span><span class="w"></span><span class="k">samples</span><span class="p">:</span><span class="w">
 </span><span class="w"> </span><span class="k">yewu-prometheus</span><span class="p">:</span><span class="w"> </span>14k/s<span class="w">
-</span><span class="w"> </span><span class="k">sla</span><span class="p">:</span><span class="w">             </span>800k/s<span class="w">
-</span><span class="w"> </span><span class="k">aliyun-k8s</span><span class="p">:</span><span class="w">      </span>23k<span class="w">
-</span><span class="w"> </span><span class="k">monitor</span><span class="p">:</span><span class="w">         </span>185k/s<span class="w">
-</span><span class="w"> </span><span class="k">wuli-k8s</span><span class="p">:</span><span class="w">        </span>17k<span class="w">
+</span><span class="w"> </span><span class="k">sla</span><span class="p">:</span><span class="w"> </span>800k/s<span class="w">
+</span><span class="w"> </span><span class="k">aliyun-k8s</span><span class="p">:</span><span class="w"> </span>23k<span class="w">
+</span><span class="w"> </span><span class="k">monitor</span><span class="p">:</span><span class="w"> </span>185k/s<span class="w">
+</span><span class="w"> </span><span class="k">wuli-k8s</span><span class="p">:</span><span class="w"> </span>17k<span class="w">
 </span><span class="w"> 
 </span><span class="w"> </span><span class="c"># 总samples: 100w/sec</span><span class="w">
 </span><span class="w"> 
@@ -217,7 +217,7 @@
 <ul>
 <li>
 <p>查询方式：</p>
-<p>timeseries :  count({__name__=~&rdquo;.+&rdquo;})</p>
+<p>timeseries :  <code>count({__name__ =~ '.+'})</code></p>
 </li>
 <li>
 <p>当前总值</p>
