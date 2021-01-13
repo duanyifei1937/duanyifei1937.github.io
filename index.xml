@@ -6,7 +6,25 @@
     <description>Recent content on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 01 Jul 2020 15:24:39 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Jan 2021 20:06:22 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nginx Keepalive</title>
+      <link>http://localhost:1313/post/nginx-keepalive/</link>
+      <pubDate>Sat, 09 Jan 2021 20:06:22 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/nginx-keepalive/</guid>
+      <description>nginx keepalive 分为client &amp;ndash; nginx; nginx - -upstream两部分； [toc] client &amp;ndash; nginx 1 2 3 4 5 6 7 8 9 10 11 12 # coer_module# 单个conn最多可以服务的请求数；(超出将关闭连接</description>
+    </item>
+    
+    <item>
+      <title>Nginx Issue</title>
+      <link>http://localhost:1313/post/nginx-issue/</link>
+      <pubDate>Thu, 13 Aug 2020 21:41:13 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/nginx-issue/</guid>
+      <description>记录一些NGINX配置过程中需要注意的点 [toc] Ngx upstream proxy_pass 是否带 &amp;lsquo;/&amp;rsquo; 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 # 在nginx中配</description>
+    </item>
+    
     <item>
       <title>Hello World</title>
       <link>http://localhost:1313/post/hello-world/</link>
