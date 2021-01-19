@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>CDN - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="TianGou" /><meta name="description" content="CDN分享: 从用户角度-&amp;gt;CDN厂商角度-&amp;gt;源站角度 [toc] 基本介绍 概念、产生背景 互联网： TCP/IP为代表的网络层(狭义)； HTTP" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.78.2 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/cdn/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="CDN" />
+<meta property="og:description" content="CDN分享: 从用户角度-&gt;CDN厂商角度-&gt;源站角度 [toc] 基本介绍 概念、产生背景 互联网： TCP/IP为代表的网络层(狭义)； HTTP" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/cdn/" />
+<meta property="article:published_time" content="2021-01-19T15:25:56+08:00" />
+<meta property="article:modified_time" content="2021-01-19T15:25:56+08:00" />
+<meta itemprop="name" content="CDN">
+<meta itemprop="description" content="CDN分享: 从用户角度-&gt;CDN厂商角度-&gt;源站角度 [toc] 基本介绍 概念、产生背景 互联网： TCP/IP为代表的网络层(狭义)； HTTP">
+<meta itemprop="datePublished" content="2021-01-19T15:25:56+08:00" />
+<meta itemprop="dateModified" content="2021-01-19T15:25:56+08:00" />
+<meta itemprop="wordCount" content="5456">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CDN"/>
+<meta name="twitter:description" content="CDN分享: 从用户角度-&gt;CDN厂商角度-&gt;源站角度 [toc] 基本介绍 概念、产生背景 互联网： TCP/IP为代表的网络层(狭义)； HTTP"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">TianGou</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">TianGou</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">CDN</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-01-19 </span>
+        
+          <span class="more-meta"> 5456 words </span>
+          <span class="more-meta"> 11 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#基本介绍">基本介绍</a>
+      <ul>
+        <li><a href="#概念产生背景">概念、产生背景</a></li>
+        <li><a href="#cdn解释">CDN解释</a></li>
+        <li><a href="#工作方式">工作方式</a></li>
+        <li><a href="#价值作用">价值、作用</a></li>
+      </ul>
+    </li>
+    <li><a href="#cdn技术概述">CDN技术概述</a>
+      <ul>
+        <li><a href="#系统架构">系统架构</a></li>
+        <li><a href="#分发服务系统">分发服务系统</a></li>
+        <li><a href="#负载均衡系统">负载均衡系统</a></li>
+      </ul>
+    </li>
+    <li><a href="#内容缓存工作原理及实现">内容缓存工作原理及实现</a>
+      <ul>
+        <li><a href="#http基础">HTTP基础</a></li>
+        <li><a href="#缓存原则">缓存原则</a></li>
+        <li><a href="#控制缓存五种方式">控制缓存(五种方式)</a></li>
+        <li><a href="#缓存优先级">缓存优先级</a></li>
+        <li><a href="#缓存质量关键指标">缓存质量关键指标</a></li>
+      </ul>
+    </li>
+    <li><a href="#实践">实践</a>
+      <ul>
+        <li><a href="#cdn配置">CDN配置</a></li>
+        <li><a href="#cdn性能优化">CDN性能优化</a></li>
+        <li><a href="#cdn故障排查">CDN故障排查</a></li>
+      </ul>
+    </li>
+    <li><a href="#reference">Reference</a></li>
+    <li><a href="#q--a">Q &amp; A</a></li>
+    <li><a href="#thanks">Thanks</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>CDN分享: 从用户角度-&gt;CDN厂商角度-&gt;源站角度</p>
+<!-- raw HTML omitted -->
+<p>[toc]</p>
+<h2 id="基本介绍">基本介绍</h2>
+<h3 id="概念产生背景">概念、产生背景</h3>
+<ul>
+<li>互联网：
+<ul>
+<li>TCP/IP为代表的网络层(狭义)；</li>
+<li>HTTP为代表的应用层；</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://img4.imgtn.bdimg.com/it/u=1262389531,4203303769&amp;fm=26&amp;gp=0.jpg" alt="baidu_brown"></p>
+<p>互联网的一次访问(浏览器中输入baidu地址)：
+DNS解析 &ndash;&gt; TCP建连 &ndash;&gt; HTTP发送request and response
+<img src="https://img2018.cnblogs.com/blog/1217531/201901/1217531-20190116140413137-2086863262.png" alt="常规访问流程"></p>
+<p><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4187945545,924210638&amp;fm=26&amp;gp=0.jpg" alt="网络访问拆解"></p>
+<ul>
+<li>一次网络访问按地域拆解经历的四个阶段：
+<ul>
+<li><code>第一公里</code>: 网站服务器接入互联网提供的带宽；</li>
+<li><code>最后一公里</code>: 用户接入带宽；</li>
+<li><code>对等网络关口</code>: 不同基础运营商之间的互联互通；</li>
+<li><code>长途骨干传输</code>: 长距离传输时延问题；</li>
+</ul>
+</li>
+</ul>
+<p>如果每次访问跨地域、跨运营商；http访问无状态的，每次连接，道阻且长；</p>
+<h3 id="cdn解释">CDN解释</h3>
+<blockquote>
+<p>内容分发网络（Content Delivery Network，CDN）是建立并覆盖在承载网上，由不同区域的服务器组成的分布式网络。将源站资源缓存到全国各地的边缘服务器，供用户就近获取，降低源站压力。</p>
+</blockquote>
+<h3 id="工作方式">工作方式</h3>
+<ul>
+<li>接入cdn的访问流程:
+<img src="http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/5098/15670481554886_zh-CN.png" alt="接入cdn访问流程"></li>
+</ul>
+<h3 id="价值作用">价值、作用</h3>
+<p><strong>第一公里</strong> &ndash; 提供可接受的更大的用户接入带宽、保护源站(网络攻击)；
+<strong>最后一公里</strong> &ndash; 用户就近访问、提升用户体验；
+<strong>解决跨运营商问题</strong> &ndash; 边缘、中心节点多线；
+<strong>长途骨干传输</strong> &ndash; 使用CDN厂商优化路由；</p>
+<h2 id="cdn技术概述">CDN技术概述</h2>
+<h3 id="系统架构">系统架构</h3>
+<p><img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/cdn-con.jpeg" alt="cdn-con"></p>
+<ul>
+<li>CDN厂商主要架构系统：
+<ul>
+<li>分发系统；</li>
+<li>GSLB系统；</li>
+<li>缓存技术；</li>
+</ul>
+</li>
+</ul>
+<h3 id="分发服务系统">分发服务系统</h3>
+<h4 id="部署">部署</h4>
+<p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1569234847974&amp;di=2aa9ccdc42880adfccdcc0874ade118e&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20160919%2Fbc177f6401bf4bc199890e7d18fb7cc4_th.jpg" alt="三级cdn系统部署图">
+边缘节点 &ndash;&gt; 二级父节点 &ndash;&gt; 父节点 &ndash;&gt; 源站</p>
+<p><img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/lvs-nginx-ats.jpg" alt="lvs-nginx-ats">
+每层的架构相同：
+lvs &ndash;(负载均衡)&ndash;&gt; Nginx(域名七层接入及配置) &ndash;&gt; Cache-server(缓存请求文件内容)</p>
+<h3 id="负载均衡系统">负载均衡系统</h3>
+<h4 id="集群负载均衡技术">集群负载均衡技术</h4>
+<blockquote>
+<p>每层使用的技术</p>
+</blockquote>
+<ul>
+<li>LVS DR实现</li>
+<li>Nginx Consistent Hash</li>
+<li><code>Apache Traffic Server</code> or <code>Dorado</code></li>
+</ul>
+<h4 id="全局负载均衡技术gslb">全局负载均衡技术(GSLB)</h4>
+<blockquote>
+<p>选择区域服务节点</p>
+</blockquote>
+<ul>
+<li>基于DNS解析的GSLB(重点介绍)</li>
+<li>基于应用层重定向的GSLB；</li>
+</ul>
+<blockquote>
+<p>基于七层协议本身的重定向机制实现；</p>
+</blockquote>
+<ul>
+<li>基于IP路由的GSLB</li>
+</ul>
+<blockquote>
+<p>路由算法的数据包转发能力；</p>
+</blockquote>
+<h4 id="基于dns的gslb实现">基于DNS的GSLB实现</h4>
+<blockquote>
+<p>如何根据client的LocalDNS所处的地域、ISP选择合理的一组边缘节点？
+在一组边缘节点中选择合适的一台服务器节点？
+开源DNS服务软件 &ndash; BIND VIEW功能</p>
+</blockquote>
+<ul>
+<li>Local DNS的view匹配</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">acl &#34;testacl&#34; { 10.1.12.0/24; };</span><span class="w">
+</span><span class="w"></span><span class="l">view &#34;testview&#34; {</span><span class="w">
+</span><span class="w">    </span><span class="l">match-clients { &#34;testacl&#34;; };</span><span class="w">
+</span><span class="w">    </span><span class="l">recursion yes;</span><span class="w">
+</span><span class="w">    </span><span class="l">zone &#34;test.example.com&#34; {</span><span class="w">
+</span><span class="w">        </span><span class="l">type master;</span><span class="w">
+</span><span class="w">        </span><span class="l">file &#34;test.example.com.trusted.zone&#34;;</span><span class="w">
+</span><span class="w">    </span>}<span class="l">;</span><span class="w">
+</span><span class="w"></span>}<span class="l">;</span><span class="w">
+</span><span class="w"></span><span class="l">view &#34;outside&#34; {</span><span class="w">
+</span><span class="w">    </span><span class="l">match-clients { any; };</span><span class="w">
+</span><span class="w">    </span><span class="l">recursion no;</span><span class="w">
+</span><span class="w">    </span><span class="l">zone &#34;test.example.com&#34; {</span><span class="w">
+</span><span class="w">        </span><span class="l">type master;</span><span class="w">
+</span><span class="w">        </span><span class="l">file &#34;test.example.com.untrusted.zone&#34;;</span><span class="w">
+</span><span class="w">    </span>}<span class="l">;</span><span class="w">
+</span><span class="w"></span>}<span class="l">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>负载均衡选择节点依据：</p>
+<ul>
+<li>地理区域</li>
+<li>服务器”健康状况“</li>
+<li>回话保持</li>
+<li>响应时间</li>
+<li>&hellip;</li>
+</ul>
+<h2 id="内容缓存工作原理及实现">内容缓存工作原理及实现</h2>
+<blockquote>
+<p>缓存根据HTTP头信息判断；</p>
+</blockquote>
+<h3 id="http基础">HTTP基础</h3>
+<blockquote>
+<p>与CDN相关的http header介绍；
+将文件副本保存到缓存服务器，header为缓存内容属性，控制缓存行为；</p>
+</blockquote>
+<p><strong>实体头</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cache-Control</td>
+<td>指定请求和响应遵循的缓存机制</td>
+<td>Cache-Control: no-cache</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>请求的内容长度</td>
+<td>Content-Length: 348</td>
+</tr>
+<tr>
+<td>Content-MD5</td>
+<td>实体内容的MD5摘要算法Base-64值，用于完整性校验；</td>
+<td>Content-MD5: Q2hlY2sgSW50ZWdyaXR5IQ==</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>告诉浏览器响应内容是什么类型</td>
+<td>Content-Type: text/html; charset=utf-8</td>
+</tr>
+</tbody>
+</table>
+<p><strong>request Header</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authorization</td>
+<td>HTTP授权的授权证书</td>
+</tr>
+<tr>
+<td>Referer</td>
+<td>先前网页的地址，当前请求网页紧随其后,即来路,可做refer防盗链</td>
+</tr>
+<tr>
+<td>If-Match</td>
+<td>与ETag一起用来判断缓存内容是否被修改过</td>
+</tr>
+<tr>
+<td>If-None-Match</td>
+<td>与If-Match相反，当值与服务器本地值不匹配，则返回请求内容，用于网页刷新</td>
+</tr>
+<tr>
+<td>If-Modified-Since</td>
+<td>标记网页内容最后被修改时间，如果请求的部分在指定时间之后被修改则返回更新后的内容，未被修改则返回304代码</td>
+</tr>
+<tr>
+<td>If-Unmodified-Since</td>
+<td>相反，当值与服务器本地值不匹配，则返回请求内容，用于网页刷新；</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses Header</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Age</td>
+<td>消息对象在缓存代理中存贮的时长</td>
+</tr>
+<tr>
+<td>Content-Encoding</td>
+<td>web服务器支持的返回内容压缩编码类型。</td>
+</tr>
+<tr>
+<td>ETag</td>
+<td>请求实体内容的实体标签，随内容变化；</td>
+</tr>
+<tr>
+<td>Expires</td>
+<td>响应过期的日期和时间</td>
+</tr>
+<tr>
+<td>Last-Modified</td>
+<td>请求资源的最后修改时间</td>
+</tr>
+</tbody>
+</table>
+<h3 id="缓存原则">缓存原则</h3>
+<ol>
+<li>如果HTTP响应头告诉Cache不要缓存 &ndash; no cache;</li>
+<li>如果对内容的请求信息是需要认证或者安全加密的 &ndash; no cache;</li>
+<li>缓存是新鲜的：
+<ol>
+<li>含有过期时间、寿命信息，并且没有过期；</li>
+<li>缓存内容近期被用来提供过服务，并last-modify比最近使用时间较久；</li>
+</ol>
+</li>
+<li>当缓存内容已经过期，缓存服务器与源服务器发出验证请求(ETag or Last-Modified)，确定当前内容是否可以提供服务；</li>
+<li>某些特殊情况(源服务器崩溃)，过期内容仍可以提供服务；(cache插件逻辑实现)</li>
+<li>响应信息中没用ETag or Last-Modified头信息，Cache认为没有直接缓存更新度 &ndash; no cache;</li>
+</ol>
+<h3 id="控制缓存五种方式">控制缓存(五种方式)</h3>
+<blockquote>
+<p>HTTP协议控制缓存，不涉及Cache服务器；</p>
+</blockquote>
+<h4 id="1html-meta标签-和-http头信息简单介绍">1.HTML META标签 和 HTTP头信息(简单介绍)</h4>
+<pre><code>&gt; HTML文件中 &lt;HEAD&gt;区域中加入文档属性；
+&gt; 部分浏览器可以解析文档内容，实现缓存，当缓存服务器完全不解析文档，不容易实现；
+</code></pre>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html">// 文档类型
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&#34;content-type&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;text/html; charset=UTF-8&#34;</span><span class="p">&gt;</span>
+
+// 必须是 GMT 格式g
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&#34;expires&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;Fri,12 Jan 2001 15:15:15 GMT&#34;</span><span class="p">&gt;</span>
+
+// 是否设置缓存
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&#34;pragma&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;no-cache&#34;</span><span class="p">&gt;</span>
+
+// 等待一定时间自动跳转
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&#34;refresh&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;1; url=https://www.baidu.com&#34;</span><span class="p">/&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="2expires-控制保鲜期">2.Expires 控制保鲜期</h4>
+<h4 id="3缓存验证">3.缓存验证</h4>
+<blockquote>
+<p>当上述Expires过期，缓存服务器发出<code>缓存验证请求</code>；</p>
+</blockquote>
+<ul>
+<li><code>缓存验证请求</code>:
+<ol>
+<li>缓存服务器携带完整请求时保存的验证信息，请求源服务器；</li>
+<li>源服务器对比<code>请求验证信息</code>和<code>本地验证信息</code>；</li>
+<li>返回304 or full_file;</li>
+</ol>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/client-cache-server.jpg" alt="client-cache-serve"></p>
+<h4 id="4cache-control缓存控制头信息">4.Cache-Control(缓存控制)头信息:</h4>
+<ul>
+<li><code>max-age</code>： 缓存内容保持最长时间；</li>
+<li><code>public</code>： 经过认证内容可以被缓存；</li>
+<li><code>no-cache</code></li>
+<li><code>must-revalidate</code>：强制当缓存过期时，请求进行响应前必须重新验证；</li>
+<li><code>proxy-revalidate</code>： 用于共享代理缓存，缓存经过权限认证的响应信息；</li>
+</ul>
+<h4 id="5pragma-http头信息">5.Pragma HTTP头信息</h4>
+<blockquote>
+<p><code>Pragma: no-cache</code>, 本地不缓存，直接转发到源服务器；
+为兼容HTTP1.0</p>
+</blockquote>
+<h3 id="缓存优先级">缓存优先级</h3>
+<h4 id="缓存分类">缓存分类</h4>
+<ul>
+<li>强缓存
+<ul>
+<li>只要请求了一次，在有效时间内，不会再请求服务器，直接从本地缓存中获取资源。</li>
+<li><code>expires</code>、<code>cache-control： max-age/no-cache/no-store</code>。</li>
+<li>如果expires和cache-control同时存在，cache-control会覆盖expires。</li>
+<li>建议两个都写，cache-control是http1.1的头字段; expires是http1.0的头字段，都写兼容会好点。</li>
+</ul>
+</li>
+<li>对比缓存(协商缓存)
+<ul>
+<li>无论是否变化，是否过期都会发起请求，如果内容没过期，直接返回304，从浏览器缓存中拉取文件，否则直接返回更新后的内容。</li>
+<li>字段：
+<ul>
+<li><code>Etag</code> and <code>Last-Modifieddate</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="优先级原则">优先级原则</h4>
+<p>1、强缓存和对比缓存同时存在，如果强缓存还在生效期则强制缓存覆盖对比缓存，对比缓存不生效；如果强缓存不在有效期，对比缓存生效。即：强缓存优先级 &gt; 对比缓存优先级；<br>
+2、强缓存expires和cache-control同时存在时，则cache-control会覆盖expires，expires无论有没有过期，都无效。 即：cache-control优先级 &gt; expires优先级；<br>
+3、对比缓存Etag和Last-Modified同时存在时，则Etag会覆盖Last-Modified，Last-Modified不会生效。即：ETag优先级 &gt; Last-Modified优先级；</p>
+<h3 id="缓存质量关键指标">缓存质量关键指标</h3>
+<blockquote>
+<p>选择CDN服务商</p>
+</blockquote>
+<ol>
+<li>并发量</li>
+<li>吞吐量</li>
+<li>命中率</li>
+<li>响应链路：
+<ol>
+<li>DNS解析时间</li>
+<li>建连时间</li>
+<li>重定向时间</li>
+<li>首包时间</li>
+<li>图片下载时间</li>
+<li>页面总下载时间</li>
+<li>丢包率
+<img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/request_trace.png" alt="request_trace"></li>
+</ol>
+</li>
+</ol>
+<h2 id="实践">实践</h2>
+<blockquote>
+<p>源站角度</p>
+</blockquote>
+<h3 id="cdn配置">CDN配置</h3>
+<h4 id="基础配置">基础配置</h4>
+<ul>
+<li>加速域名</li>
+<li>CNAME别名</li>
+<li>回源方式：
+<ul>
+<li>IP回源</li>
+<li>域名回源</li>
+<li>使用存储伪源</li>
+</ul>
+</li>
+</ul>
+<p>常识：<strong>加速域名 != 回源域名</strong></p>
+<h4 id="缓存配置">缓存配置</h4>
+<h5 id="缓存过期时间"><strong>缓存</strong>过期时间</h5>
+<ul>
+<li>缓存时间可以在哪儿配置？
+<ul>
+<li>源站配置</li>
+<li>Cache-Server配置(aliyun控制台)</li>
+<li>client(浏览器)</li>
+</ul>
+</li>
+<li>到底按哪个时间为准？判断流程(Cache服务器参与)</li>
+<li><img src="http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/5147/15665464403383_zh-CN.png" alt="cache time config"></li>
+</ul>
+<h6 id="源站配置缓存header头信息">源站配置缓存Header头信息</h6>
+<ul>
+<li>Nginx如何生成缓存时间信息？</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">location = /images/default.gif {</span><span class="w">
+</span><span class="w">    </span><span class="l">expires 30s;</span><span class="w">
+</span><span class="w"></span>}<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">if ($request_uri ~* &#34;^/$|^/search/.+/|^/company/.+/&#34;) {</span><span class="w">
+</span><span class="w">   </span><span class="l">add_header    Cache-Control  max-age=3600;</span><span class="w">
+</span><span class="w">  </span>}<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>动态文件：jsp、php、asp代码配置Header信息</li>
+</ul>
+<h6 id="控制台配置缓存时间">控制台配置缓存时间</h6>
+<blockquote>
+<p>根据不同请求元素类型设置不同的缓存时间；
+<a href="https://help.aliyun.com/document_detail/111598.html?spm=a2c4g.11186623.2.13.e0fe1d1brH1HTK">aliyun cdn docs</a></p>
+</blockquote>
+<ul>
+<li>
+<p>网站元素分类：</p>
+<ul>
+<li>静态内容</li>
+</ul>
+<blockquote>
+<p>静态内容，指在不同请求中访问到的数据都相同的“静态”文件。例如：图片、视频、网站中的html、css和js文件、软件安装包、apk文件、压缩包文件等。</p>
+</blockquote>
+<ul>
+<li>动态内容</li>
+</ul>
+<blockquote>
+<p>动态内容需要用户每次都访问您的服务器，由您的服务器动态生成<code>实时的数据</code>并返回。因此CDN的缓存加速不适用于加速动态内容，CDN无法缓存数据实时变化的动态内容。对于动态内容的请求，CDN节点只能转发回您的服务器源站，没有加速效果。</p>
+</blockquote>
+</li>
+<li>
+<p>如何配置资源对应的缓存时间：</p>
+<ul>
+<li>对于不经常更新的静态内容（如图片类型、应用下载类型等），建议您将缓存时间设置为1个月以上。</li>
+<li>对于频繁更新的静态内容（如js、css等），您可以根据实际业务情况设置。</li>
+<li>对于动态内容（如php、jsp、asp等），建议您将缓存时间设置为0s，即不缓存。</li>
+</ul>
+</li>
+</ul>
+<p>阿里云 <code>全站加速</code>
+(ps: 原来公司，no-cache依然可以使用缓存平台，使用优化的网络链路)</p>
+<h5 id="状态码过期时间"><strong>状态码</strong>过期时间</h5>
+<blockquote>
+<p><a href="https://help.aliyun.com/document_detail/111598.html?spm=a2c4g.11186623.6.602.1a0f45c21eklT2">aliyun cdn docs</a></p>
+</blockquote>
+<ul>
+<li>设置状态码缓存有什么用呢？(场景)
+<ul>
+<li>当源站故障，client依然疯狂回源，可以在cache-server设置5xx状态码缓存一段时间，cache-server直接给client返回不可用状态码，便于源站排错；</li>
+<li>client 4xx, 依然每次请求cache-server边缘节点，可以设置缓存，保护边缘节点；</li>
+<li>etc.</li>
+</ul>
+</li>
+<li>状态码缓存策略：
+<ul>
+<li>对于状态码303、304、401、407、600和601，不进行缓存。</li>
+<li>对于状态码204、305、400、403、404、405、414、500、501、502、503和504，如果源站响应了Cache-Control，则遵循源站的Cache-Control原则。如果未设置状态码，则缓存时间默认（negative_ttl）为一秒。</li>
+</ul>
+</li>
+</ul>
+<h4 id="其他配置">其他配置</h4>
+<blockquote>
+<p>由于client连接到CDN厂商的边缘节点，可以在边缘节点做一些其他配置</p>
+</blockquote>
+<ul>
+<li>HTTPS加密访问
+<ul>
+<li>请求https:
+<ul>
+<li>客户端 &lt;&ndash;&gt; CDN边缘节点</li>
+</ul>
+</li>
+<li>回源https:
+<ul>
+<li>CDN中心节点 &lt;&ndash;&gt; 源站</li>
+</ul>
+</li>
+<li>https请求流程(SSL/TLS建连过程)：</li>
+<li>针对边缘节点需要放置证书的安全性问题
+<ul>
+<li>ssl_proxy设置</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>访问控制：
+<ul>
+<li>Refer动态防盗链
+<ul>
+<li>nginx: ngx_http_referer_module</li>
+</ul>
+</li>
+<li>URL鉴权(动态防盗链)
+<ul>
+<li>lua-nginx-module</li>
+</ul>
+</li>
+<li>IP/UA黑白名单
+<ul>
+<li>allow &amp; deny;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="验证缓存">验证缓存</h4>
+<blockquote>
+<p>验证缓存</p>
+</blockquote>
+<ul>
+<li>确认域名已经解析到aliyun加速别名；</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">dig www.taobao.com
+www.taobao.com.		490	IN	CNAME	www.taobao.com.danuoyi.tbcache.com.
+www.taobao.com.danuoyi.tbcache.com. <span class="m">14</span> IN A	103.15.99.98
+www.taobao.com.danuoyi.tbcache.com. <span class="m">14</span> IN A	103.15.99.97
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>确认请求内容被缓存；</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">➜  /data/backup/test  curl -s -LIvo /dev/null  http://image4.suning.cn/uimg/cms/img/155540698836163295.png</span><span class="w">
+</span><span class="w"></span>*<span class="w">   </span><span class="l">Trying 118.187.1.115...</span><span class="w">
+</span><span class="w"></span>*<span class="w"> </span><span class="l">TCP_NODELAY set</span><span class="w">
+</span><span class="w"></span>*<span class="w"> </span><span class="l">Connected to image4.suning.cn (118.187.1.115) port 80 (#0)</span><span class="w">
+</span><span class="w"></span><span class="l">&gt; HEAD /uimg/cms/img/155540698836163295.png HTTP/1.1</span><span class="w">
+</span><span class="w"></span><span class="nt">&gt; Host</span><span class="p">:</span><span class="w"> </span><span class="l">image4.suning.cn</span><span class="w">
+</span><span class="w"></span><span class="nt">&gt; User-Agent</span><span class="p">:</span><span class="w"> </span><span class="l">curl/7.54.0</span><span class="w">
+</span><span class="w"></span><span class="nt">&gt; Accept</span><span class="p">:</span><span class="w"> </span><span class="cp">*/*</span><span class="w">
+</span><span class="w"></span><span class="l">&gt;</span><span class="w">
+</span><span class="w"></span><span class="l">&lt; HTTP/1.1 200 OK</span><span class="w">
+</span><span class="w"></span><span class="nt">&lt; Date</span><span class="p">:</span><span class="w"> </span><span class="l">Mon, 23 Sep 2019 09:33:01 GMT</span><span class="w">
+</span><span class="w"></span><span class="nt">&lt; Content-Type</span><span class="p">:</span><span class="w"> </span><span class="l">image/png</span><span class="w">
+</span><span class="w"></span><span class="nt">&lt; Content-Length</span><span class="p">:</span><span class="w"> </span><span class="m">12208</span><span class="w">
+</span><span class="w"></span><span class="nt">&lt; Connection</span><span class="p">:</span><span class="w"> </span><span class="l">keep-alive</span><span class="w">
+</span><span class="w"></span><span class="nt">&lt; Accept-Ranges</span><span class="p">:</span><span class="w"> </span><span class="l">bytes</span><span class="w">
+</span><span class="w"></span><span class="nt">&lt; Content-Disposition</span><span class="p">:</span><span class="w"> </span><span class="l">filename=&#34;155540698836163295.png&#34;</span><span class="w">
+</span><span class="w"></span><span class="nt">&lt; Etag</span><span class="p">:</span><span class="w"> </span><span class="l">e9504bc0</span><span class="w">
+</span><span class="w"></span><span class="nt">&lt; Last-Modified</span><span class="p">:</span><span class="w"> </span><span class="l">Tue, 16 Apr 2019 09:29:48 GMT</span><span class="w">
+</span><span class="w"></span><span class="nt">&lt; X-Sdoss-Request-Id</span><span class="p">:</span><span class="w"> </span><span class="l">MTAuMTA4LjQxLjE1Ojo4ODg4fDE1Njc3MzgwNzN8MTA1OTM4NjE3NA==</span><span class="w">
+</span><span class="w"></span><span class="nt">&lt; Expires</span><span class="p">:</span><span class="w"> </span><span class="l">Tue, 24 Sep 2019 01:41:44 GMT</span><span class="w">
+</span><span class="w"></span><span class="nt">&lt; Cache-Control</span><span class="p">:</span><span class="w"> </span><span class="l">max-age=864000</span><span class="w">
+</span><span class="w"></span><span class="nt">&lt; Vary</span><span class="p">:</span><span class="w"> </span><span class="l">Qual,Origin</span><span class="w">
+</span><span class="w"></span><span class="nt">&lt; Sta-Last-Modified</span><span class="p">:</span><span class="w"> </span><span class="m">1568602082</span><span class="w">
+</span><span class="w"></span><span class="nt">&lt; Age</span><span class="p">:</span><span class="w"> </span><span class="m">818205</span><span class="w">
+</span><span class="w"></span><span class="nt">&lt; X-C</span><span class="p">:</span><span class="w"> </span><span class="l">HIT</span><span class="w">
+</span><span class="w"></span><span class="nt">&lt; Via-2</span><span class="p">:</span><span class="w"> </span><span class="l">http/1.1 bjyz-b-ats-199-179-2 ( [uIcRs f p eN:t cCNi p s ])</span><span class="w">
+</span><span class="w"></span><span class="nt">&lt; Via</span><span class="p">:</span><span class="w"> </span><span class="l">http/1.1 bjzw-t-ats-1-14-1 (ApacheTrafficServer/4.2.3 [uScRs f p eN:t cCHi p s ])</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="cdn性能优化">CDN性能优化</h3>
+<h4 id="协议优化">协议优化</h4>
+<ul>
+<li>HTTP连接聚合</li>
+</ul>
+<blockquote>
+<p>多个短连接转换为一个长连接(客户端方式：Browser or APP)；</p>
+</blockquote>
+<h4 id="http-gzip压缩">HTTP gzip压缩</h4>
+<ul>
+<li>
+<p>原理：</p>
+<ul>
+<li>浏览器支持解压；</li>
+<li>WebServer 传回文件时发送gzip格式，并设置<code>Content-Encoding: gzip</code></li>
+<li>Nginx设置支持gzip方式</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="w"> </span><span class="l">gzip on;</span><span class="w">
+</span><span class="w"> </span><span class="l">gzip_min_length 1k;</span><span class="w">
+</span><span class="w"> </span><span class="l">gzip_buffers 4 16k;</span><span class="w">
+</span><span class="w"> </span><span class="c">#gzip_http_version 1.0;</span><span class="w">
+</span><span class="w"> </span><span class="l">gzip_comp_level 2;</span><span class="w">
+</span><span class="w"> </span><span class="l">gzip_types text/plain application/javascript </span><span class="w">
+</span><span class="w">            </span><span class="l">application/x-javascript text/css </span><span class="w">
+</span><span class="w">            </span><span class="l">application/xml text/javascript </span><span class="w">
+</span><span class="w">            </span><span class="l">application/x-httpd-php image/jpeg image/gif image/png;</span><span class="w">
+</span><span class="w"> </span><span class="l">gzip_vary off;</span><span class="w">
+</span><span class="w"> </span><span class="l">gzip_disable &#34;MSIE [1-6]\.&#34;;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>Cache-Server压缩</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>源站无压缩，cache服务器缓存副本时存储压缩后的文件；
+可以有效减小传输文件大小，提升传输效率。</p>
+</blockquote>
+<h4 id="过滤参数">过滤参数</h4>
+<p><code>http://alibaba.com/content?a=10</code>将<code>?</code>以后参数切掉缓存；</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># 每个不同的URL都缓存相同副本在CDN的节点上。</span><span class="w">
+</span><span class="w"></span><span class="l">http://www.test123.com/123/456.mp4</span><span class="w">
+</span><span class="w"></span><span class="l">http://www.test123.com/123/456.mp4?user=aaa</span><span class="w">
+</span><span class="w"></span><span class="l">http://www.test123.com/123/456.mp4?user=bbb</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="cdn故障排查">CDN故障排查</h3>
+<h4 id="空白页面">空白页面</h4>
+<blockquote>
+<p><a href="https://help.aliyun.com/document_detail/122291.html">https://help.aliyun.com/document_detail/122291.html</a>
+CDN回源请求不支持：<code>Transfer-Encoding: chunked</code></p>
+</blockquote>
+<h4 id="无法访问">无法访问</h4>
+<ul>
+<li>确定影响范围
+<ul>
+<li>全部无法访问
+<ul>
+<li>验证源站</li>
+</ul>
+</li>
+<li>个别客户端无法访问(DNS跨运营商使用、劫持)
+<ul>
+<li>确认client LocalDNS使用正确；</li>
+<li>可以正常解析到CDN边缘节点IP；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="回源高">回源高</h4>
+<blockquote>
+<p>回源带宽高 or 回源请求数高</p>
+</blockquote>
+<h5 id="回源流量大于访问流量">回源流量大于访问流量</h5>
+<p><code>这类问题一般是由于源站没有开启Gzip压缩，但是CDN开启了Gzip压缩导致的。</code>
+<code>gzip_proxied     any; </code></p>
+<h4 id="缓存文件与源站文件不一致">缓存文件与源站文件不一致</h4>
+<blockquote>
+<p><a href="https://help.aliyun.com/knowledge_detail/40188.html">使用CDN后，文件与源文件不一致，如何刷新缓存？
+</a></p>
+</blockquote>
+<ul>
+<li>场景:
+发布alibaba_v1.0.apk并进行了CDN缓存，当修改源码并依旧命名为<code>alibaba_v1.0.apk</code>时，造成<code>client</code>拉取脏数据，就需要推掉之前缓存；</li>
+</ul>
+<h4 id="访问劫持">访问劫持</h4>
+<blockquote>
+<p>CDN劫持 or http劫持</p>
+</blockquote>
+<ul>
+<li>
+<p>DNS劫持：
+一般而言，用户上网的DNS服务器都是运营商分配的，所以，在这个节点上，运营商可以为所欲为。例如，访问http://jiankang.qq.com/index.html，正常DNS应该返回腾讯的ip，而DNS劫持后，会返回一个运营商的中间服务器ip。访问该服务器会一致性的返回302，让用户浏览器跳转到预处理好的带广告的网页，在该网页中再通过iframe打开用户原来访问的地址。</p>
+</li>
+<li>
+<p>HTTP劫持：
+在运营商的路由器节点上，设置协议检测，一旦发现是HTTP请求，而且是html类型请求，则拦截处理。后续做法往往分为2种，1种是类似DNS劫持返回302让用户浏览器跳转到另外的地址，还有1种是在服务器返回的HTML数据中插入js或dom节点（广告）。</p>
+</li>
+<li>
+<p>区分<br>
+nslookup 产生二次解析为dns劫持；
+解析正确，改变url为http劫持；</p>
+</li>
+<li>
+<p>劫持作用：
+运营商劫持到自建cache，节省流量，插播广告。
+dns劫持：ping时返回错误IP，error_ip会有302动作；
+http劫持：出现在miss回源情况，探测到http请求，返回302；或加载广告文件；</p>
+</li>
+<li>
+<p>HttpDNS</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>DNS劫持</th>
+<th>HTTP劫持</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>发生地址</td>
+<td>DNS节点</td>
+<td>路由器节点</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="cdn高可用">CDN高可用</h4>
+<blockquote>
+<p>每一个CDN厂商都是不完全可靠的，当服务器出现重大无法访问事故，如何降低业务风险？</p>
+</blockquote>
+<ul>
+<li>自动切换(同一个域名)
+<ul>
+<li>与监控系统配合，探测到异常，手动切换CNAME;
+<img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/mulpit_cdn.jpg" alt="multip-cdn"></li>
+</ul>
+</li>
+<li>主动切换(多域名同时服务)
+<ul>
+<li>程序定义，如下伪代码
+<img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/multip_domain_cdn.jpg" alt="multip-cdn"></li>
+</ul>
+</li>
+</ul>
+<h2 id="reference">Reference</h2>
+<p>《CDN技术详解》
+<a href="https://developer.mozilla.org/zh-CN/">&ldquo;MDN Web Docs&rdquo;</a>
+<a href="https://help.aliyun.com/product/27099.html?spm=a2c4g.11186623.6.540.455e6ba4EGJRia">&ldquo;Aliyun CDN Docs&rdquo;</a></p>
+<ul>
+<li>未涉及内容：
+<ul>
+<li>缓存升级(disk &ndash;&gt; swap &ndash;&gt; Mem)</li>
+<li>视频相关(分片、拖拽播放&hellip;)</li>
+<li>流媒体(直播)</li>
+<li>选择缓存服务器：
+<ul>
+<li>nginx: <a href="https://mp.weixin.qq.com/s/jvYIXnlx5TbNsZXgPf8bdw"> Nginx 代理缓存配置技巧</a></li>
+<li>ATS: <a href="http://trafficserver.apache.org/">Apache Traffic Server</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="q--a">Q &amp; A</h2>
+<h2 id="thanks">Thanks</h2>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">TianGou</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2021-01-19
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/cdn-%E8%B7%A8%E5%9F%9F/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Cdn 跨域</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/nginx-websocket/">
+            <span class="next-text nav-default">Nginx Websocket</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="comments-gitment"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitment = new Gitment({
+        id: '2021-01-19 15:25:56 \u002b0800 CST',
+        title: 'CDN',
+        link: decodeURI(location.href),
+        desc: 'CDN分享: 从用户角度-\u0026gt;CDN厂商角度-\u0026gt;源站角度 [toc] 基本介绍 概念、产生背景 互联网： TCP\/IP为代表的网络层(狭义)； HTTP',
+        owner: 'duanyifei1937',
+        repo: 'duanyifei1937.github.io',
+        oauth: {
+          client_id: '91a1c0bf07645268f2f9',
+          client_secret: '6088010a8217040b1d52fea04e0f284c3fc1bbcc'
+        }
+      });
+      gitment.render('comments-gitment');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="duanyifei1937@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/duanyifei1937" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.douban.com/people/191482708/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://duanyifei.gitbook.io/duanyifei/" class="iconfont icon-gitlab" title="gitlab"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">TianGou</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-173157756-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
