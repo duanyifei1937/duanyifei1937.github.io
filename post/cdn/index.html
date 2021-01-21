@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.78.2 with theme even" />
+<meta name="generator" content="Hugo 0.73.0 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/post/cdn/" />
@@ -47,14 +47,13 @@
 <meta property="article:modified_time" content="2021-01-19T15:25:56+08:00" />
 <meta itemprop="name" content="CDN">
 <meta itemprop="description" content="CDN分享: 从用户角度-&gt;CDN厂商角度-&gt;源站角度 [toc] 基本介绍 概念、产生背景 互联网： TCP/IP为代表的网络层(狭义)； HTTP">
-<meta itemprop="datePublished" content="2021-01-19T15:25:56+08:00" />
-<meta itemprop="dateModified" content="2021-01-19T15:25:56+08:00" />
-<meta itemprop="wordCount" content="5456">
+<meta itemprop="datePublished" content="2021-01-19T15:25:56&#43;08:00" />
+<meta itemprop="dateModified" content="2021-01-19T15:25:56&#43;08:00" />
+<meta itemprop="wordCount" content="5594">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CDN"/>
 <meta name="twitter:description" content="CDN分享: 从用户角度-&gt;CDN厂商角度-&gt;源站角度 [toc] 基本介绍 概念、产生背景 互联网： TCP/IP为代表的网络层(狭义)； HTTP"/>
 
@@ -124,8 +123,8 @@
       <div class="post-meta">
         <span class="post-time"> 2021-01-19 </span>
         
-          <span class="more-meta"> 5456 words </span>
-          <span class="more-meta"> 11 mins read </span>
+          <span class="more-meta"> 5594 words </span>
+          <span class="more-meta"> 12 mins read </span>
         
       </div>
     </header>
@@ -293,23 +292,23 @@ lvs &ndash;(负载均衡)&ndash;&gt; Nginx(域名七层接入及配置) &ndash;&
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">acl &#34;testacl&#34; { 10.1.12.0/24; };</span><span class="w">
-</span><span class="w"></span><span class="l">view &#34;testview&#34; {</span><span class="w">
-</span><span class="w">    </span><span class="l">match-clients { &#34;testacl&#34;; };</span><span class="w">
-</span><span class="w">    </span><span class="l">recursion yes;</span><span class="w">
-</span><span class="w">    </span><span class="l">zone &#34;test.example.com&#34; {</span><span class="w">
-</span><span class="w">        </span><span class="l">type master;</span><span class="w">
-</span><span class="w">        </span><span class="l">file &#34;test.example.com.trusted.zone&#34;;</span><span class="w">
-</span><span class="w">    </span>}<span class="l">;</span><span class="w">
-</span><span class="w"></span>}<span class="l">;</span><span class="w">
-</span><span class="w"></span><span class="l">view &#34;outside&#34; {</span><span class="w">
-</span><span class="w">    </span><span class="l">match-clients { any; };</span><span class="w">
-</span><span class="w">    </span><span class="l">recursion no;</span><span class="w">
-</span><span class="w">    </span><span class="l">zone &#34;test.example.com&#34; {</span><span class="w">
-</span><span class="w">        </span><span class="l">type master;</span><span class="w">
-</span><span class="w">        </span><span class="l">file &#34;test.example.com.untrusted.zone&#34;;</span><span class="w">
-</span><span class="w">    </span>}<span class="l">;</span><span class="w">
-</span><span class="w"></span>}<span class="l">;</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">acl<span class="w"> </span><span class="s2">&#34;testacl&#34;</span><span class="w"> </span>{<span class="w"> </span><span class="m">10.1.12.0</span>/<span class="m">24</span>;<span class="w"> </span>};<span class="w">
+</span><span class="w"></span>view<span class="w"> </span><span class="s2">&#34;testview&#34;</span><span class="w"> </span>{<span class="w">
+</span><span class="w">    </span>match-clients<span class="w"> </span>{<span class="w"> </span><span class="s2">&#34;testacl&#34;</span>;<span class="w"> </span>};<span class="w">
+</span><span class="w">    </span>recursion<span class="w"> </span>yes;<span class="w">
+</span><span class="w">    </span>zone<span class="w"> </span><span class="s2">&#34;test.example.com&#34;</span><span class="w"> </span>{<span class="w">
+</span><span class="w">        </span>type<span class="w"> </span>master;<span class="w">
+</span><span class="w">        </span>file<span class="w"> </span><span class="s2">&#34;test.example.com.trusted.zone&#34;</span>;<span class="w">
+</span><span class="w">    </span>};<span class="w">
+</span><span class="w"></span>};<span class="w">
+</span><span class="w"></span>view<span class="w"> </span><span class="s2">&#34;outside&#34;</span><span class="w"> </span>{<span class="w">
+</span><span class="w">    </span>match-clients<span class="w"> </span>{<span class="w"> </span>any;<span class="w"> </span>};<span class="w">
+</span><span class="w">    </span>recursion<span class="w"> </span>no;<span class="w">
+</span><span class="w">    </span>zone<span class="w"> </span><span class="s2">&#34;test.example.com&#34;</span><span class="w"> </span>{<span class="w">
+</span><span class="w">        </span>type<span class="w"> </span>master;<span class="w">
+</span><span class="w">        </span>file<span class="w"> </span><span class="s2">&#34;test.example.com.untrusted.zone&#34;</span>;<span class="w">
+</span><span class="w">    </span>};<span class="w">
+</span><span class="w"></span>};<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>负载均衡选择节点依据：</p>
@@ -594,8 +593,8 @@ lvs &ndash;(负载均衡)&ndash;&gt; Nginx(域名七层接入及配置) &ndash;&
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">location = /images/default.gif {</span><span class="w">
-</span><span class="w">    </span><span class="l">expires 30s;</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">location<span class="w"> </span>=<span class="w"> </span>/images/default.gif<span class="w"> </span>{<span class="w">
+</span><span class="w">    </span>expires<span class="w"> </span>30s;<span class="w">
 </span><span class="w"></span>}<span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -606,8 +605,8 @@ lvs &ndash;(负载均衡)&ndash;&gt; Nginx(域名七层接入及配置) &ndash;&
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">if ($request_uri ~* &#34;^/$|^/search/.+/|^/company/.+/&#34;) {</span><span class="w">
-</span><span class="w">   </span><span class="l">add_header    Cache-Control  max-age=3600;</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">if<span class="w"> </span>($request_uri<span class="w"> </span>~*<span class="w"> </span><span class="s2">&#34;^/$|^/search/.+/|^/company/.+/&#34;</span>)<span class="w"> </span>{<span class="w">
+</span><span class="w">   </span>add_header<span class="w">    </span>Cache-Control<span class="w">  </span>max-age=<span class="m">3600</span>;<span class="w">
 </span><span class="w">  </span>}<span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -765,33 +764,33 @@ www.taobao.com.danuoyi.tbcache.com. <span class="m">14</span> IN A	103.15.99.97
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">➜  /data/backup/test  curl -s -LIvo /dev/null  http://image4.suning.cn/uimg/cms/img/155540698836163295.png</span><span class="w">
-</span><span class="w"></span>*<span class="w">   </span><span class="l">Trying 118.187.1.115...</span><span class="w">
-</span><span class="w"></span>*<span class="w"> </span><span class="l">TCP_NODELAY set</span><span class="w">
-</span><span class="w"></span>*<span class="w"> </span><span class="l">Connected to image4.suning.cn (118.187.1.115) port 80 (#0)</span><span class="w">
-</span><span class="w"></span><span class="l">&gt; HEAD /uimg/cms/img/155540698836163295.png HTTP/1.1</span><span class="w">
-</span><span class="w"></span><span class="nt">&gt; Host</span><span class="p">:</span><span class="w"> </span><span class="l">image4.suning.cn</span><span class="w">
-</span><span class="w"></span><span class="nt">&gt; User-Agent</span><span class="p">:</span><span class="w"> </span><span class="l">curl/7.54.0</span><span class="w">
-</span><span class="w"></span><span class="nt">&gt; Accept</span><span class="p">:</span><span class="w"> </span><span class="cp">*/*</span><span class="w">
-</span><span class="w"></span><span class="l">&gt;</span><span class="w">
-</span><span class="w"></span><span class="l">&lt; HTTP/1.1 200 OK</span><span class="w">
-</span><span class="w"></span><span class="nt">&lt; Date</span><span class="p">:</span><span class="w"> </span><span class="l">Mon, 23 Sep 2019 09:33:01 GMT</span><span class="w">
-</span><span class="w"></span><span class="nt">&lt; Content-Type</span><span class="p">:</span><span class="w"> </span><span class="l">image/png</span><span class="w">
-</span><span class="w"></span><span class="nt">&lt; Content-Length</span><span class="p">:</span><span class="w"> </span><span class="m">12208</span><span class="w">
-</span><span class="w"></span><span class="nt">&lt; Connection</span><span class="p">:</span><span class="w"> </span><span class="l">keep-alive</span><span class="w">
-</span><span class="w"></span><span class="nt">&lt; Accept-Ranges</span><span class="p">:</span><span class="w"> </span><span class="l">bytes</span><span class="w">
-</span><span class="w"></span><span class="nt">&lt; Content-Disposition</span><span class="p">:</span><span class="w"> </span><span class="l">filename=&#34;155540698836163295.png&#34;</span><span class="w">
-</span><span class="w"></span><span class="nt">&lt; Etag</span><span class="p">:</span><span class="w"> </span><span class="l">e9504bc0</span><span class="w">
-</span><span class="w"></span><span class="nt">&lt; Last-Modified</span><span class="p">:</span><span class="w"> </span><span class="l">Tue, 16 Apr 2019 09:29:48 GMT</span><span class="w">
-</span><span class="w"></span><span class="nt">&lt; X-Sdoss-Request-Id</span><span class="p">:</span><span class="w"> </span><span class="l">MTAuMTA4LjQxLjE1Ojo4ODg4fDE1Njc3MzgwNzN8MTA1OTM4NjE3NA==</span><span class="w">
-</span><span class="w"></span><span class="nt">&lt; Expires</span><span class="p">:</span><span class="w"> </span><span class="l">Tue, 24 Sep 2019 01:41:44 GMT</span><span class="w">
-</span><span class="w"></span><span class="nt">&lt; Cache-Control</span><span class="p">:</span><span class="w"> </span><span class="l">max-age=864000</span><span class="w">
-</span><span class="w"></span><span class="nt">&lt; Vary</span><span class="p">:</span><span class="w"> </span><span class="l">Qual,Origin</span><span class="w">
-</span><span class="w"></span><span class="nt">&lt; Sta-Last-Modified</span><span class="p">:</span><span class="w"> </span><span class="m">1568602082</span><span class="w">
-</span><span class="w"></span><span class="nt">&lt; Age</span><span class="p">:</span><span class="w"> </span><span class="m">818205</span><span class="w">
-</span><span class="w"></span><span class="nt">&lt; X-C</span><span class="p">:</span><span class="w"> </span><span class="l">HIT</span><span class="w">
-</span><span class="w"></span><span class="nt">&lt; Via-2</span><span class="p">:</span><span class="w"> </span><span class="l">http/1.1 bjyz-b-ats-199-179-2 ( [uIcRs f p eN:t cCNi p s ])</span><span class="w">
-</span><span class="w"></span><span class="nt">&lt; Via</span><span class="p">:</span><span class="w"> </span><span class="l">http/1.1 bjzw-t-ats-1-14-1 (ApacheTrafficServer/4.2.3 [uScRs f p eN:t cCHi p s ])</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">➜<span class="w">  </span>/data/backup/test<span class="w">  </span>curl<span class="w"> </span>-s<span class="w"> </span>-LIvo<span class="w"> </span>/dev/<span class="kc">null</span><span class="w">  </span>http<span class="p">:</span>//image4.suning.cn/uimg/cms/img/<span class="m">155540698836163295.</span>png<span class="w">
+</span><span class="w"></span>*<span class="w">   </span>Trying<span class="w"> </span><span class="m">118.187.1.115</span>...<span class="w">
+</span><span class="w"></span>*<span class="w"> </span>TCP_NODELAY<span class="w"> </span>set<span class="w">
+</span><span class="w"></span>*<span class="w"> </span>Connected<span class="w"> </span>to<span class="w"> </span>image4.suning.cn<span class="w"> </span>(<span class="m">118.187.1.115</span>)<span class="w"> </span>port<span class="w"> </span><span class="m">80</span><span class="w"> </span>(<span class="c">#0)</span><span class="w">
+</span><span class="w"></span>&gt;<span class="w"> </span>HEAD<span class="w"> </span>/uimg/cms/img/<span class="m">155540698836163295.</span>png<span class="w"> </span>HTTP/<span class="m">1.1</span><span class="w">
+</span><span class="w"></span><span class="k">&gt; Host</span><span class="p">:</span><span class="w"> </span>image4.suning.cn<span class="w">
+</span><span class="w"></span><span class="k">&gt; User-Agent</span><span class="p">:</span><span class="w"> </span>curl/<span class="m">7.54.0</span><span class="w">
+</span><span class="w"></span><span class="k">&gt; Accept</span><span class="p">:</span><span class="w"> </span><span class="cp">*/*</span><span class="w">
+</span><span class="w"></span>&gt;<span class="w">
+</span><span class="w"></span>&lt;<span class="w"> </span>HTTP/<span class="m">1.1</span><span class="w"> </span><span class="m">200</span><span class="w"> </span>OK<span class="w">
+</span><span class="w"></span><span class="k">&lt; Date</span><span class="p">:</span><span class="w"> </span>Mon<span class="p">,</span><span class="w"> </span><span class="m">23</span><span class="w"> </span>Sep<span class="w"> </span><span class="m">2019</span><span class="w"> </span><span class="m">09</span><span class="p">:</span><span class="m">33</span><span class="p">:</span><span class="m">01</span><span class="w"> </span>GMT<span class="w">
+</span><span class="w"></span><span class="k">&lt; Content-Type</span><span class="p">:</span><span class="w"> </span>image/png<span class="w">
+</span><span class="w"></span><span class="k">&lt; Content-Length</span><span class="p">:</span><span class="w"> </span><span class="m">12208</span><span class="w">
+</span><span class="w"></span><span class="k">&lt; Connection</span><span class="p">:</span><span class="w"> </span>keep-alive<span class="w">
+</span><span class="w"></span><span class="k">&lt; Accept-Ranges</span><span class="p">:</span><span class="w"> </span>bytes<span class="w">
+</span><span class="w"></span><span class="k">&lt; Content-Disposition</span><span class="p">:</span><span class="w"> </span>filename=<span class="s2">&#34;155540698836163295.png&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">&lt; Etag</span><span class="p">:</span><span class="w"> </span>e9504bc0<span class="w">
+</span><span class="w"></span><span class="k">&lt; Last-Modified</span><span class="p">:</span><span class="w"> </span>Tue<span class="p">,</span><span class="w"> </span><span class="m">16</span><span class="w"> </span>Apr<span class="w"> </span><span class="m">2019</span><span class="w"> </span><span class="m">09</span><span class="p">:</span><span class="m">29</span><span class="p">:</span><span class="m">48</span><span class="w"> </span>GMT<span class="w">
+</span><span class="w"></span><span class="k">&lt; X-Sdoss-Request-Id</span><span class="p">:</span><span class="w"> </span>MTAuMTA4LjQxLjE1Ojo4ODg4fDE1Njc3MzgwNzN8MTA1OTM4NjE3NA==<span class="w">
+</span><span class="w"></span><span class="k">&lt; Expires</span><span class="p">:</span><span class="w"> </span>Tue<span class="p">,</span><span class="w"> </span><span class="m">24</span><span class="w"> </span>Sep<span class="w"> </span><span class="m">2019</span><span class="w"> </span><span class="m">01</span><span class="p">:</span><span class="m">41</span><span class="p">:</span><span class="m">44</span><span class="w"> </span>GMT<span class="w">
+</span><span class="w"></span><span class="k">&lt; Cache-Control</span><span class="p">:</span><span class="w"> </span>max-age=<span class="m">864000</span><span class="w">
+</span><span class="w"></span><span class="k">&lt; Vary</span><span class="p">:</span><span class="w"> </span>Qual<span class="p">,</span>Origin<span class="w">
+</span><span class="w"></span><span class="k">&lt; Sta-Last-Modified</span><span class="p">:</span><span class="w"> </span><span class="m">1568602082</span><span class="w">
+</span><span class="w"></span><span class="k">&lt; Age</span><span class="p">:</span><span class="w"> </span><span class="m">818205</span><span class="w">
+</span><span class="w"></span><span class="k">&lt; X-C</span><span class="p">:</span><span class="w"> </span>HIT<span class="w">
+</span><span class="w"></span><span class="k">&lt; Via-2</span><span class="p">:</span><span class="w"> </span>http/<span class="m">1.1</span><span class="w"> </span>bjyz-b-ats<span class="m">-199-179-2</span><span class="w"> </span>(<span class="w"> </span><span class="p">[</span>uIcRs<span class="w"> </span>f<span class="w"> </span>p<span class="w"> </span>eN<span class="p">:</span>t<span class="w"> </span>cCNi<span class="w"> </span>p<span class="w"> </span>s<span class="w"> </span><span class="p">]</span>)<span class="w">
+</span><span class="w"></span><span class="k">&lt; Via</span><span class="p">:</span><span class="w"> </span>http/<span class="m">1.1</span><span class="w"> </span>bjzw-t-ats<span class="m">-1-14-1</span><span class="w"> </span>(ApacheTrafficServer/<span class="m">4.2.3</span><span class="w"> </span><span class="p">[</span>uScRs<span class="w"> </span>f<span class="w"> </span>p<span class="w"> </span>eN<span class="p">:</span>t<span class="w"> </span>cCHi<span class="w"> </span>p<span class="w"> </span>s<span class="w"> </span><span class="p">]</span>)<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="cdn性能优化">CDN性能优化</h3>
@@ -826,17 +825,17 @@ www.taobao.com.danuoyi.tbcache.com. <span class="m">14</span> IN A	103.15.99.97
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="w"> </span><span class="l">gzip on;</span><span class="w">
-</span><span class="w"> </span><span class="l">gzip_min_length 1k;</span><span class="w">
-</span><span class="w"> </span><span class="l">gzip_buffers 4 16k;</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="w"> </span>gzip<span class="w"> </span>on;<span class="w">
+</span><span class="w"> </span>gzip_min_length<span class="w"> </span>1k;<span class="w">
+</span><span class="w"> </span>gzip_buffers<span class="w"> </span><span class="m">4</span><span class="w"> </span>16k;<span class="w">
 </span><span class="w"> </span><span class="c">#gzip_http_version 1.0;</span><span class="w">
-</span><span class="w"> </span><span class="l">gzip_comp_level 2;</span><span class="w">
-</span><span class="w"> </span><span class="l">gzip_types text/plain application/javascript </span><span class="w">
-</span><span class="w">            </span><span class="l">application/x-javascript text/css </span><span class="w">
-</span><span class="w">            </span><span class="l">application/xml text/javascript </span><span class="w">
-</span><span class="w">            </span><span class="l">application/x-httpd-php image/jpeg image/gif image/png;</span><span class="w">
-</span><span class="w"> </span><span class="l">gzip_vary off;</span><span class="w">
-</span><span class="w"> </span><span class="l">gzip_disable &#34;MSIE [1-6]\.&#34;;</span><span class="w">
+</span><span class="w"> </span>gzip_comp_level<span class="w"> </span><span class="m">2</span>;<span class="w">
+</span><span class="w"> </span>gzip_types<span class="w"> </span>text/plain<span class="w"> </span>application/javascript<span class="w"> 
+</span><span class="w">            </span>application/x-javascript<span class="w"> </span>text/css<span class="w"> 
+</span><span class="w">            </span>application/xml<span class="w"> </span>text/javascript<span class="w"> 
+</span><span class="w">            </span>application/x-httpd-php<span class="w"> </span>image/jpeg<span class="w"> </span>image/gif<span class="w"> </span>image/png;<span class="w">
+</span><span class="w"> </span>gzip_vary<span class="w"> </span>off;<span class="w">
+</span><span class="w"> </span>gzip_disable<span class="w"> </span><span class="s2">&#34;MSIE [1-6]\.&#34;</span>;<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -859,9 +858,9 @@ www.taobao.com.danuoyi.tbcache.com. <span class="m">14</span> IN A	103.15.99.97
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># 每个不同的URL都缓存相同副本在CDN的节点上。</span><span class="w">
-</span><span class="w"></span><span class="l">http://www.test123.com/123/456.mp4</span><span class="w">
-</span><span class="w"></span><span class="l">http://www.test123.com/123/456.mp4?user=aaa</span><span class="w">
-</span><span class="w"></span><span class="l">http://www.test123.com/123/456.mp4?user=bbb</span><span class="w">
+</span><span class="w"></span>http<span class="p">:</span>//www.test123.com/<span class="m">123</span>/<span class="m">456.</span>mp4<span class="w">
+</span><span class="w"></span>http<span class="p">:</span>//www.test123.com/<span class="m">123</span>/<span class="m">456.</span>mp4<span class="p">?</span>user=aaa<span class="w">
+</span><span class="w"></span>http<span class="p">:</span>//www.test123.com/<span class="m">123</span>/<span class="m">456.</span>mp4<span class="p">?</span>user=bbb<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="cdn故障排查">CDN故障排查</h3>
@@ -985,6 +984,7 @@ http劫持：出现在miss回源情况，探测到http请求，返回302；或�
 <p>《CDN技术详解》
 <a href="https://developer.mozilla.org/zh-CN/">&ldquo;MDN Web Docs&rdquo;</a>
 <a href="https://help.aliyun.com/product/27099.html?spm=a2c4g.11186623.6.540.455e6ba4EGJRia">&ldquo;Aliyun CDN Docs&rdquo;</a></p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ#Freshness">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ#Freshness</a></p>
 <ul>
 <li>未涉及内容：
 <ul>

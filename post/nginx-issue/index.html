@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.78.2 with theme even" />
+<meta name="generator" content="Hugo 0.73.0 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/post/nginx-issue/" />
@@ -47,14 +47,13 @@
 <meta property="article:modified_time" content="2020-08-13T21:41:13+08:00" />
 <meta itemprop="name" content="Nginx Issue">
 <meta itemprop="description" content="记录一些NGINX配置过程中需要注意的点 [toc] Ngx upstream proxy_pass 是否带 &lsquo;/&rsquo; 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 # 在nginx中配">
-<meta itemprop="datePublished" content="2020-08-13T21:41:13+08:00" />
-<meta itemprop="dateModified" content="2020-08-13T21:41:13+08:00" />
-<meta itemprop="wordCount" content="1218">
+<meta itemprop="datePublished" content="2020-08-13T21:41:13&#43;08:00" />
+<meta itemprop="dateModified" content="2020-08-13T21:41:13&#43;08:00" />
+<meta itemprop="wordCount" content="1185">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Nginx Issue"/>
 <meta name="twitter:description" content="记录一些NGINX配置过程中需要注意的点 [toc] Ngx upstream proxy_pass 是否带 &lsquo;/&rsquo; 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 # 在nginx中配"/>
 
@@ -124,7 +123,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-08-13 </span>
         
-          <span class="more-meta"> 1218 words </span>
+          <span class="more-meta"> 1185 words </span>
           <span class="more-meta"> 3 mins read </span>
         
       </div>
@@ -268,12 +267,12 @@ location  /proxy/ {
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">server {</span><span class="w">
-</span><span class="w">    </span><span class="l">server_name  a.b.com</span><span class="w">
-</span><span class="w">    </span><span class="l">listen       80 default_server;</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">server<span class="w"> </span>{<span class="w">
+</span><span class="w">    </span>server_name<span class="w">  </span>a.b.com<span class="w">
+</span><span class="w">    </span>listen<span class="w">       </span><span class="m">80</span><span class="w"> </span>default_server;<span class="w">
 </span><span class="w">
-</span><span class="w">    </span><span class="l">location / {</span><span class="w">
-</span><span class="w">        </span><span class="l">rewrite ^(.*) https://$host$1 permanent;</span><span class="w">
+</span><span class="w">    </span>location<span class="w"> </span>/<span class="w"> </span>{<span class="w">
+</span><span class="w">        </span>rewrite<span class="w"> </span>^(.<span class="cp">*)</span><span class="w"> </span>https<span class="p">:</span>//$host$<span class="m">1</span><span class="w"> </span>permanent;<span class="w">
 </span><span class="w">    </span>}<span class="w">
 </span><span class="w"></span>}<span class="w">
 </span></code></pre></td></tr></table>
@@ -299,8 +298,8 @@ location  /proxy/ {
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">location / {</span><span class="w">
-</span><span class="w">    </span><span class="l">return 307 https://$server_name$request_uri;</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">location<span class="w"> </span>/<span class="w"> </span>{<span class="w">
+</span><span class="w">    </span>return<span class="w"> </span><span class="m">307</span><span class="w"> </span>https<span class="p">:</span>//$server_name$request_uri;<span class="w">
 </span><span class="w"></span>}<span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -318,9 +317,9 @@ location  /proxy/ {
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># Taxing Rewrites</span><span class="w">
-</span><span class="w"></span><span class="l">rewrite ^/(.*)$ http://example.com/$1 permanent;</span><span class="w">
-</span><span class="w"></span><span class="l">rewrite ^ http://example.com$request_uri? permanent;</span><span class="w">
-</span><span class="w"></span><span class="l">return 301 http://example.com$request_uri;</span><span class="w">
+</span><span class="w"></span>rewrite<span class="w"> </span>^/(.<span class="cp">*)$</span><span class="w"> </span>http<span class="p">:</span>//example.com/$<span class="m">1</span><span class="w"> </span>permanent;<span class="w">
+</span><span class="w"></span>rewrite<span class="w"> </span>^<span class="w"> </span>http<span class="p">:</span>//example.com$request_uri<span class="p">?</span><span class="w"> </span>permanent;<span class="w">
+</span><span class="w"></span>return<span class="w"> </span><span class="m">301</span><span class="w"> </span>http<span class="p">:</span>//example.com$request_uri;<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h2 id="http20-支持">Http2.0 支持</h2>
@@ -346,16 +345,16 @@ location  /proxy/ {
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">2020/11/04 11:48:33 [error] 27179#0: *3980061 lua entry thread aborted: runtime error: /data/openresty/nginx/conf/lua/login.lua:21</span><span class="p">:</span><span class="w"> </span><span class="l">http2 requests not supported yet</span><span class="w">
-</span><span class="w"></span><span class="nt">stack traceback</span><span class="p">:</span><span class="w">
-</span><span class="w"></span><span class="nt">coroutine 0</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">[C]</span><span class="p">:</span><span class="w"> </span><span class="l">in function &#39;capture&#39;</span><span class="w">
-</span><span class="w">  </span><span class="nt">/data/openresty/nginx/conf/lua/login.lua:21: in main chunk, client: 36.112.95.50, server: xxx.com, request</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;POST /op/label/list HTTP/2.0&#34;</span><span class="nt">, host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;xxx.com&#34;</span><span class="nt">, referrer</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://xxx.com/tags&#34;</span><span class="w">
-</span><span class="w"></span><span class="nt">2020/11/04 11:48:38 [error] 27179#0: *3980061 lua entry thread aborted: runtime error: /data/openresty/nginx/conf/lua/login.lua:21</span><span class="p">:</span><span class="w"> </span><span class="l">http2 requests not supported yet</span><span class="w">
-</span><span class="w"></span><span class="nt">stack traceback</span><span class="p">:</span><span class="w">
-</span><span class="w"></span><span class="nt">coroutine 0</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">[C]</span><span class="p">:</span><span class="w"> </span><span class="l">in function &#39;capture&#39;</span><span class="w">
-</span><span class="w">  </span><span class="nt">/data/openresty/nginx/conf/lua/login.lua:21: in main chunk, client: 36.112.95.50, server: jp.pri.ibanyu.com, request</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;POST /op/label/list HTTP/2.0&#34;</span><span class="nt">, host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;jp.pri.ibanyu.com&#34;</span><span class="nt">, referrer</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://xxx.com/tags&#34;</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">2020/11/04 11:48:33 [error] 27179#0: *3980061 lua entry thread aborted: runtime error: /data/openresty/nginx/conf/lua/login.lua:21</span><span class="p">:</span><span class="w"> </span>http2<span class="w"> </span>requests<span class="w"> </span>not<span class="w"> </span>supported<span class="w"> </span>yet<span class="w">
+</span><span class="w"></span><span class="k">stack traceback</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="k">coroutine 0</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">[C]</span><span class="p">:</span><span class="w"> </span>in<span class="w"> </span>function<span class="w"> </span><span class="s1">&#39;capture&#39;</span><span class="w">
+</span><span class="w">  </span><span class="k">/data/openresty/nginx/conf/lua/login.lua:21: in main chunk, client: 36.112.95.50, server: xxx.com, request</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;POST /op/label/list HTTP/2.0&#34;</span><span class="k">, host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;xxx.com&#34;</span><span class="k">, referrer</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://xxx.com/tags&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">2020/11/04 11:48:38 [error] 27179#0: *3980061 lua entry thread aborted: runtime error: /data/openresty/nginx/conf/lua/login.lua:21</span><span class="p">:</span><span class="w"> </span>http2<span class="w"> </span>requests<span class="w"> </span>not<span class="w"> </span>supported<span class="w"> </span>yet<span class="w">
+</span><span class="w"></span><span class="k">stack traceback</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="k">coroutine 0</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">[C]</span><span class="p">:</span><span class="w"> </span>in<span class="w"> </span>function<span class="w"> </span><span class="s1">&#39;capture&#39;</span><span class="w">
+</span><span class="w">  </span><span class="k">/data/openresty/nginx/conf/lua/login.lua:21: in main chunk, client: 36.112.95.50, server: jp.pri.ibanyu.com, request</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;POST /op/label/list HTTP/2.0&#34;</span><span class="k">, host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;jp.pri.ibanyu.com&#34;</span><span class="k">, referrer</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://xxx.com/tags&#34;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -383,11 +382,11 @@ location  /proxy/ {
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">= 开头表示精确匹配;</span><span class="w">
-</span><span class="w"></span><span class="l">^~ 开头表示uri以某个常规字符串开头，不是正则匹配;</span><span class="w">
-</span><span class="w"></span><span class="l">~ 开头表示区分大小写的正则匹配;</span><span class="w">
-</span><span class="w"></span><span class="l">~* 开头表示不区分大小写的正则匹配;</span><span class="w">
-</span><span class="w"></span><span class="l">/ 通用匹配, 如果没有其它匹配,任何请求都会匹配到;</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">=<span class="w"> </span>开头表示精确匹配;<span class="w">
+</span><span class="w"></span>^~<span class="w"> </span>开头表示uri以某个常规字符串开头，不是正则匹配;<span class="w">
+</span><span class="w"></span>~<span class="w"> </span>开头表示区分大小写的正则匹配;<span class="w">
+</span><span class="w"></span>~*<span class="w"> </span>开头表示不区分大小写的正则匹配;<span class="w">
+</span><span class="w"></span>/<span class="w"> </span>通用匹配<span class="p">,</span><span class="w"> </span>如果没有其它匹配<span class="p">,</span>任何请求都会匹配到;<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><ul>
