@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="TianGou" /><meta name="description" content="CDN跨域问题，之前每次刷新解决。。。 原因 oss 存放 abc.js 文件； 第一次携带&amp;rsquo;Origin: baidu.com&amp;rsquo; 请求cdn节点: cdn节点miss，回oss" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="TianGou" /><meta name="description" content="CDN跨域问题，之前每次刷新解决。。。 原因 oss 存放 abc.js 文件； 第一次携带&amp;rsquo;Origin: baidu.com&#39; 请求cdn节点: cdn节点miss，回oss" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.73.0 with theme even" />
+<meta name="generator" content="Hugo 0.78.2 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/post/cdn-%E8%B7%A8%E5%9F%9F/" />
@@ -40,22 +40,23 @@
 
 
 <meta property="og:title" content="Cdn 跨域" />
-<meta property="og:description" content="CDN跨域问题，之前每次刷新解决。。。 原因 oss 存放 abc.js 文件； 第一次携带&rsquo;Origin: baidu.com&rsquo; 请求cdn节点: cdn节点miss，回oss" />
+<meta property="og:description" content="CDN跨域问题，之前每次刷新解决。。。 原因 oss 存放 abc.js 文件； 第一次携带&rsquo;Origin: baidu.com&#39; 请求cdn节点: cdn节点miss，回oss" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/cdn-%E8%B7%A8%E5%9F%9F/" />
 <meta property="article:published_time" content="2021-01-19T15:44:33+08:00" />
 <meta property="article:modified_time" content="2021-01-19T15:44:33+08:00" />
 <meta itemprop="name" content="Cdn 跨域">
-<meta itemprop="description" content="CDN跨域问题，之前每次刷新解决。。。 原因 oss 存放 abc.js 文件； 第一次携带&rsquo;Origin: baidu.com&rsquo; 请求cdn节点: cdn节点miss，回oss">
-<meta itemprop="datePublished" content="2021-01-19T15:44:33&#43;08:00" />
-<meta itemprop="dateModified" content="2021-01-19T15:44:33&#43;08:00" />
+<meta itemprop="description" content="CDN跨域问题，之前每次刷新解决。。。 原因 oss 存放 abc.js 文件； 第一次携带&rsquo;Origin: baidu.com&#39; 请求cdn节点: cdn节点miss，回oss">
+<meta itemprop="datePublished" content="2021-01-19T15:44:33+08:00" />
+<meta itemprop="dateModified" content="2021-01-19T15:44:33+08:00" />
 <meta itemprop="wordCount" content="584">
 
 
 
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Cdn 跨域"/>
-<meta name="twitter:description" content="CDN跨域问题，之前每次刷新解决。。。 原因 oss 存放 abc.js 文件； 第一次携带&rsquo;Origin: baidu.com&rsquo; 请求cdn节点: cdn节点miss，回oss"/>
+<meta name="twitter:description" content="CDN跨域问题，之前每次刷新解决。。。 原因 oss 存放 abc.js 文件； 第一次携带&rsquo;Origin: baidu.com&#39; 请求cdn节点: cdn节点miss，回oss"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -147,16 +148,16 @@
 <h2 id="原因">原因</h2>
 <ul>
 <li>oss 存放 abc.js 文件；</li>
-<li>第一次携带&rsquo;Origin: <a href="http://baidu.com/">baidu.com</a>&rsquo; 请求cdn节点:
+<li>第一次携带&rsquo;Origin: <a href="http://baidu.com/">baidu.com</a>' 请求cdn节点:
 <ul>
 <li>cdn节点miss，回oss拉取资源;</li>
 <li>oss返回head信息：&lsquo;access-control-allow-origin: <a href="http://baidu.com/">baidu.com</a>';</li>
 <li>cdn带&rsquo;access-control-allow-origin: <a href="http://baidu.com/">baidu.com</a>&rsquo; 缓存资源；</li>
 </ul>
 </li>
-<li>第二次请求携带&rsquo;Origin: <a href="http://sina.com/">sina.com</a>&rsquo; 请求cdn节点:
+<li>第二次请求携带&rsquo;Origin: <a href="http://sina.com/">sina.com</a>' 请求cdn节点:
 <ul>
-<li>却受到’access-control-allow-origin: <a href="http://baidu.com/">baidu.com</a>&rsquo; 信息，造成跨域不通过；</li>
+<li>却受到’access-control-allow-origin: <a href="http://baidu.com/">baidu.com</a>' 信息，造成跨域不通过；</li>
 </ul>
 </li>
 </ul>
@@ -220,7 +221,7 @@
       <nav class="post-nav">
         <a class="prev" href="/post/20210121/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">20210121</span>
+            <span class="prev-text nav-default">抬头看天、低头看路</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
         <a class="next" href="/post/cdn/">
@@ -240,7 +241,7 @@
         id: '2021-01-19 15:44:33 \u002b0800 CST',
         title: 'Cdn 跨域',
         link: decodeURI(location.href),
-        desc: 'CDN跨域问题，之前每次刷新解决。。。 原因 oss 存放 abc.js 文件； 第一次携带\u0026rsquo;Origin: baidu.com\u0026rsquo; 请求cdn节点: cdn节点miss，回oss',
+        desc: 'CDN跨域问题，之前每次刷新解决。。。 原因 oss 存放 abc.js 文件； 第一次携带\u0026rsquo;Origin: baidu.com\u0027 请求cdn节点: cdn节点miss，回oss',
         owner: 'duanyifei1937',
         repo: 'duanyifei1937.github.io',
         oauth: {
