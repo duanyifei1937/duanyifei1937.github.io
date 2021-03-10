@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Cdn 跨域 - Even - A super concise theme for Hugo</title>
+  <title>Prometheus区分规则生成 - Even - A super concise theme for Hugo</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="TianGou" /><meta name="description" content="CDN跨域问题，之前每次刷新解决。。。 原因 oss 存放 abc.js 文件； 第一次携带&amp;rsquo;Origin: baidu.com&#39; 请求cdn节点: cdn节点miss，回oss" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="TianGou" /><meta name="description" content="需求 可以针对一个或多个label, 自动生成排除alert rule； 如果只有两级：service &#43; instance; 还好生成；如果更加复杂，prometheu" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.78.2 with theme even" />
 
 
-<link rel="canonical" href="http://localhost:1313/post/cdn-%E8%B7%A8%E5%9F%9F/" />
+<link rel="canonical" href="http://localhost:1313/post/prometheus%E5%8C%BA%E5%88%86%E8%A7%84%E5%88%99%E7%94%9F%E6%88%90/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -39,24 +39,24 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Cdn 跨域" />
-<meta property="og:description" content="CDN跨域问题，之前每次刷新解决。。。 原因 oss 存放 abc.js 文件； 第一次携带&rsquo;Origin: baidu.com&#39; 请求cdn节点: cdn节点miss，回oss" />
+<meta property="og:title" content="Prometheus区分规则生成" />
+<meta property="og:description" content="需求 可以针对一个或多个label, 自动生成排除alert rule； 如果只有两级：service &#43; instance; 还好生成；如果更加复杂，prometheu" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/post/cdn-%E8%B7%A8%E5%9F%9F/" />
-<meta property="article:published_time" content="2021-01-19T15:44:33+08:00" />
-<meta property="article:modified_time" content="2021-01-19T15:44:33+08:00" />
-<meta itemprop="name" content="Cdn 跨域">
-<meta itemprop="description" content="CDN跨域问题，之前每次刷新解决。。。 原因 oss 存放 abc.js 文件； 第一次携带&rsquo;Origin: baidu.com&#39; 请求cdn节点: cdn节点miss，回oss">
-<meta itemprop="datePublished" content="2021-01-19T15:44:33+08:00" />
-<meta itemprop="dateModified" content="2021-01-19T15:44:33+08:00" />
-<meta itemprop="wordCount" content="584">
+<meta property="og:url" content="http://localhost:1313/post/prometheus%E5%8C%BA%E5%88%86%E8%A7%84%E5%88%99%E7%94%9F%E6%88%90/" />
+<meta property="article:published_time" content="2021-03-09T14:22:36+08:00" />
+<meta property="article:modified_time" content="2021-03-09T14:22:36+08:00" />
+<meta itemprop="name" content="Prometheus区分规则生成">
+<meta itemprop="description" content="需求 可以针对一个或多个label, 自动生成排除alert rule； 如果只有两级：service &#43; instance; 还好生成；如果更加复杂，prometheu">
+<meta itemprop="datePublished" content="2021-03-09T14:22:36+08:00" />
+<meta itemprop="dateModified" content="2021-03-09T14:22:36+08:00" />
+<meta itemprop="wordCount" content="183">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Cdn 跨域"/>
-<meta name="twitter:description" content="CDN跨域问题，之前每次刷新解决。。。 原因 oss 存放 abc.js 文件； 第一次携带&rsquo;Origin: baidu.com&#39; 请求cdn节点: cdn节点miss，回oss"/>
+<meta name="twitter:title" content="Prometheus区分规则生成"/>
+<meta name="twitter:description" content="需求 可以针对一个或多个label, 自动生成排除alert rule； 如果只有两级：service &#43; instance; 还好生成；如果更加复杂，prometheu"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -119,13 +119,13 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Cdn 跨域</h1>
+      <h1 class="post-title">Prometheus区分规则生成</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2021-01-19 </span>
+        <span class="post-time"> 2021-03-09 </span>
         
-          <span class="more-meta"> 584 words </span>
-          <span class="more-meta"> 2 mins read </span>
+          <span class="more-meta"> 183 words </span>
+          <span class="more-meta"> 1 min read </span>
         
       </div>
     </header>
@@ -135,69 +135,19 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#原因">原因</a></li>
-    <li><a href="#解决">解决</a></li>
+    <li><a href="#需求">需求</a></li>
+    <li><a href="#配置模板设计">配置模板设计</a></li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      <blockquote>
-<p>CDN跨域问题，之前每次刷新解决。。。</p>
-</blockquote>
-<h2 id="原因">原因</h2>
+      <h2 id="需求">需求</h2>
 <ul>
-<li>oss 存放 abc.js 文件；</li>
-<li>第一次携带&rsquo;Origin: <a href="http://baidu.com/">baidu.com</a>' 请求cdn节点:
-<ul>
-<li>cdn节点miss，回oss拉取资源;</li>
-<li>oss返回head信息：&lsquo;access-control-allow-origin: <a href="http://baidu.com/">baidu.com</a>';</li>
-<li>cdn带&rsquo;access-control-allow-origin: <a href="http://baidu.com/">baidu.com</a>&rsquo; 缓存资源；</li>
+<li>可以针对一个或多个label, 自动生成排除alert rule；</li>
+<li>如果只有两级：service + instance; 还好生成；如果更加复杂，prometheus自有的关系表达式：and / or / unless 无法满足需求；为了简化，定制rule, 可以通过label, 具体到instance；比如：<code>abc{instance=&quot;1.1.1.1|2.2.2.2&quot;} &gt; 60</code>; <code>abc{instance!=&quot;1.1.1.1|2.2.2.2&quot;} &gt; 70</code></li>
 </ul>
-</li>
-<li>第二次请求携带&rsquo;Origin: <a href="http://sina.com/">sina.com</a>' 请求cdn节点:
-<ul>
-<li>却受到’access-control-allow-origin: <a href="http://baidu.com/">baidu.com</a>' 信息，造成跨域不通过；</li>
-</ul>
-</li>
-</ul>
-<h2 id="解决">解决</h2>
-<ol>
-<li>
-<p>oss 直接返回’access-control-allow-origin: *‘；</p>
-</li>
-<li>
-<ol>
-<li>cdn为前端资源，安全级别不高；</li>
-<li>减少增加域段配置；</li>
-<li>需要将oss跨域来源修改为*，刷掉cdn上所有资源，重新缓存为 access-control-allow-origin: *， 因此不能完全依赖oss配置；</li>
-</ol>
-</li>
-<li>
-<p>cdn增加配置’access-control-allow-origin: *‘；</p>
-<ol>
-<li>保证访问cdn的全部请求都可以拿到access-control-allow-origin: *；</li>
-</ol>
-</li>
-<li>
-<p>access-control-allow-origin: * 出现了以下问题：</p>
-<ol>
-<li><img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/image-20210119154736645.png" alt="image-20210119154736645"></li>
-<li>credentials: true 开启预检模式，不允许allow-origin: *;  “withCredentials :true”
-<ol>
-<li>credentials: true 不允许allow-origin: *;</li>
-<li>credentials: false 不允许携带cookie;</li>
-<li>js 做正则判断，
-<ol>
-<li>针对’js/json/css‘等， credentials：false请求，</li>
-<li>后端api true 请求；</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
+<h2 id="配置模板设计">配置模板设计</h2>
 
     </div>
 
@@ -209,7 +159,7 @@
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2021-01-19
+        2021-03-09
         
     </span>
   </p>
@@ -219,13 +169,13 @@
 <footer class="post-footer">
       
       <nav class="post-nav">
-        <a class="prev" href="/post/20210121/">
+        <a class="prev" href="/post/golang-%E6%8C%87%E9%92%88/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">抬头看天、低头赶路</span>
+            <span class="prev-text nav-default">Golang 指针</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
-        <a class="next" href="/post/cdn/">
-            <span class="next-text nav-default">CDN</span>
+        <a class="next" href="/post/go%E5%B9%B6%E5%8F%91%E7%88%AC%E8%99%AB%E7%A4%BA%E4%BE%8B/">
+            <span class="next-text nav-default">Go并发爬虫示例</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -238,10 +188,10 @@
     <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
       var gitment = new Gitment({
-        id: '2021-01-19 15:44:33 \u002b0800 CST',
-        title: 'Cdn 跨域',
+        id: '2021-03-09 14:22:36 \u002b0800 CST',
+        title: 'Prometheus区分规则生成',
         link: decodeURI(location.href),
-        desc: 'CDN跨域问题，之前每次刷新解决。。。 原因 oss 存放 abc.js 文件； 第一次携带\u0026rsquo;Origin: baidu.com\u0027 请求cdn节点: cdn节点miss，回oss',
+        desc: '需求 可以针对一个或多个label, 自动生成排除alert rule； 如果只有两级：service \u002b instance; 还好生成；如果更加复杂，prometheu',
         owner: 'duanyifei1937',
         repo: 'duanyifei1937.github.io',
         oauth: {

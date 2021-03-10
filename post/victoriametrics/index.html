@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="TianGou" /><meta name="description" content="对比m3db/thanos, 确认VictoriaMetrics 以下问题： 数据去重 当multiple prometheus 同时监控相同target; 由于时钟间隔造" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="TianGou" /><meta name="description" content="查询、写入性能强；存储成本低；架构简单的prometheus统一存储解决方案； [toc] 相关问题 去重问题： 相同prome使用相同external_l" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.73.0 with theme even" />
+<meta name="generator" content="Hugo 0.78.2 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/post/victoriametrics/" />
@@ -40,22 +40,23 @@
 
 
 <meta property="og:title" content="VictoriaMetrics" />
-<meta property="og:description" content="对比m3db/thanos, 确认VictoriaMetrics 以下问题： 数据去重 当multiple prometheus 同时监控相同target; 由于时钟间隔造" />
+<meta property="og:description" content="查询、写入性能强；存储成本低；架构简单的prometheus统一存储解决方案； [toc] 相关问题 去重问题： 相同prome使用相同external_l" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/victoriametrics/" />
-<meta property="article:published_time" content="2020-08-05T10:52:15+08:00" />
-<meta property="article:modified_time" content="2020-08-05T10:52:15+08:00" />
+<meta property="article:published_time" content="2021-02-18T11:32:27+08:00" />
+<meta property="article:modified_time" content="2021-02-18T11:32:27+08:00" />
 <meta itemprop="name" content="VictoriaMetrics">
-<meta itemprop="description" content="对比m3db/thanos, 确认VictoriaMetrics 以下问题： 数据去重 当multiple prometheus 同时监控相同target; 由于时钟间隔造">
-<meta itemprop="datePublished" content="2020-08-05T10:52:15&#43;08:00" />
-<meta itemprop="dateModified" content="2020-08-05T10:52:15&#43;08:00" />
-<meta itemprop="wordCount" content="700">
+<meta itemprop="description" content="查询、写入性能强；存储成本低；架构简单的prometheus统一存储解决方案； [toc] 相关问题 去重问题： 相同prome使用相同external_l">
+<meta itemprop="datePublished" content="2021-02-18T11:32:27+08:00" />
+<meta itemprop="dateModified" content="2021-02-18T11:32:27+08:00" />
+<meta itemprop="wordCount" content="426">
 
 
 
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="VictoriaMetrics"/>
-<meta name="twitter:description" content="对比m3db/thanos, 确认VictoriaMetrics 以下问题： 数据去重 当multiple prometheus 同时监控相同target; 由于时钟间隔造"/>
+<meta name="twitter:description" content="查询、写入性能强；存储成本低；架构简单的prometheus统一存储解决方案； [toc] 相关问题 去重问题： 相同prome使用相同external_l"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -121,10 +122,10 @@
       <h1 class="post-title">VictoriaMetrics</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2020-08-05 </span>
+        <span class="post-time"> 2021-02-18 </span>
         
-          <span class="more-meta"> 700 words </span>
-          <span class="more-meta"> 2 mins read </span>
+          <span class="more-meta"> 426 words </span>
+          <span class="more-meta"> 1 min read </span>
         
       </div>
     </header>
@@ -134,84 +135,45 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#数据去重">数据去重</a></li>
-    <li><a href="#数据量存储大小问题">数据量存储大小问题</a></li>
-    <li><a href="#victoria-增删节点流程">Victoria 增、删节点流程</a></li>
-    <li><a href="#多种保留时间">多种保留时间</a></li>
-    <li><a href="#资源配额only-storage-node">资源配额(only storage node)</a></li>
-    <li><a href="#降样本">降样本</a></li>
-    <li><a href="#prometheus-remote-write-性能优化">prometheus remote write 性能优化</a></li>
-    <li><a href="#storage-故障恢复后vminsert-mem飙高">storage 故障恢复后，vminsert mem飙高；</a></li>
-    <li><a href="#victoria-实时数据延时">victoria 实时数据延时</a></li>
+    <li><a href="#相关问题">相关问题</a></li>
+    <li><a href="#vmalert">Vmalert</a></li>
+    <li><a href="#资源预估">资源预估</a></li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
       <blockquote>
-<p>对比m3db/thanos, 确认VictoriaMetrics 以下问题：</p>
+<p>查询、写入性能强；存储成本低；架构简单的prometheus统一存储解决方案；</p>
 </blockquote>
-<h2 id="数据去重">数据去重</h2>
-<blockquote>
-<p>当multiple prometheus 同时监控相同target;</p>
-<p>由于时钟间隔造成的重复数据；</p>
-</blockquote>
+<p>[toc]</p>
+<h2 id="相关问题">相关问题</h2>
 <ul>
-<li>查数据时去重：
+<li>
+<p>去重问题：</p>
 <ul>
-<li>thanos/m3db 相同指标数据增加<code>external_labels不同label</code>, 查询时忽略查询(数据缺失可部分响应；)</li>
+<li>相同prome使用相同external_label;</li>
+<li>写入去重；</li>
 </ul>
 </li>
-<li>写数据时去重：
+<li>
+<p>数据存储量：</p>
 <ul>
-<li>victoria 写入时忽略相同metrics(保证external_labels相同)；特定时间间隔内重复写入丢弃；</li>
+<li>高压缩比，1/7 prome；</li>
+<li>每月01删除超时数据；</li>
 </ul>
 </li>
-</ul>
-<h2 id="数据量存储大小问题">数据量存储大小问题</h2>
+<li>
+<p>接入使用多租户；</p>
+</li>
+<li>
+<p>增、删storage流程：</p>
 <ul>
-<li>m3db降样本数据存储成本过高，1min + 5min 几乎等价不压缩数据，并且3RF, 投票写入；</li>
-<li>Victoria 无上层降样本数据，存储成本 == prometheus存储；</li>
+<li>目前只能通过负载均衡；</li>
 </ul>
-<h2 id="victoria-增删节点流程">Victoria 增、删节点流程</h2>
-<blockquote>
-<p>暂时未提供rebalance功能；vmctl</p>
-</blockquote>
-<h2 id="多种保留时间">多种保留时间</h2>
-<blockquote>
-<p>路由到不同retention的节点；</p>
-<p>Vmauth;</p>
-</blockquote>
-<h2 id="资源配额only-storage-node">资源配额(only storage node)</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml">- 资源配额估算：<span class="w">
-</span><span class="w">  </span>- <span class="k">RAM</span><span class="p">:</span><span class="w"> 
-</span><span class="w">    </span>1M<span class="w"> </span>active<span class="w"> </span>time<span class="w"> </span>series<span class="w"> </span>=~<span class="w"> </span>1GB<span class="w">
-</span><span class="w">  </span>- <span class="k">CPU</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>1M<span class="w"> </span>data_points/second<span class="w"> </span>=~<span class="w"> </span>4C<span class="w">
-</span><span class="w">  </span>- <span class="k">Disk</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>100k<span class="w"> </span>data_points/second<span class="w"> </span><span class="m">1</span><span class="w"> </span>Month<span class="w"> </span>~<span class="w"> </span>260GB<span class="w">
-</span><span class="w">    </span>800k<span class="w"> </span>==<span class="w"> </span>2080G<span class="w"> </span>/<span class="w"> </span>m<span class="w">
-</span><span class="w">  </span>- <span class="k">Network</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>与label数量、大小相关<span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><h2 id="降样本">降样本</h2>
-<p>VictoriaMetrics 说自己性能强劲、压缩比高，不需要降样本；</p>
-<h2 id="prometheus-remote-write-性能优化">prometheus remote write 性能优化</h2>
+</li>
+<li>
+<p>multiple retention问题(需要多套不同保留时间)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -225,49 +187,111 @@
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml">- 增加写入性能：<span class="w">
-</span><span class="w"></span><span class="c"># memory usage = number_of_shards * (capacity + max_samples_per_send)</span><span class="w">
-</span><span class="w"></span><span class="c"># 30 * 100KB = 3M</span><span class="w">
-</span><span class="w"></span><span class="c"># capacity: per shard have number of samples;</span><span class="w">
-</span><span class="w"></span><span class="c"># 减少发送次数，增加每次数量；</span><span class="w">
-</span><span class="w">  </span><span class="k">remote_write</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">url</span><span class="p">:</span><span class="w"> </span>http<span class="p">:</span>//&lt;victoriametrics-addr&gt;<span class="p">:</span><span class="m">8428</span>/api/v1/write<span class="w">
-</span><span class="w">    </span><span class="k">queue_config</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">max_samples_per_send</span><span class="p">:</span><span class="w"> </span><span class="m">10000</span><span class="w">
-</span><span class="w">      </span><span class="k">capacity</span><span class="p">:</span><span class="w"> </span><span class="m">20000</span><span class="w">
-</span><span class="w">      </span><span class="k">max_shards</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># prometheus 通过write_relabel写入不同insert:</span><span class="w">
+</span><span class="w"></span><span class="c"># 根据指标名区分；</span><span class="w">
+</span><span class="w"></span><span class="nt">remote_write</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">common</span><span class="w">
+</span><span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;http://1.1.1.1:8480/insert/1/prometheus/api/v1/write&#34;</span><span class="w">
+</span><span class="w">  </span><span class="nt">queue_config</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">max_samples_per_send</span><span class="p">:</span><span class="w"> </span><span class="m">1000000</span><span class="w">
+</span><span class="w">    </span><span class="nt">capacity</span><span class="p">:</span><span class="w"> </span><span class="m">5000000</span><span class="w">
+</span><span class="w">    </span><span class="nt">min_shards</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">    </span><span class="nt">max_shards</span><span class="p">:</span><span class="w"> </span><span class="m">20</span><span class="w">
+</span><span class="w">  
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">long-retention</span><span class="w">
+</span><span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;http://1.1.1.1:9480/insert/1/prometheus/api/v1/write&#34;</span><span class="w">
+</span><span class="w">  </span><span class="nt">write_relabel_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">source_labels</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">__name__]</span><span class="w">
+</span><span class="w">    </span><span class="nt">separator</span><span class="p">:</span><span class="w"> </span><span class="l">;</span><span class="w">
+</span><span class="w">    </span><span class="nt">regex</span><span class="p">:</span><span class="w"> </span><span class="l">(.*):rate(.*)</span><span class="w">
+</span><span class="w">    </span><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l">keep</span><span class="w">
+</span><span class="w">  </span><span class="nt">queue_config</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">max_samples_per_send</span><span class="p">:</span><span class="w"> </span><span class="m">20000</span><span class="w">
+</span><span class="w">    </span><span class="nt">capacity</span><span class="p">:</span><span class="w"> </span><span class="m">60000</span><span class="w">
+</span><span class="w">    </span><span class="nt">min_shards</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span><span class="nt">max_shards</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><h2 id="storage-故障恢复后vminsert-mem飙高">storage 故障恢复后，vminsert mem飙高；</h2>
-<p>挤压数据冲到insert组件；</p>
-<p>隔离部署，合理规划insert mem使用；</p>
-<h2 id="victoria-实时数据延时">victoria 实时数据延时</h2>
-<p><img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/20200909110040.png" alt="delay-select"></p>
-<p>如图，Victoria select 实时查询比prometheus直接查询延时大概4mins;</p>
-<p>优化：(并非vicroria组件性能问题，remote-write参数限制)</p>
+</div></li>
+</ul>
+<h2 id="vmalert">Vmalert</h2>
+<blockquote>
+<p>相当于prometheus rules评估规则拆分</p>
+<p>无集群模式，需要主备多个写入alertmanager去重；</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># 数据180k/s; samples每次写入20000，单个shard容纳60000, 最大30个shard;</span><span class="w">
-</span><span class="w"></span><span class="k">remote_write</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;http://10.111.146.241:8480/insert/2/prometheus/api/v1/write&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">queue_config</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">max_samples_per_send</span><span class="p">:</span><span class="w"> </span><span class="m">20000</span><span class="w">
-</span><span class="w">      </span><span class="k">capacity</span><span class="p">:</span><span class="w"> </span><span class="m">60000</span><span class="w">
-</span><span class="w">      </span><span class="k">max_shards</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">./vmalert-prod -rule=alert.rules \</span><span class="w">
+</span><span class="w">    </span>-<span class="l">datasource.url=&#34;http://1.1.1.1:8481/select/1/prometheus/&#34; \</span><span class="w">
+</span><span class="w">    </span>-<span class="l">notifier.url=&#34;http://1.1.1.1:9093&#34; \</span><span class="w">
+</span><span class="w">    </span>-<span class="l">remoteWrite.url=&#34;http://1.1.1.1:9480/insert/1/prometheus/&#34; \</span><span class="w">
+</span><span class="w">    </span>-<span class="l">remoteRead.url=&#34;http://1.1.1.1:8481/select/1/prometheus/&#34; \</span><span class="w">
+</span><span class="w">    </span>-<span class="l">external.label=cluster=dyf \</span><span class="w">
+</span><span class="w">    </span>-<span class="l">external.label=replica=dyf-a \</span><span class="w">
+</span><span class="w">    </span>-<span class="l">evaluationInterval=3s</span><span class="w">
+</span><span class="w">    
+</span><span class="w"></span><span class="c"># cat alert.rules</span><span class="w">
+</span><span class="w"></span><span class="nt">groups</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">BaseIndexer5m</span><span class="w">
+</span><span class="w">    </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
+</span><span class="w">    </span><span class="nt">rules</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">测试报警延迟</span><span class="w">
+</span><span class="w">      </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">sum(increase(indexer_redis_input[10m]))  &gt; 1</span><span class="w">
+</span><span class="w">      </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l">1s</span><span class="w">
+</span><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">alert_to</span><span class="p">:</span><span class="w"> </span><span class="l">PalFishAlertManager</span><span class="w">
+</span><span class="w">        </span><span class="nt">project_group</span><span class="p">:</span><span class="w"> </span><span class="l">base</span><span class="w">
+</span><span class="w">        </span><span class="nt">project_name</span><span class="p">:</span><span class="w"> </span><span class="l">indexer</span><span class="w">
+</span><span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l">alertmanager</span><span class="w">
+</span><span class="w">      </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">detail</span><span class="p">:</span><span class="w"> </span><span class="l">Indexer 测试告警，请忽略</span><span class="w">
+</span><span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">Indexer 测试告警，请忽略</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div>
+</div><h2 id="资源预估">资源预估</h2>
+<p><img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/20210218120200.png" alt="img"></p>
+
     </div>
 
     <div class="post-copyright">
@@ -278,7 +302,7 @@
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2020-08-05
+        2021-02-18
         
     </span>
   </p>
@@ -288,13 +312,13 @@
 <footer class="post-footer">
       
       <nav class="post-nav">
-        <a class="prev" href="/post/etcd%E5%A4%87%E4%BB%BD%E5%8F%8A%E6%81%A2%E5%A4%8D-v3/">
+        <a class="prev" href="/post/tcpip-route-switch/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Etcd备份及恢复-v3</span>
+            <span class="prev-text nav-default">Tcpip Route Switch</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
-        <a class="next" href="/post/elasticsearch%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D/">
-            <span class="next-text nav-default">Elasticsearch备份恢复</span>
+        <a class="next" href="/post/go%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/">
+            <span class="next-text nav-default">Go程序设计语言</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -307,10 +331,10 @@
     <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
       var gitment = new Gitment({
-        id: '2020-08-05 10:52:15 \u002b0800 CST',
+        id: '2021-02-18 11:32:27 \u002b0800 CST',
         title: 'VictoriaMetrics',
         link: decodeURI(location.href),
-        desc: '对比m3db\/thanos, 确认VictoriaMetrics 以下问题： 数据去重 当multiple prometheus 同时监控相同target; 由于时钟间隔造',
+        desc: '查询、写入性能强；存储成本低；架构简单的prometheus统一存储解决方案； [toc] 相关问题 去重问题： 相同prome使用相同external_l',
         owner: 'duanyifei1937',
         repo: 'duanyifei1937.github.io',
         oauth: {
@@ -352,7 +376,8 @@
 
   <span class="copyright-year">
     &copy; 
-    2020
+    2020 - 
+    2021
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

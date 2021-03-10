@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="TianGou" /><meta name="description" content="tcpdump tcpdump -vv -nni eth0 &#39;(dst 10.111.146.243 and dst port 80) or (src 10.111.146.243 and src port 80)&#39; -w 80_conn_curl.pcap" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="TianGou" /><meta name="description" content="Linux Command tcpdump: tcpdump -vv -nni eth0 &#39;(dst 10.111.146.243 and dst port 80) or (src 10.111.146.243 and src port 80)&#39; -w 80_conn_curl.pcap openssl 验证证书： openssl s_client -connect 61.166.151.64:443 -servername [qiniu-vmovier3.vmoviercdn.com](http://qiniu-vmovier3.vmoviercdn.com/) -showcerts" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -40,23 +40,23 @@
 
 
 <meta property="og:title" content="Linux Command" />
-<meta property="og:description" content="tcpdump tcpdump -vv -nni eth0 &#39;(dst 10.111.146.243 and dst port 80) or (src 10.111.146.243 and src port 80)&#39; -w 80_conn_curl.pcap" />
+<meta property="og:description" content="Linux Command tcpdump: tcpdump -vv -nni eth0 &#39;(dst 10.111.146.243 and dst port 80) or (src 10.111.146.243 and src port 80)&#39; -w 80_conn_curl.pcap openssl 验证证书： openssl s_client -connect 61.166.151.64:443 -servername [qiniu-vmovier3.vmoviercdn.com](http://qiniu-vmovier3.vmoviercdn.com/) -showcerts" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/linux-command/" />
 <meta property="article:published_time" content="2021-01-13T15:47:45+08:00" />
 <meta property="article:modified_time" content="2021-01-13T15:47:45+08:00" />
 <meta itemprop="name" content="Linux Command">
-<meta itemprop="description" content="tcpdump tcpdump -vv -nni eth0 &#39;(dst 10.111.146.243 and dst port 80) or (src 10.111.146.243 and src port 80)&#39; -w 80_conn_curl.pcap">
+<meta itemprop="description" content="Linux Command tcpdump: tcpdump -vv -nni eth0 &#39;(dst 10.111.146.243 and dst port 80) or (src 10.111.146.243 and src port 80)&#39; -w 80_conn_curl.pcap openssl 验证证书： openssl s_client -connect 61.166.151.64:443 -servername [qiniu-vmovier3.vmoviercdn.com](http://qiniu-vmovier3.vmoviercdn.com/) -showcerts">
 <meta itemprop="datePublished" content="2021-01-13T15:47:45+08:00" />
 <meta itemprop="dateModified" content="2021-01-13T15:47:45+08:00" />
-<meta itemprop="wordCount" content="20">
+<meta itemprop="wordCount" content="35">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux Command"/>
-<meta name="twitter:description" content="tcpdump tcpdump -vv -nni eth0 &#39;(dst 10.111.146.243 and dst port 80) or (src 10.111.146.243 and src port 80)&#39; -w 80_conn_curl.pcap"/>
+<meta name="twitter:description" content="Linux Command tcpdump: tcpdump -vv -nni eth0 &#39;(dst 10.111.146.243 and dst port 80) or (src 10.111.146.243 and src port 80)&#39; -w 80_conn_curl.pcap openssl 验证证书： openssl s_client -connect 61.166.151.64:443 -servername [qiniu-vmovier3.vmoviercdn.com](http://qiniu-vmovier3.vmoviercdn.com/) -showcerts"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -124,7 +124,7 @@
       <div class="post-meta">
         <span class="post-time"> 2021-01-13 </span>
         
-          <span class="more-meta"> 20 words </span>
+          <span class="more-meta"> 35 words </span>
           <span class="more-meta"> 1 min read </span>
         
       </div>
@@ -135,14 +135,25 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#tcpdump">tcpdump</a></li>
+    <li><a href="#linux-command">Linux Command</a></li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      <h2 id="tcpdump">tcpdump</h2>
-<p><code>tcpdump -vv -nni eth0 '(dst 10.111.146.243 and dst port 80) or (src 10.111.146.243 and src port 80)' -w 80_conn_curl.pcap</code></p>
+      <h2 id="linux-command">Linux Command</h2>
+<ul>
+<li>tcpdump:
+<ul>
+<li><code>tcpdump -vv -nni eth0 '(dst 10.111.146.243 and dst port 80) or (src 10.111.146.243 and src port 80)' -w 80_conn_curl.pcap</code></li>
+</ul>
+</li>
+<li>openssl 验证证书：
+<ul>
+<li><code>openssl s_client -connect 61.166.151.64:443 -servername [qiniu-vmovier3.vmoviercdn.com](http://qiniu-vmovier3.vmoviercdn.com/) -showcerts</code></li>
+</ul>
+</li>
+</ul>
 
     </div>
 
@@ -186,7 +197,7 @@
         id: '2021-01-13 15:47:45 \u002b0800 CST',
         title: 'Linux Command',
         link: decodeURI(location.href),
-        desc: 'tcpdump tcpdump -vv -nni eth0 \u0027(dst 10.111.146.243 and dst port 80) or (src 10.111.146.243 and src port 80)\u0027 -w 80_conn_curl.pcap',
+        desc: 'Linux Command tcpdump: tcpdump -vv -nni eth0 \u0027(dst 10.111.146.243 and dst port 80) or (src 10.111.146.243 and src port 80)\u0027 -w 80_conn_curl.pcap openssl 验证证书： openssl s_client -connect 61.166.151.64:443 -servername [qiniu-vmovier3.vmoviercdn.com](http:\/\/qiniu-vmovier3.vmoviercdn.com\/) -showcerts',
         owner: 'duanyifei1937',
         repo: 'duanyifei1937.github.io',
         oauth: {

@@ -6,9 +6,91 @@
     <description>Recent content in Posts on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 21 Jan 2021 22:36:10 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 10 Mar 2021 08:57:54 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>抬头看天、低头看路</title>
+      <title>Golang 指针</title>
+      <link>http://localhost:1313/post/golang-%E6%8C%87%E9%92%88/</link>
+      <pubDate>Wed, 10 Mar 2021 08:57:54 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/golang-%E6%8C%87%E9%92%88/</guid>
+      <description>golang 系列 [toc] 指针地址变量空间 指针就是地址；指针变量就是存储地址的变量； *p: 解引用、间接引用； 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 func main() { var a int = 10 // &amp;amp;a: 地</description>
+    </item>
+    
+    <item>
+      <title>Prometheus区分规则生成</title>
+      <link>http://localhost:1313/post/prometheus%E5%8C%BA%E5%88%86%E8%A7%84%E5%88%99%E7%94%9F%E6%88%90/</link>
+      <pubDate>Tue, 09 Mar 2021 14:22:36 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/prometheus%E5%8C%BA%E5%88%86%E8%A7%84%E5%88%99%E7%94%9F%E6%88%90/</guid>
+      <description>需求 可以针对一个或多个label, 自动生成排除alert rule； 如果只有两级：service + instance; 还好生成；如果更加复杂，prometheu</description>
+    </item>
+    
+    <item>
+      <title>Go并发爬虫示例</title>
+      <link>http://localhost:1313/post/go%E5%B9%B6%E5%8F%91%E7%88%AC%E8%99%AB%E7%A4%BA%E4%BE%8B/</link>
+      <pubDate>Sun, 07 Mar 2021 15:48:32 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/go%E5%B9%B6%E5%8F%91%E7%88%AC%E8%99%AB%E7%A4%BA%E4%BE%8B/</guid>
+      <description>&amp;laquo;Go程序设计语言&amp;raquo;中，爬虫代码修改演进； 涉及匿名函数、并发; 理解困难，单独拿出来；</description>
+    </item>
+    
+    <item>
+      <title>Kafkacat</title>
+      <link>http://localhost:1313/post/kafkacat/</link>
+      <pubDate>Wed, 03 Mar 2021 21:15:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/kafkacat/</guid>
+      <description> kafka debug tools
+ Install 1 2 3 4 5 6 7  yum update -y &amp;amp;&amp;amp; yum install gcc-c++ git librdkafka-devel -y git clone https://github.com/edenhill/kafkacat cd kafkacat &amp;amp;&amp;amp; ././configure make &amp;amp;&amp;amp; make install   Usage 1 2 3 4 5 6 7 8 9 10  example:broker:10.111.146.245:9092# List brokers and topics in clusterdocker run -it --network=host edenhill/kafkacat:1.6.0 -b 10.111.146.245:9092 -L# Read messages from stdin, produce to &amp;#39;syslog&amp;#39; topic with snappy compression# macostail -f /var/log/syslog | kafkacat -b mybroker -t syslog -z snappy  </description>
+    </item>
+    
+    <item>
+      <title>Alertmanager Inhabit Not Working</title>
+      <link>http://localhost:1313/post/alertmanager-inhabit-not-working/</link>
+      <pubDate>Wed, 03 Mar 2021 17:09:57 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/alertmanager-inhabit-not-working/</guid>
+      <description>Alertmanager报警抑制不生效 两种场景： 同一台prometheus发出不同级别alert (sos/critical/warning)</description>
+    </item>
+    
+    <item>
+      <title>Cmdb</title>
+      <link>http://localhost:1313/post/cmdb/</link>
+      <pubDate>Fri, 19 Feb 2021 14:40:47 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/cmdb/</guid>
+      <description>[toc] 资产 主机 写入</description>
+    </item>
+    
+    <item>
+      <title>Tcpip Route Switch</title>
+      <link>http://localhost:1313/post/tcpip-route-switch/</link>
+      <pubDate>Thu, 18 Feb 2021 20:54:22 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/tcpip-route-switch/</guid>
+      <description> </description>
+    </item>
+    
+    <item>
+      <title>VictoriaMetrics</title>
+      <link>http://localhost:1313/post/victoriametrics/</link>
+      <pubDate>Thu, 18 Feb 2021 11:32:27 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/victoriametrics/</guid>
+      <description>查询、写入性能强；存储成本低；架构简单的prometheus统一存储解决方案； [toc] 相关问题 去重问题： 相同prome使用相同external_l</description>
+    </item>
+    
+    <item>
+      <title>Go程序设计语言</title>
+      <link>http://localhost:1313/post/go%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Mon, 08 Feb 2021 15:37:09 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/go%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>抬头看天、低头赶路</title>
       <link>http://localhost:1313/post/20210121/</link>
       <pubDate>Thu, 21 Jan 2021 22:36:10 +0800</pubDate>
       
@@ -40,7 +122,7 @@
       <pubDate>Wed, 13 Jan 2021 15:47:45 +0800</pubDate>
       
       <guid>http://localhost:1313/post/linux-command/</guid>
-      <description>tcpdump tcpdump -vv -nni eth0 &#39;(dst 10.111.146.243 and dst port 80) or (src 10.111.146.243 and src port 80)&#39; -w 80_conn_curl.pcap</description>
+      <description>Linux Command tcpdump: tcpdump -vv -nni eth0 &#39;(dst 10.111.146.243 and dst port 80) or (src 10.111.146.243 and src port 80)&#39; -w 80_conn_curl.pcap openssl 验证证书： openssl s_client -connect 61.166.151.64:443 -servername [qiniu-vmovier3.vmoviercdn.com](http://qiniu-vmovier3.vmoviercdn.com/) -showcerts</description>
     </item>
     
     <item>
@@ -67,7 +149,7 @@
       <pubDate>Wed, 01 Jul 2020 15:24:39 +0800</pubDate>
       
       <guid>http://localhost:1313/post/hello-world/</guid>
-      <description>hello world~ 包括但不限于可能会写到： 技术类、生活感触、读书记录 .etc.</description>
+      <description>hello world~ 包括但不限于可能会写到： 技术类、生活感触、读书记录 .etc. 占坑List: nginx Jaeger https://help.aliyun.com/document_detail/193865.html?spm=5176.13910061.sslink.5.476455a1XgIzdX Golang: Gorm: 2021.01.31 finish CRUD interface. Gin-example: 手写前三章； Docker: 挂载，数据测试；多个挂载； 1 2 3 4 5</description>
     </item>
     
   </channel>
