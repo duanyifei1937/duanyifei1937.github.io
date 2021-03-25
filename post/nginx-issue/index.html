@@ -49,7 +49,7 @@
 <meta itemprop="description" content="记录一些NGINX配置过程中需要注意的点 [toc] Ngx upstream proxy_pass 是否带 &lsquo;/&rsquo; 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 # 在nginx中配">
 <meta itemprop="datePublished" content="2020-08-13T21:41:13+08:00" />
 <meta itemprop="dateModified" content="2020-08-13T21:41:13+08:00" />
-<meta itemprop="wordCount" content="2139">
+<meta itemprop="wordCount" content="2310">
 
 
 
@@ -124,7 +124,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-08-13 </span>
         
-          <span class="more-meta"> 2139 words </span>
+          <span class="more-meta"> 2310 words </span>
           <span class="more-meta"> 5 mins read </span>
         
       </div>
@@ -152,6 +152,7 @@
     <li><a href="#nginx-proxy-websocket-配置">Nginx proxy websocket 配置</a></li>
     <li><a href="#ngx配置很繁琐原因呢">Ngx配置很繁琐，原因呢？</a></li>
     <li><a href="#证书链完整的重要性">证书链完整的重要性</a></li>
+    <li><a href="#logstash-解析不正确">logstash 解析不正确</a></li>
   </ul>
 </nav>
   </div>
@@ -719,9 +720,128 @@ openresty/1.19.3.1 &ndash; 重写前生效</p>
 <li><a href="https://myssl.com/cert_decode.html">https://myssl.com/cert_decode.html</a></li>
 </ul>
 </li>
-<li></li>
 </ul>
-
+<h2 id="logstash-解析不正确">logstash 解析不正确</h2>
+<blockquote>
+<p>Nginx log 通过logstash解析错误；</p>
+</blockquote>
+<p>对比发现少一个field, 相同的日志定义格式为什么会少呢？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># $upstream_response_time 为空字符</span><span class="w">
+</span><span class="w"></span><span class="c"># $upstream_status 当 status499, upstream status: -</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="l">log_format  access  &#39;$time_local\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$server_port\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$remote_addr\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$remote_port\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$remote_user\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$body_bytes_sent\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$bytes_sent\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$host\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$request_method\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$scheme\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$uri\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$query_string\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$request_length\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$server_protocol\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$request_time\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$status\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$upstream_addr\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$upstream_bytes_received\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$upstream_response_length\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$upstream_response_time\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$upstream_status\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$upstream_connect_time\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$http_referer\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$http_user_agent\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$http_x_forwarded_for\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$ipalfish_device_id\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$request_uri\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$cookie_uid\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$cookie_atype\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$cookie_ptoken\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$http_h_src\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;$http_app_ver\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;-\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;-\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;-\t&#39;</span><span class="w">
+</span><span class="w">                </span><span class="s1">&#39;-\t&#39;</span><span class="l">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>解决：(同样的方法可转换“-” &ndash;&gt; float;)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># $upstream_response_time 有可能空字符</span><span class="w">
+</span><span class="w"></span><span class="l">map $upstream_response_time $temprt {</span><span class="w">
+</span><span class="w">  </span><span class="l">default $upstream_response_time;</span><span class="w">
+</span><span class="w">  </span><span class="s2">&#34;&#34;</span><span class="w">      </span><span class="m">0</span><span class="l">;</span><span class="w">
+</span><span class="w"></span>}<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="s1">&#39;&#34;response_time&#34;: $temprt, &#39;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># 部分日志类型可能“-”</span><span class="w">
+</span><span class="w">      </span><span class="l">match =&gt; { &#34;message&#34; =&gt; &#39;%{HTTPDATE:timestamp}\t%{NUMBER:server_port}\t%{IP:remote_addr}\t%{NUMBER:remote_port}\t%{USERNAME:remote_user}\t%{NUMBER:body_bytes_sent}\t%{NUMBER:bytes_sent}\t%{IPORHOST:domain}\t%{WORD:request_method}\t%{URIPROTO:scheme}\t%{URIPATH:uri}\t%{DATA:query_string}\t%{NUMBER:request_length}\t%{DATA:server_protocol}\t%{NUMBER:request_time}\t%{NUMBER:status}\t(?:%{HOSTPORT:upstream_addr}|-)\t(?:%{NUMBER:upstream_bytes_received}|-)\t(?:%{NUMBER:upstream_response_length}|-)\t(?:%{NUMBER:upstream_response_time}|-)\t(?:%{NUMBER:upstream_status}|-)\t(?:%{NUMBER:upstream_connect_time}|-)\t%{DATA:http_referer}\t%{DATA:http_user_agent}\t%{DATA:http_x_forwarded_for}\t%{DATA:ipalfish_device_id}\t%{URIPATHPARAM:request_uri}\t%{DATA:cookie_uid}\t%{DATA:cookie_atype}\t%{DATA:cookie_ptoken}\t%{DATA:http_h_src}\t%{DATA:http_app_ver}\t-\t-\t-\t-&#39;}</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     <div class="post-copyright">
