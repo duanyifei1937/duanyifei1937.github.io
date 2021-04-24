@@ -6,7 +6,115 @@
     <description>Recent content in Posts on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 22 Mar 2021 20:57:38 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Apr 2021 11:27:34 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Monitor Nginx</title>
+      <link>http://localhost:1313/post/monitor-nginx/</link>
+      <pubDate>Fri, 23 Apr 2021 11:27:34 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/monitor-nginx/</guid>
+      <description>lua-nginx-prometheus 监控Nginx 访问； https://github.com/vovolie/lua-nginx-prometheus</description>
+    </item>
+    
+    <item>
+      <title>K8s Ingress Nginx</title>
+      <link>http://localhost:1313/post/k8s-ingress-nginx/</link>
+      <pubDate>Wed, 21 Apr 2021 15:31:43 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/k8s-ingress-nginx/</guid>
+      <description>ingress优点 比起 slb --&amp;gt; nginx --&amp;gt; gateway(nodeport) --&amp;gt; pod, ingress: slb --&amp;gt; ingress --&amp;gt; pod 少走一层； 不需要为大量服务单独暴露nodeport; 实现 众多优秀的功能： no reload dynamic upstream; (实时获取实</description>
+    </item>
+    
+    <item>
+      <title>Linux Lvs</title>
+      <link>http://localhost:1313/post/linux-lvs/</link>
+      <pubDate>Mon, 19 Apr 2021 21:04:14 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/linux-lvs/</guid>
+      <description>lvs 选择后端的调度算法</description>
+    </item>
+    
+    <item>
+      <title>Linux Haproxy</title>
+      <link>http://localhost:1313/post/linux-haproxy/</link>
+      <pubDate>Mon, 19 Apr 2021 20:55:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/linux-haproxy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>K8s Kubeadm</title>
+      <link>http://localhost:1313/post/k8s-kubeadm/</link>
+      <pubDate>Tue, 13 Apr 2021 20:40:23 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/k8s-kubeadm/</guid>
+      <description> https://github.com/maguowei/gotok8s  </description>
+    </item>
+    
+    <item>
+      <title>K8s Storage Alibaba Cloud Csi</title>
+      <link>http://localhost:1313/post/k8s-storage-alibaba-cloud-csi/</link>
+      <pubDate>Tue, 13 Apr 2021 10:46:18 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/k8s-storage-alibaba-cloud-csi/</guid>
+      <description>aliyun nas 作为持久化存储卷使用方式 目前阿里云CSI存储插件支持云盘、OSS、NAS等存储类型，并支持通过StorageClass创建动态存储卷； N</description>
+    </item>
+    
+    <item>
+      <title>Linux Socket</title>
+      <link>http://localhost:1313/post/linux-socket/</link>
+      <pubDate>Mon, 12 Apr 2021 14:49:51 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/linux-socket/</guid>
+      <description>socker概念、使用； socket概念 Socket, 又称套接字；Linux跨进程通信（IPC，Inter Process Communication）的一种； 优点：u</description>
+    </item>
+    
+    <item>
+      <title>Linux 连接数</title>
+      <link>http://localhost:1313/post/linux-%E8%BF%9E%E6%8E%A5/</link>
+      <pubDate>Fri, 09 Apr 2021 10:40:30 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/linux-%E8%BF%9E%E6%8E%A5/</guid>
+      <description>连接查看方式 netstat displaying the routing table netstat -nr displaying interface statistics netstat -i displaying connections netstat -ta 连接状态计数： 1 2 3 4 5 6 7 # 各阶段概念 参考tcp状态机# netstat -nat |awk &amp;#39;{print $6}&amp;#39;|sort|uniq -c|sort -rn257ESTABLISHED45LISTEN10TIME_WAIT1Foreign1established) socket 实践 一台服务器最多建立</description>
+    </item>
+    
+    <item>
+      <title>Book 软件定义网络</title>
+      <link>http://localhost:1313/post/book-%E8%BD%AF%E4%BB%B6%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C/</link>
+      <pubDate>Thu, 08 Apr 2021 08:29:11 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/book-%E8%BD%AF%E4%BB%B6%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C/</guid>
+      <description>&amp;laquo;软件定义网络 核心原理与应用实践&amp;raquo;</description>
+    </item>
+    
+    <item>
+      <title>Golang 05 File</title>
+      <link>http://localhost:1313/post/golang-05-file/</link>
+      <pubDate>Sun, 28 Mar 2021 18:19:06 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/golang-05-file/</guid>
+      <description>strings 处理函数 1 func Split(s, sep string) []string 1 func Fields(s string) []string 1 func HasSuffix(s, suffix string) bool 1 func HasPrefix(s, prefix string) bool 文件操作 创建 create 文件不存在创建、文件存在清空； 1 func Create(name string) (*File, error) 打开 只读：open, 文件不存</description>
+    </item>
+    
+    <item>
+      <title>本地测试环境</title>
+      <link>http://localhost:1313/post/%E6%9C%AC%E5%9C%B0%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Fri, 26 Mar 2021 19:03:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/%E6%9C%AC%E5%9C%B0%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83/</guid>
+      <description>MacBook + VirtualBox + Vagrant Vagrant 创建分布式集群 NOTE systemctl stop firewalld &amp;amp;&amp;amp; systemctl disable firewalld allow ssh password login 1 2 # /etc/ssh/sshd_configPasswordAuthentication yes /etc/sysctl.conf` 1 2 3 # sysctl -pnet.ipv6.conf.all.disable_ipv6 = 1net.ipv4.ip_forward = 1 disable swap 1 2 3 Identify configured swap devices and files with cat /proc/swaps.Turn off all swap devices and files with swapoff -a.Remove any matching reference found in /etc/fstab.</description>
+    </item>
+    
+    <item>
+      <title>Network Vxlan</title>
+      <link>http://localhost:1313/post/network-vxlan/</link>
+      <pubDate>Fri, 26 Mar 2021 13:49:05 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/network-vxlan/</guid>
+      <description>VXLAN的特点是将L2的以太帧封装到UDP报文（即L2 over L4）中，并在L3网络中传输。 [toc] VXlan 面临挑战： 虚拟机网络规模受限： 大二层网络通过ar</description>
+    </item>
+    
     <item>
       <title>Nginx 获取client真实ip</title>
       <link>http://localhost:1313/post/nginx-%E8%8E%B7%E5%8F%96client%E7%9C%9F%E5%AE%9Eip/</link>
@@ -27,29 +135,29 @@
     
     <item>
       <title>寻找低估</title>
-      <link>http://localhost:1313/post/%E5%AF%BB%E6%89%BE%E4%BD%8E%E4%BC%B0/</link>
+      <link>http://localhost:1313/post/bbb/</link>
       <pubDate>Sun, 21 Mar 2021 17:24:22 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/%E5%AF%BB%E6%89%BE%E4%BD%8E%E4%BC%B0/</guid>
+      <guid>http://localhost:1313/post/bbb/</guid>
       <description>往往不知道什么时候应该买、什么时候卖、什么时候加、什么时候减； 介绍一些指标数据、数据来源； 指标 PE-TTM: 滚动市盈率 &amp;ldquo;当前市值 / 过去12个</description>
     </item>
     
     <item>
       <title>价值投资</title>
-      <link>http://localhost:1313/post/%E4%BB%B7%E5%80%BC%E6%8A%95%E8%B5%84/</link>
+      <link>http://localhost:1313/post/aaa/</link>
       <pubDate>Sun, 21 Mar 2021 17:23:49 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/%E4%BB%B7%E5%80%BC%E6%8A%95%E8%B5%84/</guid>
+      <guid>http://localhost:1313/post/aaa/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Iptables</title>
-      <link>http://localhost:1313/post/iptables/</link>
+      <title>Linux Iptables</title>
+      <link>http://localhost:1313/post/linux-iptables/</link>
       <pubDate>Sat, 20 Mar 2021 19:20:59 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/iptables/</guid>
-      <description>记录一些iptables命令、什么的； [toc] 操作 查 列出rules: iptables -L -t nat 输出rules: iptables -S -t nat</description>
+      <guid>http://localhost:1313/post/linux-iptables/</guid>
+      <description>k8s service iptables有kube-proxy生成一堆iptables规则实现； 挖一下如何实现； Iptables 基础 Note iptables 开端口通过netstat、ss无法查看</description>
     </item>
     
     <item>
@@ -58,7 +166,7 @@
       <pubDate>Sat, 20 Mar 2021 16:26:35 +0800</pubDate>
       
       <guid>http://localhost:1313/post/k8s-network/</guid>
-      <description>k8s网络 [toc] 相同pod内container通信 同pod内网络命名空间相同，使用127.0.0.1可直接通信； 相同node内pod通信 同nod</description>
+      <description>k8s网络 [toc] 相同pod内container通信 同pod内网络命名空间相同，使用127.0.0.1可直接通信； pausehang住独立的命名空</description>
     </item>
     
     <item>
@@ -152,7 +260,7 @@
     </item>
     
     <item>
-      <title>Kafkacat</title>
+      <title>kafka Kafkacat</title>
       <link>http://localhost:1313/post/kafkacat/</link>
       <pubDate>Wed, 03 Mar 2021 21:15:00 +0800</pubDate>
       
@@ -252,6 +360,15 @@
     </item>
     
     <item>
+      <title>Kafka MirrorMark</title>
+      <link>http://localhost:1313/post/kafka-mirrormark/</link>
+      <pubDate>Sun, 23 Aug 2020 16:37:59 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/kafka-mirrormark/</guid>
+      <description>Kafka MirrorMark 跨datacenter集群消息同步工具； v2.4以上支持MirrorMark2(包含v2.4) MirrorMark1 The source and destination clusters are completely independent entities: they can have different numbers of partitions and the offsets will</description>
+    </item>
+    
+    <item>
       <title>Nginx Issue</title>
       <link>http://localhost:1313/post/nginx-issue/</link>
       <pubDate>Thu, 13 Aug 2020 21:41:13 +0800</pubDate>
@@ -267,6 +384,15 @@
       
       <guid>http://localhost:1313/post/hello-world/</guid>
       <description>hello world~ 包括但不限于可能会写到： 技术类、生活感触、读书记录 .etc. 占坑List: nginx Jaeger https://help.aliyun.com/document_detail/193865.html?spm=5176.13910061.sslink.5.476455a1XgIzdX Golang: Gorm: 2021.01.31 finish CRUD interface. Gin-example: 手写前三章； Docker: 挂载，数据测试；多个挂载； 1 2 3 4 5</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes: RBAC</title>
+      <link>http://localhost:1313/post/k8s-rbac/</link>
+      <pubDate>Fri, 23 Aug 2019 15:05:16 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/k8s-rbac/</guid>
+      <description>kubernetes RBAC使用 Kubernetes: RBAC [toc] Concepts role Role ClusterRole Subject Group User ServiceAccount Binding RoleBinding ClusterRoleBinding service Account 为Pod中的进程提供身份信息; 每个namespace存在default service account; 自动创建token并</description>
     </item>
     
   </channel>

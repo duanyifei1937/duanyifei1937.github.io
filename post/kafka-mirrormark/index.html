@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.73.0 with theme even" />
+<meta name="generator" content="Hugo 0.78.2 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/post/kafka-mirrormark/" />
@@ -47,13 +47,14 @@
 <meta property="article:modified_time" content="2020-08-23T16:37:59+08:00" />
 <meta itemprop="name" content="Kafka MirrorMark">
 <meta itemprop="description" content="Kafka MirrorMark 跨datacenter集群消息同步工具； v2.4以上支持MirrorMark2(包含v2.4) MirrorMark1 The source and destination clusters are completely independent entities: they can have different numbers of partitions and the offsets will">
-<meta itemprop="datePublished" content="2020-08-23T16:37:59&#43;08:00" />
-<meta itemprop="dateModified" content="2020-08-23T16:37:59&#43;08:00" />
-<meta itemprop="wordCount" content="820">
+<meta itemprop="datePublished" content="2020-08-23T16:37:59+08:00" />
+<meta itemprop="dateModified" content="2020-08-23T16:37:59+08:00" />
+<meta itemprop="wordCount" content="731">
 
 
 
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Kafka MirrorMark"/>
 <meta name="twitter:description" content="Kafka MirrorMark 跨datacenter集群消息同步工具； v2.4以上支持MirrorMark2(包含v2.4) MirrorMark1 The source and destination clusters are completely independent entities: they can have different numbers of partitions and the offsets will"/>
 
@@ -123,7 +124,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-08-23 </span>
         
-          <span class="more-meta"> 820 words </span>
+          <span class="more-meta"> 731 words </span>
           <span class="more-meta"> 2 mins read </span>
         
       </div>
@@ -189,18 +190,18 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># target cluster 启动mirror同步进程</span><span class="w">
-</span><span class="w"></span>bin/kafka-mirror-maker.sh<span class="w"> </span>\<span class="w">
-</span><span class="w"></span>--consumer.config<span class="w"> </span>consumer.properties<span class="w"> </span>\<span class="w">
-</span><span class="w"></span>--producer.config<span class="w"> </span>producer.properties<span class="w"> </span>\<span class="w">
-</span><span class="w"></span>--whitelist<span class="w"> </span>my-topic<span class="w">
+</span><span class="w"></span><span class="l">bin/kafka-mirror-maker.sh \</span><span class="w">
+</span><span class="w"></span>--<span class="l">consumer.config consumer.properties \</span><span class="w">
+</span><span class="w"></span>--<span class="l">producer.config producer.properties \</span><span class="w">
+</span><span class="w"></span>--<span class="l">whitelist my-topic</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="c"># consumer.properties:</span><span class="w">
-</span><span class="w"></span>bootstrap.servers=<span class="m">192.168.150.68</span><span class="p">:</span><span class="m">9092</span><span class="p">,</span><span class="m">192.168.150.65</span><span class="p">:</span><span class="m">9092</span><span class="p">,</span><span class="m">192.168.150.67</span><span class="p">:</span><span class="m">9092</span><span class="w">
-</span><span class="w"></span>group.id=mirror-test<span class="w">
-</span><span class="w"></span>partition.assignment.strategy=org.apache.kafka.clients.consumer.RoundRobinAssignor<span class="w">
+</span><span class="w"></span><span class="l">bootstrap.servers=192.168.150.68:9092,192.168.150.65:9092,192.168.150.67:9092</span><span class="w">
+</span><span class="w"></span><span class="l">group.id=mirror-test</span><span class="w">
+</span><span class="w"></span><span class="l">partition.assignment.strategy=org.apache.kafka.clients.consumer.RoundRobinAssignor</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="c"># producer.properties</span><span class="w">
-</span><span class="w"></span>bootstrap.servers=<span class="m">192.168.145.103</span><span class="p">:</span><span class="m">9092</span><span class="p">,</span><span class="m">192.168.145.106</span><span class="p">:</span><span class="m">9092</span><span class="p">,</span><span class="m">192.168.145.111</span><span class="p">:</span><span class="m">9092</span><span class="w">
+</span><span class="w"></span><span class="l">bootstrap.servers=192.168.145.103:9092,192.168.145.106:9092,192.168.145.111:9092</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h2 id="mirrormark2">MirrorMark2</h2>
@@ -289,13 +290,13 @@
 <footer class="post-footer">
       
       <nav class="post-nav">
-        <a class="prev" href="/post/etcd%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7/">
+        <a class="prev" href="/post/nginx-keepalive/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">ETCD可视化工具</span>
+            <span class="prev-text nav-default">Nginx Keepalive</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
-        <a class="next" href="/post/ngx-modify-upstream-keepalive_timeout-not-work/">
-            <span class="next-text nav-default">Ngx Modify Upstream Keepalive_timeout Not Work</span>
+        <a class="next" href="/post/nginx-issue/">
+            <span class="next-text nav-default">Nginx Issue</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -353,7 +354,8 @@
 
   <span class="copyright-year">
     &copy; 
-    2020
+    2020 - 
+    2021
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

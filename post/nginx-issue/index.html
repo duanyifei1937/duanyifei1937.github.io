@@ -49,7 +49,7 @@
 <meta itemprop="description" content="记录一些NGINX配置过程中需要注意的点 [toc] Ngx upstream proxy_pass 是否带 &lsquo;/&rsquo; 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 # 在nginx中配">
 <meta itemprop="datePublished" content="2020-08-13T21:41:13+08:00" />
 <meta itemprop="dateModified" content="2020-08-13T21:41:13+08:00" />
-<meta itemprop="wordCount" content="2310">
+<meta itemprop="wordCount" content="2706">
 
 
 
@@ -124,8 +124,8 @@
       <div class="post-meta">
         <span class="post-time"> 2020-08-13 </span>
         
-          <span class="more-meta"> 2310 words </span>
-          <span class="more-meta"> 5 mins read </span>
+          <span class="more-meta"> 2706 words </span>
+          <span class="more-meta"> 6 mins read </span>
         
       </div>
     </header>
@@ -153,6 +153,8 @@
     <li><a href="#ngx配置很繁琐原因呢">Ngx配置很繁琐，原因呢？</a></li>
     <li><a href="#证书链完整的重要性">证书链完整的重要性</a></li>
     <li><a href="#logstash-解析不正确">logstash 解析不正确</a></li>
+    <li><a href="#ngx-rewrite-break--last区别">Ngx Rewrite break &amp; last区别</a></li>
+    <li><a href="#add">add</a></li>
   </ul>
 </nav>
   </div>
@@ -243,7 +245,54 @@ location  /proxy/ {
 <li>nginx worker process 切换；</li>
 <li>long connection 等待响应完成断开；</li>
 </ul>
-<h2 id="nginx-variable-uri-and-request_uri-区别">Nginx Variable &ldquo;$uri&rdquo; and &ldquo;$request_uri&rdquo; 区别</h2>
+<p>将error_log level 调整为debug，reload看到如下动作：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># master 收到 sighup信号； </span><span class="w">
+</span><span class="w"></span><span class="c"># master reconfig, 开始新work子进程</span><span class="w">
+</span><span class="w"></span><span class="nt">2021/04/13 16:15:57 [notice] 2665#0</span><span class="p">:</span><span class="w"> </span><span class="l">signal process started</span><span class="w">
+</span><span class="w"></span><span class="nt">2021/04/13 16:15:57 [notice] 1371#0</span><span class="p">:</span><span class="w"> </span><span class="l">signal 1 (SIGHUP) received from 2665, reconfiguring</span><span class="w">
+</span><span class="w"></span><span class="nt">2021/04/13 16:15:57 [notice] 1371#0</span><span class="p">:</span><span class="w"> </span><span class="l">reconfiguring</span><span class="w">
+</span><span class="w"></span><span class="nt">2021/04/13 16:15:57 [notice] 1371#0</span><span class="p">:</span><span class="w"> </span><span class="l">using the &#34;epoll&#34; event method</span><span class="w">
+</span><span class="w"></span><span class="nt">2021/04/13 16:15:57 [notice] 1371#0</span><span class="p">:</span><span class="w"> </span><span class="l">start worker processes</span><span class="w">
+</span><span class="w"></span><span class="nt">2021/04/13 16:15:57 [notice] 1371#0</span><span class="p">:</span><span class="w"> </span><span class="l">start worker process 2666</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># old work shutdown</span><span class="w">
+</span><span class="w"></span><span class="nt">2021/04/13 16:15:57 [notice] 2510#0</span><span class="p">:</span><span class="w"> </span><span class="l">gracefully shutting down</span><span class="w">
+</span><span class="w"></span><span class="nt">2021/04/13 16:15:57 [notice] 2510#0</span><span class="p">:</span><span class="w"> </span><span class="l">exiting</span><span class="w">
+</span><span class="w"></span><span class="nt">2021/04/13 16:15:57 [notice] 2510#0</span><span class="p">:</span><span class="w"> </span><span class="l">exit</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># master 收到 old worker sigchld 信号, 标识old work 退出；</span><span class="w">
+</span><span class="w"></span><span class="c"># sigchld: 子进程（child）结束时, 父进程会收到这个信号。</span><span class="w">
+</span><span class="w"></span><span class="c">#   如果父进程没有处理这个信号，也没有等待(wait)子进程，子进程虽然终止，但是还会在内核进程表中占有表项，这 时的子进程称为僵尸进程。</span><span class="w">
+</span><span class="w"></span><span class="nt">2021/04/13 16:15:57 [notice] 1371#0</span><span class="p">:</span><span class="w"> </span><span class="l">signal 17 (SIGCHLD) received from 2510</span><span class="w">
+</span><span class="w"></span><span class="nt">2021/04/13 16:15:57 [notice] 1371#0</span><span class="p">:</span><span class="w"> </span><span class="l">worker process 2510 exited with code 0</span><span class="w">
+</span><span class="w"></span><span class="nt">2021/04/13 16:15:57 [notice] 1371#0</span><span class="p">:</span><span class="w"> </span><span class="l">signal 29 (SIGIO) received</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="nginx-variable-uri-and-request_uri-区别">Nginx Variable &ldquo;$uri&rdquo; and &ldquo;$request_uri&rdquo; 区别</h2>
 <ul>
 <li>&ldquo;$uri&quot;做了url规范化处理：
 <ul>
@@ -841,7 +890,22 @@ openresty/1.19.3.1 &ndash; 重写前生效</p>
 </span><span class="w">      </span><span class="l">match =&gt; { &#34;message&#34; =&gt; &#39;%{HTTPDATE:timestamp}\t%{NUMBER:server_port}\t%{IP:remote_addr}\t%{NUMBER:remote_port}\t%{USERNAME:remote_user}\t%{NUMBER:body_bytes_sent}\t%{NUMBER:bytes_sent}\t%{IPORHOST:domain}\t%{WORD:request_method}\t%{URIPROTO:scheme}\t%{URIPATH:uri}\t%{DATA:query_string}\t%{NUMBER:request_length}\t%{DATA:server_protocol}\t%{NUMBER:request_time}\t%{NUMBER:status}\t(?:%{HOSTPORT:upstream_addr}|-)\t(?:%{NUMBER:upstream_bytes_received}|-)\t(?:%{NUMBER:upstream_response_length}|-)\t(?:%{NUMBER:upstream_response_time}|-)\t(?:%{NUMBER:upstream_status}|-)\t(?:%{NUMBER:upstream_connect_time}|-)\t%{DATA:http_referer}\t%{DATA:http_user_agent}\t%{DATA:http_x_forwarded_for}\t%{DATA:ipalfish_device_id}\t%{URIPATHPARAM:request_uri}\t%{DATA:cookie_uid}\t%{DATA:cookie_atype}\t%{DATA:cookie_ptoken}\t%{DATA:http_h_src}\t%{DATA:http_app_ver}\t-\t-\t-\t-&#39;}</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div>
+</div><h2 id="ngx-rewrite-break--last区别">Ngx Rewrite break &amp; last区别</h2>
+<ul>
+<li>
+<p>break 停止处理后续rewrite指令集，并不在重新查找。</p>
+</li>
+<li>
+<p>last 停止处理后续rewrite指令集，然后对当前重写的新URI在rewrite指令集上重新查找</p>
+</li>
+</ul>
+<h2 id="add">add</h2>
+<ol>
+<li>日志x_forwarded_fow 优先级</li>
+<li>nginx reload 空闲连接断开；
+<a href="https://github.com/alibaba/tengine/issues/1074">https://github.com/alibaba/tengine/issues/1074</a></li>
+</ol>
+
     </div>
 
     <div class="post-copyright">
@@ -862,9 +926,9 @@ openresty/1.19.3.1 &ndash; 重写前生效</p>
 <footer class="post-footer">
       
       <nav class="post-nav">
-        <a class="prev" href="/post/nginx-keepalive/">
+        <a class="prev" href="/post/kafka-mirrormark/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Nginx Keepalive</span>
+            <span class="prev-text nav-default">Kafka MirrorMark</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
         <a class="next" href="/post/hello-world/">

@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="TianGou" /><meta name="description" content="k8s网络 [toc] 相同pod内container通信 同pod内网络命名空间相同，使用127.0.0.1可直接通信； 相同node内pod通信 同nod" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="TianGou" /><meta name="description" content="k8s网络 [toc] 相同pod内container通信 同pod内网络命名空间相同，使用127.0.0.1可直接通信； pausehang住独立的命名空" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -40,23 +40,23 @@
 
 
 <meta property="og:title" content="K8s Network" />
-<meta property="og:description" content="k8s网络 [toc] 相同pod内container通信 同pod内网络命名空间相同，使用127.0.0.1可直接通信； 相同node内pod通信 同nod" />
+<meta property="og:description" content="k8s网络 [toc] 相同pod内container通信 同pod内网络命名空间相同，使用127.0.0.1可直接通信； pausehang住独立的命名空" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/k8s-network/" />
 <meta property="article:published_time" content="2021-03-20T16:26:35+08:00" />
 <meta property="article:modified_time" content="2021-03-20T16:26:35+08:00" />
 <meta itemprop="name" content="K8s Network">
-<meta itemprop="description" content="k8s网络 [toc] 相同pod内container通信 同pod内网络命名空间相同，使用127.0.0.1可直接通信； 相同node内pod通信 同nod">
+<meta itemprop="description" content="k8s网络 [toc] 相同pod内container通信 同pod内网络命名空间相同，使用127.0.0.1可直接通信； pausehang住独立的命名空">
 <meta itemprop="datePublished" content="2021-03-20T16:26:35+08:00" />
 <meta itemprop="dateModified" content="2021-03-20T16:26:35+08:00" />
-<meta itemprop="wordCount" content="1014">
+<meta itemprop="wordCount" content="2290">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="K8s Network"/>
-<meta name="twitter:description" content="k8s网络 [toc] 相同pod内container通信 同pod内网络命名空间相同，使用127.0.0.1可直接通信； 相同node内pod通信 同nod"/>
+<meta name="twitter:description" content="k8s网络 [toc] 相同pod内container通信 同pod内网络命名空间相同，使用127.0.0.1可直接通信； pausehang住独立的命名空"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -124,8 +124,8 @@
       <div class="post-meta">
         <span class="post-time"> 2021-03-20 </span>
         
-          <span class="more-meta"> 1014 words </span>
-          <span class="more-meta"> 3 mins read </span>
+          <span class="more-meta"> 2290 words </span>
+          <span class="more-meta"> 5 mins read </span>
         
       </div>
     </header>
@@ -147,6 +147,11 @@
     </li>
     <li><a href="#出站流量">出站流量</a></li>
     <li><a href="#入站流量">入站流量</a></li>
+    <li><a href="#other">Other</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
     <li><a href="#qa">Q&amp;A:</a></li>
     <li><a href="#reference">Reference:</a></li>
   </ul>
@@ -162,36 +167,138 @@
 <blockquote>
 <p>同pod内网络命名空间相同，使用127.0.0.1可直接通信；</p>
 </blockquote>
+<p><code>pause</code>hang住独立的命名空间</p>
 <h2 id="相同node内pod通信">相同node内pod通信</h2>
 <blockquote>
 <p>同node, pod通过vethxx连接到root netns(root network namespace);</p>
 <p>pod属于同网段，相等于一个二层设备(docker0)连接不同主机；</p>
 <p>Docker0 网桥连接；</p>
 </blockquote>
+<p>局域网通信需要IP + MAC, 只需要arp二层寻址；cni0只在本广播域内广播；</p>
 <h2 id="跨node通信---overlay">跨node通信 - overlay</h2>
 <blockquote>
-<p>overlay属于封装；</p>
+<p>overlay属于封装；以flannel vxlan为例；</p>
 </blockquote>
-<p>过程：</p>
+<p>overlay概念：将二层以太网帧封装在四层UDP包中，在三层网络中传输；</p>
+<p><img src="https://raw.githubusercontent.com/duanyifei1937/Picture-bed/master/blog-img/1*fWJXnaM4m2dnYUPtMtpMiw.gif" alt="abc"></p>
+<ul>
+<li>环境说明</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">- <span class="nt">node</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="l">cn-hz-h-test-k8s-paas00 10.111.131.248</span><span class="w">
+</span><span class="w">  </span><span class="l">cn-hz-h-test-k8s-paas01 10.111.131.249</span><span class="w">
+</span><span class="w">  </span><span class="l">cn-hz-h-test-k8s-paas02 10.111.131.247</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="nt">pod(cni0)</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="m">10.117.0.0</span><span class="l">/24</span><span class="w">
+</span><span class="w">  </span><span class="m">10.117.1.0</span><span class="l">/24</span><span class="w">
+</span><span class="w">  </span><span class="m">10.117.3.0</span><span class="l">/24</span><span class="w">
+</span><span class="w">  
+</span><span class="w"></span>- <span class="nt">pod</span><span class="p">:</span><span class="w">
+</span><span class="w">	</span>- <span class="l">toolbox-6f6b8dcdd6-mvqnh  10.117.0.63    cn-hz-h-test-k8s-paas00</span><span class="w">
+</span><span class="w">	</span>- <span class="l">toolbox-6f6b8dcdd6-bb25b  10.117.1.141   cn-hz-h-test-k8s-paas01</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>Pod1 -&gt; pod4 过程：</p>
 <ol>
-<li>pod eth0 &gt; vethxx;</li>
-<li>Vethxx -&gt; cbr0; 默认路由；
+<li>
+<p>packge从pod1 eth0离开，经过vethxxx 进入rootns(默认路由);</p>
+</li>
+<li>
+<p>传给cbr0, crb0代理pod1发出ARP请求；</p>
+</li>
+<li>
 <ol>
-<li>cbr0内进行重新封包；vxlan nums + udp四层头 + ip(对端ip二层头)；</li>
+<li>
+<p>在本广播域未收到pod4 arp replay;  根据路由表，发送到flannel.1</p>
+<p>flanneld daemon 和apiserver、etct交互，维护路由信息(podid &amp; nodeip mapping关系)；</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># route -n</span><span class="w">
+</span><span class="w"></span><span class="l">Kernel IP routing table</span><span class="w">
+</span><span class="w"></span><span class="l">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><span class="w">
+</span><span class="w"></span><span class="m">10.117.1.0</span><span class="w">      </span><span class="m">10.117.1.0</span><span class="w">      </span><span class="m">255.255.255.0</span><span class="w">   </span><span class="l">UG    0      0        0 flannel.1</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Flannel0封包，加装<code>src: node1 &amp; dst: node2</code>; 发送到自定vxlan port; (8472);</p>
+<p>mapping发生在userspace,   封包、数据转发发生在kernel space;</p>
+</li>
+<li>
+<p>通过eth0发出包；</p>
+</li>
 </ol>
 </li>
-<li>cbr0 -&gt; eth0; “扔给eth0”</li>
-<li>Eth0 -&gt; nodeB eth0;</li>
-<li>eth0 -&gt; cbr0; (IP forwarding enabled)
+<li>
+<p>package在node网络之间传输；cloud route table;</p>
+</li>
+<li>
 <ol>
-<li>cbr0 内解包；</li>
-<li>发送arp请求；</li>
+<li>package到达node2 eth0, 由于dport 8472, kernel发送package to flannel0;</li>
+</ol>
+<p>​    node: vxlan启用端口8472只能通过 <code>conntrack -L</code> 查看，<code>netstat</code>无法查看底层信息；</p>
+<ol start="2">
+<li>
+<p>Flannel0 解包，到 root network namespace;</p>
+</li>
+<li>
+<p>ip forwarding enable, kernel根据路由表转发到cbr0(cni0);</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">Kernel IP routing table</span><span class="w">
+</span><span class="w"></span><span class="l">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><span class="w">
+</span><span class="w"></span><span class="m">10.117.1.0</span><span class="w">      </span><span class="m">0.0.0.0</span><span class="w">         </span><span class="m">255.255.255.0</span><span class="w">   </span><span class="l">U     0      0        0 cni0</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
 </ol>
 </li>
-<li>Cbr0 通过 vethxx 发给eth0;</li>
+<li>
+<p>Bridge(cbr0 / cni0) 发送apr请求，找到属于vethyyy;</p>
+</li>
+<li>
+<p>发送给pod4;</p>
+</li>
 </ol>
+</li>
+</ul>
 <h2 id="跨node通信---三层sdn">跨node通信 - 三层SDN</h2>
 <h2 id="service-网络">Service 网络</h2>
+<blockquote>
+<p>service cluster ip 如何创建出来；iptables如何走、发生阶段、调度策略；</p>
+<p>ipvs调度策略；</p>
+</blockquote>
 <h3 id="poda----serviceb----podb的过程iptables实现">podA &ndash;&gt; ServiceB &ndash;&gt; podB的过程(iptables实现)</h3>
 <blockquote>
 <p>pod变化特性，使用svc clusterip作为负载均衡；</p>
@@ -207,12 +314,13 @@
 <p>访问集群外部</p>
 </blockquote>
 <ul>
-<li>出站流量出包 &ndash; SNAT(IP MASQUERADE（IP伪装),  kube-proxy(ipbles规则)
+<li>出站流量出包 &ndash; SNAT(IP MASQUERADE（IP伪装),  需要使用kube-proxy(ipbles规则)
 <ul>
 <li>它告诉内核使⽤此数据包发出的⽹络接⼝的IP，代替源Pod IP同时保留conntrack条⽬以进⾏反SNAT操作;</li>
 </ul>
 </li>
 </ul>
+<p>**contrack **</p>
 <h2 id="入站流量">入站流量</h2>
 <ul>
 <li>Ingress: 七层; 其优点是我们可以有⼀个⼊⼝处理所有服务的⼊站流量，⽽不需要多个nodePort和负载均衡器;</li>
@@ -223,6 +331,12 @@
 </li>
 <li>loadbalance: 云厂商提供，所有节点挂到四层slb下，使用slb IP接入流量；</li>
 </ul>
+<p>*<em>nodeport &ndash;&gt; svc(iptables) 都依赖iptables, 有条数限制</em></p>
+<p><strong>如何计算条数，每个svc创建conntrack多少条？</strong></p>
+<p><strong>ipvs iptables 区别</strong></p>
+<p><strong>ingress 使用lua</strong></p>
+<h2 id="other">Other</h2>
+<h4 id="port-forward转发操作">port-forward转发操作</h4>
 <h2 id="qa">Q&amp;A:</h2>
 <ul>
 <li>
@@ -241,20 +355,126 @@
 </ul>
 </li>
 <li>
+<p><strong>ip_forward 路由转发的作用</strong></p>
+<p>转发：即当主机拥有多于一块的网卡时，其中一块收到数据包，根据数据包的目的ip地址将包发往本机另一网卡，该网卡根据路由表继续发送数据包。这通常就是路由器所要实现的功能。</p>
+</li>
+<li>
 <p>Bridge + interfaces + containers 连接关系查看：</p>
 <ul>
 <li><a href="https://github.com/micahculpepper/dockerveth">dockerveth</a></li>
 </ul>
 </li>
+<li>
+<p>node eth0 &amp;&amp; vxlan(VTEP)设备如何交互？</p>
+<ul>
+<li>ip_forward = 1;</li>
+</ul>
+</li>
+<li>
+<p>veth drivice:</p>
+<ul>
+<li><a href="https://www.cnblogs.com/bakari/p/10613710.html">https://www.cnblogs.com/bakari/p/10613710.html</a></li>
+<li><a href="http://just4coding.com/2017/05/21/vxlan/">http://just4coding.com/2017/05/21/vxlan/</a></li>
+</ul>
+</li>
+<li>
+<p>vxlan 二层信息</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="p">[</span><span class="l">root@cn-hz-h-prod-k8s-master-00 etcd]# route -n</span><span class="w">
+</span><span class="w"></span><span class="l">Kernel IP routing table</span><span class="w">
+</span><span class="w"></span><span class="l">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><span class="w">
+</span><span class="w"></span><span class="m">0.0.0.0</span><span class="w">         </span><span class="m">10.100.100.253</span><span class="w">  </span><span class="m">0.0.0.0</span><span class="w">         </span><span class="l">UG    0      0        0 eth0</span><span class="w">
+</span><span class="w"></span><span class="m">172.16.214.0</span><span class="w">    </span><span class="m">172.16.214.0</span><span class="w">    </span><span class="m">255.255.255.0</span><span class="w">   </span><span class="l">UG    0      0        0 flannel.1</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># arp -n  | grep &#34;172.16.214.0&#34;</span><span class="w">
+</span><span class="w"></span><span class="m">172.16.214.0</span><span class="w">             </span><span class="l">ether   a6:20:f3:77:db:ff   CM                    flannel.1</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># bridge fdb show dev flannel.1 | grep a6:20:f3:77:db:ff</span><span class="w">
+</span><span class="w"></span><span class="l">a6:20:f3:77:db:ff dst 10.100.100.224 self permanent</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="m">327</span><span class="w">  </span><span class="l">cn-hz-h-prod-k8s-node-119                    10.100.100.224   [super, serv]</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>arp地址表容量问题：</p>
+<ul>
+<li>默认单台k8s node 可部署pod 110, 调整了参数 <code>maxPods: 500</code>;单节点容器超过128个，机器网络抖动，导致业务timeout:</li>
+</ul>
+<p>查看系统日志：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">Aug 19 03:19:09 cn-hz-g-test-k8s-node-05 kernel: neighbour: arp_cache</span><span class="p">:</span><span class="w"> </span><span class="l">neighbor table overflow!</span><span class="w">
+</span><span class="w"></span><span class="nt">Aug 19 03:19:09 cn-hz-g-test-k8s-node-05 kernel: net_ratelimit</span><span class="p">:</span><span class="w"> </span><span class="m">135</span><span class="w"> </span><span class="l">callbacks suppressed</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>再查看net.ipv4.neigh.default.gc_thresh1 = 128 ，arp缓存数是128，而容器已经170个，arp -n查看表个数也是170左右，所以此时应该调整arp 缓存相关参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">net.ipv4.neigh.default.gc_thresh1=512</span><span class="w">
+</span><span class="w"></span><span class="c"># # 存在于ARP高速缓存中的最少层数，如果少于这个数，垃圾收集器将不会运行。缺省值是128。</span><span class="w">
+</span><span class="w"></span><span class="c">#</span><span class="w">
+</span><span class="w"></span><span class="l">net.ipv4.neigh.default.gc_thresh2=2048</span><span class="w">
+</span><span class="w"></span><span class="c"># # 保存在 ARP 高速缓存中的最多的记录软限制。垃圾收集器在开始收集前，允许记录数超过这个数字 5 秒。缺省值是 512。</span><span class="w">
+</span><span class="w"></span><span class="c">#</span><span class="w">
+</span><span class="w"></span><span class="l">net.ipv4.neigh.default.gc_thresh3=4096</span><span class="w">
+</span><span class="w"></span><span class="c"># # 保存在 ARP 高速缓存中的最多记录的硬限制，一旦高速缓存中的数目高于此，垃圾收集器将马上运行。缺省值是1024。</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>以上建议值，对应的条目数会占用系统的部分内存，具体配置需要根据实际的部署场景调整。</p>
+</li>
+<li>
+<p>iptables 性能不佳、顺序匹配问题：
+*</p>
+</li>
 </ul>
 <h2 id="reference">Reference:</h2>
 <ul>
-<li>
-<p><a href="https://zhuanlan.zhihu.com/p/92626394">https://zhuanlan.zhihu.com/p/92626394</a></p>
-</li>
-<li>
-<p>docker0 bridge: <a href="https://zhuanlan.zhihu.com/p/163123932">https://zhuanlan.zhihu.com/p/163123932</a></p>
-</li>
+<li><a href="https://itnext.io/an-illustrated-guide-to-kubernetes-networking-part-2-13fdc6c4e24c">https://itnext.io/an-illustrated-guide-to-kubernetes-networking-part-2-13fdc6c4e24c</a></li>
+<li>docker0 bridge: <a href="https://zhuanlan.zhihu.com/p/163123932">https://zhuanlan.zhihu.com/p/163123932</a></li>
+<li>Flannel vxlan and hostgw: <a href="https://bbs.huaweicloud.com/blogs/141365">https://bbs.huaweicloud.com/blogs/141365</a></li>
 <li></li>
 </ul>
 
@@ -278,9 +498,9 @@
 <footer class="post-footer">
       
       <nav class="post-nav">
-        <a class="prev" href="/post/iptables/">
+        <a class="prev" href="/post/linux-iptables/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Iptables</span>
+            <span class="prev-text nav-default">Linux Iptables</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
         <a class="next" href="/post/k8s-issue/">
@@ -300,7 +520,7 @@
         id: '2021-03-20 16:26:35 \u002b0800 CST',
         title: 'K8s Network',
         link: decodeURI(location.href),
-        desc: 'k8s网络 [toc] 相同pod内container通信 同pod内网络命名空间相同，使用127.0.0.1可直接通信； 相同node内pod通信 同nod',
+        desc: 'k8s网络 [toc] 相同pod内container通信 同pod内网络命名空间相同，使用127.0.0.1可直接通信； pausehang住独立的命名空',
         owner: 'duanyifei1937',
         repo: 'duanyifei1937.github.io',
         oauth: {

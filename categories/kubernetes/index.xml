@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kubernetes on Even - A super concise theme for Hugo</title>
+    <link>http://localhost:1313/categories/kubernetes/</link>
+    <description>Recent content in Kubernetes on Even - A super concise theme for Hugo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 23 Aug 2019 15:05:16 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kubernetes: RBAC</title>
+      <link>http://localhost:1313/post/k8s-rbac/</link>
+      <pubDate>Fri, 23 Aug 2019 15:05:16 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/k8s-rbac/</guid>
+      <description>kubernetes RBAC使用 Kubernetes: RBAC [toc] Concepts role Role ClusterRole Subject Group User ServiceAccount Binding RoleBinding ClusterRoleBinding service Account 为Pod中的进程提供身份信息; 每个namespace存在default service account; 自动创建token并</description>
+    </item>
+    
+  </channel>
+</rss>
